@@ -1,0 +1,30 @@
+{
+  "name": "reddit_ Wherever",
+  "description": "reddit_ Wherever for Chrome",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/reddit_16.png",
+      "32": "/images/reddit_32.png",
+      "48": "/images/reddit_48.png",
+      "128": "/images/reddit_128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/reddit_16.png",
+    "32": "/images/reddit_32.png",
+    "48": "/images/reddit_48.png",
+    "128": "/images/reddit_128.png"
+  },
+  "web_accessible_resources": [{
+    "resources": ["/templates/basic.html", "/templates/subreddit.html", "/templates/post.html", "/templates/comment.html"],
+    "matches": [],
+    "extension_ids": []
+   }]
+}
