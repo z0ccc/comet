@@ -106,8 +106,7 @@ blockquote {
 }
 
 .comment .comment {
-  margin: 0 0 0 8px;
-  padding: 0 0 0 8px;
+  padding: 0 0 0 12px;
   border-left: 1px solid var(--border);
 }
 
@@ -135,10 +134,13 @@ blockquote {
 }
 
 .loadMore {
-  margin: 0 0 0 8px;
-  padding: 6px 0 6px 8px;
-  border-left: 1px solid var(--border);
+  padding: 6px 0 6px 0px;
   cursor: pointer;
+}
+
+.comment .loadMore {
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
 }
 
 .info {

@@ -92,7 +92,7 @@ async function showSubreddits(subs) {
 async function getPost(item, first) {
   fetch(chrome.runtime.getURL("/templates/post.html"))
     .then((response) => response.text())
-    .then(async template => {
+    .then(async (template) => {
       // console.log(item.data);
       Mustache.parse(template);
       var rendered = Mustache.render(template, {
@@ -110,7 +110,6 @@ async function getPost(item, first) {
         document.getElementById("sort").style.display = "block";
 
         getComments("https://api.reddit.com" + item.data.permalink);
-
       } else {
         document.getElementById("post").innerHTML += rendered;
       }
@@ -144,15 +143,29 @@ async function showComments(commentList) {
   var data = await Promise.all(commentList);
   fetch(chrome.runtime.getURL("/templates/comment.html"))
     .then((response) => response.text())
-    .then(async template => {
+    .then(async (template) => {
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
+        // console.log(data[i]);
         if (data[i].kind == "more") {
-          // console.log(data[i].data.children);
-          document.getElementById(
+          let loadID = document.getElementById(
             data[i].data.parent_id.substring(3)
-          ).innerHTML +=
-            '<div class="commentTitle loadMore" id="' + data[i].data.children + '">load more comments (' + data[i].data.count + ")</div>";
+          );
+          // console.log(data[i].data.children);
+          if (loadID) {
+            loadID.innerHTML +=
+              '<div class="commentTitle loadMore" id="' +
+              data[i].data.children +
+              '">load more comments (' +
+              data[i].data.count +
+              ")</div>";
+          } else {
+            document.getElementById("comments").innerHTML +=
+              '<div class="commentTitle loadMore" id="' +
+              data[i].data.children +
+              '">load more comments (' +
+              data[i].data.count +
+              ")</div>";
+          }
         } else {
           getReplies(data[i]);
           let body_html = decodeHtml(data[i].data.body_html).replace(
@@ -275,7 +288,10 @@ window.onclick = async function (event) {
   } else if (target.matches(".loadMore")) {
     let children = event.target.id.split(",");
     for (let i = 0; i < children.length; i++) {
-      getComments("https://api.reddit.com/r/hiphopheads/comments/mdg7uk/fresh_video_lil_nas_x_montero_call_me_by_your/" + children[i]);
+      getComments(
+        "https://api.reddit.com/r/hiphopheads/comments/mdg7uk/fresh_video_lil_nas_x_montero_call_me_by_your/" +
+          children[i]
+      );
     }
     document.getElementById(event.target.id).style.display = "none";
   }
