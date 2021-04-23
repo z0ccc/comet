@@ -100,15 +100,19 @@ blockquote {
 }
 
 .comment {
-  display: block;
+  display: inline-block;
   word-wrap: break-word;
-  margin: 8px 0;
+  width: 98%;
 }
 
 .comment .comment {
-  margin: 8px 0 0 8px;
-  padding: 0 0 0 6px;
+  margin: 0 0 0 8px;
+  padding: 0 0 0 8px;
   border-left: 1px solid var(--border);
+}
+
+.commentInfo {
+  margin: 6px 0 6px 0;
 }
 
 .infoWrap {
@@ -120,20 +124,31 @@ blockquote {
   margin: 0 6px 0 0; 
 }
 
-.commentAuthor {
+.commentTitle {
   color: var(--blue);
   font-weight: 600;
   text-decoration: none;
 }
 
-.commentAuthor:hover {
+.commentTitle:hover {
   text-decoration: underline;
+}
+
+.loadMore {
+  margin: 0 0 0 8px;
+  padding: 6px 0 6px 8px;
+  border-left: 1px solid var(--border);
+  cursor: pointer;
 }
 
 .info {
   font-size: 10px;
   color: var(--light-grey);
 }
+
+/* .commentBody {
+  padding: 0 0 6px 0;
+} */
 
 .md a {
   color: #0079d3;

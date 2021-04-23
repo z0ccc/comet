@@ -52,27 +52,7 @@ async function getSubreddits(url) {
   if (result.status === 200) {
     let json = await result.json();
     if (json && json.kind === "Listing" && json.data.children.length > 0) {
-      document.getElementById("message").innerHTML = "Loading...";
       showSubreddits(json.data.children);
-    }
-  }
-}
-
-async function getComments(postUrl) {
-  let result = await fetch(postUrl);
-
-  if (result.status === 200) {
-    let json = await result.json();
-
-    if (
-      json &&
-      json[1] &&
-      json[1].kind === "Listing" &&
-      json[1].data &&
-      json[1].data.children.length
-    ) {
-      // console.log(json[1].data.children);
-      showComments(json[1].data.children);
     }
   }
 }
@@ -85,7 +65,7 @@ async function showSubreddits(subs) {
     .then((response) => response.text())
     .then((template) => {
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i].data.permalink);
+        // console.log(data[i].data.permalink);
         Mustache.parse(template);
         var rendered = Mustache.render(template, {
           permalink: data[i].data.permalink,
@@ -95,7 +75,9 @@ async function showSubreddits(subs) {
         document.getElementById("subreddits").innerHTML += rendered;
 
         if (i === 0) {
-          document.getElementById(data[i].data.permalink).style.backgroundColor = "var(--border)";
+          document.getElementById(
+            data[i].data.permalink
+          ).style.backgroundColor = "var(--border)";
           getPost(data[i], 1);
         } else {
           getPost(data[i], 0);
@@ -110,7 +92,7 @@ async function showSubreddits(subs) {
 async function getPost(item, first) {
   fetch(chrome.runtime.getURL("/templates/post.html"))
     .then((response) => response.text())
-    .then((template) => {
+    .then(async template => {
       // console.log(item.data);
       Mustache.parse(template);
       var rendered = Mustache.render(template, {
@@ -123,10 +105,12 @@ async function getPost(item, first) {
       });
       if (first === 1) {
         document.getElementById("post").innerHTML += rendered;
-        document.getElementById("p" + item.data.permalink).style.display = "flex";
+        document.getElementById("p" + item.data.permalink).style.display =
+          "flex";
         document.getElementById("sort").style.display = "block";
 
         getComments("https://api.reddit.com" + item.data.permalink);
+
       } else {
         document.getElementById("post").innerHTML += rendered;
       }
@@ -153,41 +137,50 @@ async function getComments(postUrl) {
       showComments(json[1].data.children);
     }
   }
+  document.getElementById("message").innerHTML = "";
 }
 
 async function showComments(commentList) {
   var data = await Promise.all(commentList);
   fetch(chrome.runtime.getURL("/templates/comment.html"))
     .then((response) => response.text())
-    .then((template) => {
+    .then(async template => {
       for (let i = 0; i < data.length; i++) {
-        getReplies(data[i]);
-        let body_html = decodeHtml(data[i].data.body_html).replace(
-          "<a href=",
-          "<a target='_blank' href="
-        );
-        Mustache.parse(template);
-        var rendered = Mustache.render(template, {
-          id: data[i].data.id,
-          author: data[i].data.author,
-          score: data[i].data.score,
-          date: getDateStringFromTimestamp(data[i].data.created_utc),
-          body_html: body_html,
-        });
-
-        if (data[i].data.parent_id.substring(0, 2) === "t1") {
+        console.log(data[i]);
+        if (data[i].kind == "more") {
+          // console.log(data[i].data.children);
           document.getElementById(
             data[i].data.parent_id.substring(3)
-          ).innerHTML += rendered;
+          ).innerHTML +=
+            '<div class="commentTitle loadMore" id="' + data[i].data.children + '">load more comments (' + data[i].data.count + ")</div>";
         } else {
-          document.getElementById("comments").innerHTML += rendered;
+          getReplies(data[i]);
+          let body_html = decodeHtml(data[i].data.body_html).replace(
+            "<a href=",
+            "<a target='_blank' href="
+          );
+          Mustache.parse(template);
+          var rendered = Mustache.render(template, {
+            id: data[i].data.id,
+            author: data[i].data.author,
+            score: data[i].data.score,
+            date: getDateStringFromTimestamp(data[i].data.created_utc),
+            body_html: body_html,
+          });
+
+          if (data[i].data.parent_id.substring(0, 2) === "t1") {
+            document.getElementById(
+              data[i].data.parent_id.substring(3)
+            ).innerHTML += rendered;
+          } else {
+            document.getElementById("comments").innerHTML += rendered;
+          }
         }
       }
     })
     .catch((error) =>
       console.log("Unable to get the template: ", error.message)
     );
-    document.getElementById("message").innerHTML = "";
 }
 
 async function getReplies(comment) {
@@ -259,11 +252,11 @@ function numFormatter(num) {
     : Math.sign(num) * Math.abs(num);
 }
 
-window.onclick = function (event) {
+window.onclick = async function (event) {
   var target = event.target;
-  document.getElementById("message").innerHTML = "Loading...";
 
   if (target.matches(".subreddit")) {
+    document.getElementById("message").innerHTML = "Loading...";
     document.querySelectorAll(".subreddit").forEach((e) => {
       e.style.backgroundColor = "#fff";
     });
@@ -277,8 +270,13 @@ window.onclick = function (event) {
 
     document.getElementById("p" + event.target.id).style.display = "flex";
 
-    document.getElementById("comments").innerHTML = ""; //save comments insatead of deleteing (chnage this)
-
+    document.getElementById("comments").innerHTML = ""; //save comments instead of deleteing (chnage this)
     getComments("https://api.reddit.com" + event.target.id);
+  } else if (target.matches(".loadMore")) {
+    let children = event.target.id.split(",");
+    for (let i = 0; i < children.length; i++) {
+      getComments("https://api.reddit.com/r/hiphopheads/comments/mdg7uk/fresh_video_lil_nas_x_montero_call_me_by_your/" + children[i]);
+    }
+    document.getElementById(event.target.id).style.display = "none";
   }
 };
