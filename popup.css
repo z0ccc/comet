@@ -99,6 +99,10 @@ blockquote {
   text-decoration: underline;
 }
 
+#sort {
+  margin: 0 0 6px 0;
+}
+
 .comment {
   display: inline-block;
   word-wrap: break-word;
@@ -163,4 +167,13 @@ blockquote {
 
 #sort {
   display: none;
+}
+
+.submit {
+  color: #0079d3;
+  text-decoration: none;
+}
+
+.submit:hover {
+  text-decoration: underline;
 }

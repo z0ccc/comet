@@ -1,48 +1,72 @@
-'use strict';
+chrome.tabs.onActivated.addListener(function (tabId, change, tab) {
+  checkURL();
+});
 
-// chrome.runtime.onInstalled.addListener(() => {
-//   chrome.storage.sync.set({ color });
-//   console.log('Default background color set to %cgreen', `color: ${color}`);
-//   console.log(window.location.href);
-// });
+chrome.tabs.onUpdated.addListener(function (tabId, change, tab) {
+  checkURL();
+});
 
-// chrome.tabs.onUpdated.addListener( async function (tabId, changeInfo, tab) {
-//   if (changeInfo.status == 'complete') {
-//     chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-//       let url = tabs[0].url;
-//       url = url.replace('https://','');
-//       url = url.replace('http://','');
-//       url = url.replace('www.','');
-//       console.log(url);
-//       let postList = findPosts(url);
-//       // showPosts(postList);
-//       chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-//         console.log(response.farewell);
-//       });
-//     });
-//   }
-// })
+function checkURL() {
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    getPosts(tabs[0].url);
+  });
+}
 
-// async function showPosts(postList) {
-//   let posts = await postList;
-//   console.log(posts);
-//   posts.map(async (item) => {
-//     console.log(item.data.subreddit);
-//   });
-//   console.log(posts)
-//   // console.log(Promise.all(postList));
+async function getPosts(url) {
+  var result, path;
+  let urls = [];
 
-// }
+  if (url.indexOf("youtube.com/watch?v=") != -1) {
+    path = url.split("v=");
+    urls = [
+      "https://api.reddit.com/search/?q=site:youtube.com+OR+site:youtu.be+url:" +
+        path[1] +
+        "&include_over_18=on&t=all&sort=top",
+    ];
+  } else {
+    urls = [
+      "https://www.reddit.com/api/info.json?url=" + encodeURIComponent(url),
+    ];
+
+    if (url.startsWith("https")) {
+      urls.push(
+        "https://www.reddit.com/api/info.json?url=" +
+          encodeURIComponent(url.replace("https", "http"))
+      );
+    } else {
+      urls.push(
+        "https://www.reddit.com/api/info.json?url=" +
+          encodeURIComponent(url.replace("http", "https"))
+      );
+    }
+  }
+
+  let postList = [];
+  for (var i = 0; i < urls.length; ++i) {
+    result = await fetch(urls[i]);
+    let json = await result.json();
+    if (json && json.kind === "Listing" && json.data.children.length > 0) {
+      let data = await Promise.all(json.data.children);
+      postList = postList.concat(data);
+    }
+  }
 
 
-// async function findPosts(url) {
+  if (postList.length == 0) {
+    // chrome.browserAction.setIcon({path: "/images/grey_16.png"});
+    chrome.storage.local.set({ url });
+  } else {
+    postList = postList.sort(compare);
+  }
+  chrome.storage.local.set({ postList });
+}
 
-//   let result = await fetch('https://api.reddit.com/search/?q=url:' + url + '&include_over_18=on&t=all&sort=top&limit=20', {mode: 'cors'});
-
-//   if (result.status === 200 ) {
-//     let json = await result.json();
-//     if( json && json.kind === 'Listing' && json.data.children.length > 0 ) {
-//       return json.data.children;
-//     }
-//   }
-// }
+function compare(a, b) {
+  if (a.data.num_comments < b.data.num_comments) {
+    return 1;
+  }
+  if (a.data.num_comments > b.data.num_comments) {
+    return -1;
+  }
+  return 0;
+}

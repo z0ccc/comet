@@ -1,66 +1,20 @@
-"use strict";
+var currentPost;
 
-chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-  let url = tabs[0].url;
-  url = url.replace("https://", "");
-  url = url.replace("http://", "");
-  url = url.replace("www.", "");
-  getSubreddits(url);
+chrome.storage.local.get("postList", ({ postList }) => {
+  console.log(postList);
+  if (postList.length == 0) {
+    chrome.storage.local.get("url", ({ url }) => {
+      document.getElementById("message").innerHTML =
+        'No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=' +
+        url +
+        '">Submit it</a>';
+    });
+  } else {
+    showSubreddits(postList);
+  }
 });
 
-async function getSubreddits(url) {
-  var result;
-  let index = url.indexOf("/"); // Gets the first index where a space occours
-  let domain = url.substr(0, index); // Gets the first part
-  let path = url.substr(index + 1);
-
-  if (url.includes("?")) {
-    index = url.indexOf("?");
-    path = url.substr(index + 1);
-
-    // console.log(domain);
-    // console.log(path);
-
-    if (domain == "youtube.com") {
-      let pathYoutube = path.split("=");
-      result = await fetch(
-        "https://api.reddit.com/search/?q=site:youtube.com+OR+site:youtu.be+url:" +
-          pathYoutube[1] +
-          "&include_over_18=on&t=all&sort=top&limit=20"
-      );
-    } else {
-      result = await fetch(
-        "https://api.reddit.com/search/?q=site:" +
-          domain +
-          "+url:" +
-          path +
-          "&include_over_18=on&t=all&sort=top&limit=20"
-      );
-    }
-  } else {
-    result = await fetch(
-      "https://api.reddit.com/search/?q=site:" +
-        domain +
-        "+url:" +
-        path +
-        "&include_over_18=on&t=all&sort=top&limit=20"
-    );
-  }
-
-  // console.log(result);
-
-  if (result.status === 200) {
-    let json = await result.json();
-    if (json && json.kind === "Listing" && json.data.children.length > 0) {
-      showSubreddits(json.data.children);
-    }
-  }
-}
-
-async function showSubreddits(subs) {
-  // let subs = await subList;
-  // console.log(subs);
-  var data = await Promise.all(subs);
+async function showSubreddits(data) {
   fetch(chrome.runtime.getURL("/templates/subreddit.html"))
     .then((response) => response.text())
     .then((template) => {
@@ -69,12 +23,13 @@ async function showSubreddits(subs) {
         Mustache.parse(template);
         var rendered = Mustache.render(template, {
           permalink: data[i].data.permalink,
-          name: data[i].data.subreddit,
-          comments: data[i].data.num_comments,
+          subreddit: data[i].data.subreddit,
+          num_comments: data[i].data.num_comments,
         });
         document.getElementById("subreddits").innerHTML += rendered;
 
         if (i === 0) {
+          currentPost = data[i].data.permalink;
           document.getElementById(
             data[i].data.permalink
           ).style.backgroundColor = "var(--border)";
@@ -121,6 +76,7 @@ async function getPost(item, first) {
 
 async function getComments(postUrl) {
   let result = await fetch(postUrl);
+  // console.log(result);
 
   if (result.status === 200) {
     let json = await result.json();
@@ -147,20 +103,21 @@ async function showComments(commentList) {
       for (let i = 0; i < data.length; i++) {
         // console.log(data[i]);
         if (data[i].kind == "more") {
+          // console.log(data[i]);
           let loadID = document.getElementById(
             data[i].data.parent_id.substring(3)
           );
           // console.log(data[i].data.children);
           if (loadID) {
             loadID.innerHTML +=
-              '<div class="commentTitle loadMore" id="' +
+              '<div class="commentTitle loadMore" id="m_' +
               data[i].data.children +
               '">load more comments (' +
               data[i].data.count +
               ")</div>";
           } else {
             document.getElementById("comments").innerHTML +=
-              '<div class="commentTitle loadMore" id="' +
+              '<div class="commentTitle loadMore" id="m_' +
               data[i].data.children +
               '">load more comments (' +
               data[i].data.count +
@@ -182,6 +139,9 @@ async function showComments(commentList) {
           });
 
           if (data[i].data.parent_id.substring(0, 2) === "t1") {
+            // console.log(body_html);
+            // console.log(rendered);
+
             document.getElementById(
               data[i].data.parent_id.substring(3)
             ).innerHTML += rendered;
@@ -203,6 +163,7 @@ async function getReplies(comment) {
       comment.data.replies.kind === "Listing" &&
       comment.data.replies.data.children
     ) {
+      // console.log(comment.data.replies.data.children);
       showComments(comment.data.replies.data.children);
     }
   }
@@ -284,14 +245,16 @@ window.onclick = async function (event) {
     document.getElementById("p" + event.target.id).style.display = "flex";
 
     document.getElementById("comments").innerHTML = ""; //save comments instead of deleteing (chnage this)
+    currentPost = event.target.id;
+
     getComments("https://api.reddit.com" + event.target.id);
   } else if (target.matches(".loadMore")) {
-    let children = event.target.id.split(",");
+    // console.log(event.target.id);
+
+    let children = event.target.id.substring(2).split(",");
+    // console.log(children);
     for (let i = 0; i < children.length; i++) {
-      getComments(
-        "https://api.reddit.com/r/hiphopheads/comments/mdg7uk/fresh_video_lil_nas_x_montero_call_me_by_your/" +
-          children[i]
-      );
+      getComments("https://api.reddit.com" + currentPost + children[i]);
     }
     document.getElementById(event.target.id).style.display = "none";
   }
