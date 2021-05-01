@@ -15,5 +15,6 @@ module.exports = {
     'operator-linebreak': 'off',
     'no-undef': 'off',
     'no-use-before-define': 'off',
+    'linebreak-style': 'off',
   },
 };
