@@ -1,72 +1,94 @@
-chrome.tabs.onActivated.addListener(function (tabId, change, tab) {
-  checkURL();
+chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
+  getQueries(tab.url);
 });
 
-chrome.tabs.onUpdated.addListener(function (tabId, change, tab) {
-  checkURL();
-});
-
-function checkURL() {
+chrome.tabs.onActivated.addListener(() => {
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-    getPosts(tabs[0].url);
+    getQueries(tabs[0].url);
+  });
+});
+
+// Gets reddit search query URLs
+function getQueries(url) {
+  let queries = [];
+
+  chrome.storage.local.set({ url });
+
+  if (url.indexOf('youtube.com/watch?v=') !== -1) {
+    queries = [
+      `https://api.reddit.com/search/?q=site:youtube.com+OR+site:youtu.be+url:${
+        url.split('v=')[1]
+      }&include_over_18=on&t=all&sort=top`,
+    ];
+  } else {
+    queries = [
+      `https://www.reddit.com/api/info.json?url=${encodeURIComponent(url)}`,
+    ];
+
+    if (url.startsWith('https')) {
+      queries.push(
+        `https://www.reddit.com/api/info.json?url=${encodeURIComponent(
+          url.replace('https', 'http')
+        )}`
+      );
+    } else {
+      queries.push(
+        `https://www.reddit.com/api/info.json?url=${encodeURIComponent(
+          url.replace('http', 'https')
+        )}`
+      );
+    }
+  }
+  getPosts(queries);
+}
+
+// Gets list of matching reddit posts
+function getPosts(queries) {
+  const promisesFetch = [];
+  const promisesJson = [];
+  let postArr = [];
+
+  for (let i = 0; i < queries.length; i++) {
+    promisesFetch.push(fetch(queries[i]));
+  }
+
+  Promise.all(promisesFetch).then((resFetch) => {
+    for (let i = 0; i < resFetch.length; i++) {
+      promisesJson.push(resFetch[i].json());
+    }
+    Promise.all(promisesJson).then((resJson) => {
+      for (let i = 0; i < resJson.length; i++) {
+        if (
+          resJson[i].kind === 'Listing' &&
+          resJson[i].data.children.length > 0
+        ) {
+          postArr = postArr.concat(resJson[i].data.children);
+        }
+      }
+      setIcon(postArr);
+      postArr = postArr.sort(compare);
+      chrome.storage.local.set({ postArr });
+    });
   });
 }
 
-async function getPosts(url) {
-  var result, path;
-  let urls = [];
-
-  if (url.indexOf("youtube.com/watch?v=") != -1) {
-    path = url.split("v=");
-    urls = [
-      "https://api.reddit.com/search/?q=site:youtube.com+OR+site:youtu.be+url:" +
-        path[1] +
-        "&include_over_18=on&t=all&sort=top",
-    ];
+// Sets extension icon based on if there are matching posts
+function setIcon(postArr) {
+  if (postArr.length === 0) {
+    chrome.action.setIcon({
+      path: {
+        16: 'images/grey_16.png',
+      },
+    });
   } else {
-    urls = [
-      "https://www.reddit.com/api/info.json?url=" + encodeURIComponent(url),
-    ];
-
-    if (url.startsWith("https")) {
-      urls.push(
-        "https://www.reddit.com/api/info.json?url=" +
-          encodeURIComponent(url.replace("https", "http"))
-      );
-    } else {
-      urls.push(
-        "https://www.reddit.com/api/info.json?url=" +
-          encodeURIComponent(url.replace("http", "https"))
-      );
-    }
+    chrome.action.setIcon({
+      path: {
+        16: 'images/reddit_16.png',
+      },
+    });
   }
-
-  let postList = [];
-  for (var i = 0; i < urls.length; ++i) {
-    result = await fetch(urls[i]);
-    let json = await result.json();
-    if (json && json.kind === "Listing" && json.data.children.length > 0) {
-      let data = await Promise.all(json.data.children);
-      postList = postList.concat(data);
-    }
-  }
-
-
-  if (postList.length == 0) {
-    // chrome.browserAction.setIcon({path: "/images/grey_16.png"});
-    chrome.storage.local.set({ url });
-  } else {
-    postList = postList.sort(compare);
-  }
-  chrome.storage.local.set({ postList });
 }
 
 function compare(a, b) {
-  if (a.data.num_comments < b.data.num_comments) {
-    return 1;
-  }
-  if (a.data.num_comments > b.data.num_comments) {
-    return -1;
-  }
-  return 0;
+  return b.data.num_comments - a.data.num_comments;
 }
