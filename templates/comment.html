@@ -1,8 +1,11 @@
 <div class="comment" id="{{id}}">
-    <div class="infoWrap">
-        <a href="https://reddit.com/u/{{author}}" target="_blank" class="commentAuthor">{{author}}</a>
-        <div class="info">{{score}} points</div>
-        <div class="info">{{date}}</div>
+    <div class="commentInfo">
+        <div class="infoWrap">
+            <a href="https://reddit.com/u/{{author}}" target="_blank" class="commentTitle">{{author}}</a>
+            <div class="info">{{score}} points</div>
+            <div class="info">{{date}}</div>
+        </div>
+        <div class="commentBody">{{{bodyHTML}}}</div>
     </div>
-    <div class="commentBody">{{{body_html}}}</div>
 </div>
+<br/>

@@ -1,6 +1,6 @@
 {
-  "name": "reddit_ Wherever",
-  "description": "reddit_ Wherever for Chrome",
+  "name": "Reddit Wherever",
+  "description": "View Reddit comments of the current webpage.",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
@@ -23,7 +23,7 @@
     "128": "/images/reddit_128.png"
   },
   "web_accessible_resources": [{
-    "resources": ["/templates/basic.html", "/templates/subreddit.html", "/templates/post.html", "/templates/comment.html"],
+    "resources": ["/templates/post.html", "/templates/comment.html"],
     "matches": [],
     "extension_ids": []
    }]

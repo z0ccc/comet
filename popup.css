@@ -1,9 +1,10 @@
 :root {
   --scrollbar: #ccc;
-  --border: #e9e9e9;
+  --light-grey: #e9e9e9;
+  --border: #CACFD2;
   --text: #212121;
   --blue: #369;
-  --light-grey: #888;
+  --dark-grey: #888;
 }
 
 body {
@@ -54,14 +55,19 @@ blockquote {
   border: solid 1px var(--border);
   border-radius: 2px;
   cursor: pointer;
+  background-color: #fff;
 }
 
 .subreddit:hover {
-  background-color: var(--border);
+  background-color: var(--light-grey) !important;
+}
+
+.post {
+  display: none;
 }
 
 .postWrap {
-  display: none;
+  display: flex;
   align-items: center;
   margin: 12px 0;
 }
@@ -81,7 +87,7 @@ blockquote {
   margin: 0 8px 0 0;
   font-size: 16px;
   font-weight: 600;
-  color: var(--light-grey);
+  color: var(--dark-grey);
 }
 
 .infoPostWrap {
@@ -100,15 +106,16 @@ blockquote {
 }
 
 .comment {
-  display: block;
-  word-wrap: break-word;
-  margin: 8px 0;
+  display: inline-block;
 }
 
 .comment .comment {
-  margin: 8px 0 0 8px;
-  padding: 0 0 0 6px;
+  padding: 0 0 0 12px;
   border-left: 1px solid var(--border);
+}
+
+.commentInfo {
+  margin: 6px 0 6px 0;
 }
 
 .infoWrap {
@@ -120,20 +127,34 @@ blockquote {
   margin: 0 6px 0 0; 
 }
 
-.commentAuthor {
+.commentTitle {
   color: var(--blue);
   font-weight: 600;
   text-decoration: none;
 }
 
-.commentAuthor:hover {
+.commentTitle:hover {
   text-decoration: underline;
+}
+
+.loadMore {
+  padding: 6px 0 6px 0px;
+  cursor: pointer;
+}
+
+.comment .loadMore {
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
 }
 
 .info {
   font-size: 10px;
-  color: var(--light-grey);
+  color: var(--dark-grey);
 }
+
+/* .commentBody {
+  padding: 0 0 6px 0;
+} */
 
 .md a {
   color: #0079d3;
@@ -144,6 +165,20 @@ blockquote {
   text-align: center;
 }
 
-#sort {
-  display: none;
+.submit {
+  color: #0079d3;
+  text-decoration: none;
+}
+
+.submit:hover {
+  text-decoration: underline;
+}
+
+select {
+  display: inline-block;
+  border: solid 1px var(--border);
+  border-radius: 2px;
+  color: var(--text);
+  font-size: 12px;
+  margin: 0 0 6px 0;
 }

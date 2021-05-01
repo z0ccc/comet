@@ -1,9 +1,20 @@
-<div class="postWrap" id="p{{permalink}}">
-    <div class="postScore">{{score}}</div>
-    <div class="postInfo">
-        <a href="https://reddit.com{{permalink}}" target="_blank" class="postTitle">{{title}}</a>
-        <div class="infoPostWrap">
-            <div class="info">{{date}} by <a class="postAuthor" href="https://reddit.com/u/{{author}}" target="_blank">{{author}}</a></div>
+<div class="post" id="p_{{permalink}}">
+    <div class="postWrap">
+        <div class="postScore">{{score}}</div>
+        <div class="postInfo">
+            <a href="https://reddit.com{{permalink}}" target="_blank" class="postTitle">{{title}}</a>
+            <div class="infoPostWrap">
+                <div class="info">{{date}} by <a class="postAuthor" href="https://reddit.com/u/{{author}}" target="_blank">{{author}}</a></div>
+            </div>
         </div>
     </div>
+
+    <select id="s_{{permalink}}">
+        <option value="best">Best</option>
+        <option value="top">Top</option>
+        <option value="new">New</option>
+        <option value="controversial">Controversial</option>
+        <option value="old">Old</option>
+    </select>
+    <div id="c_{{permalink}}"></div>
 </div>
