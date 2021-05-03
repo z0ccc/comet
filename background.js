@@ -74,19 +74,12 @@ function getPosts(queries) {
 
 // Sets extension icon based on if there are matching posts
 function setIcon(postArr) {
-  if (postArr.length === 0) {
-    chrome.action.setIcon({
-      path: {
-        16: 'images/grey_16.png',
-      },
-    });
-  } else {
-    chrome.action.setIcon({
-      path: {
-        16: 'images/reddit_16.png',
-      },
-    });
-  }
+  const icon = postArr.length ? 'images/reddit_16.png' : 'images/grey_16.png';
+  chrome.action.setIcon({
+    path: {
+      16: icon,
+    },
+  });
 }
 
 function compare(a, b) {

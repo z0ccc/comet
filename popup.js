@@ -44,8 +44,10 @@ function getPost(item, first) {
         date: convertDate(item.data.created_utc),
         author: item.data.author,
       });
+
+      document.getElementById('posts').innerHTML += rendered;
+
       if (first === 1) {
-        document.getElementById('posts').innerHTML += rendered;
         document.getElementById(`p_${item.data.permalink}`).style.display =
           'block';
         getComments(
@@ -53,8 +55,6 @@ function getPost(item, first) {
           item.data.permalink,
           false
         );
-      } else {
-        document.getElementById('posts').innerHTML += rendered;
       }
     });
 }
@@ -133,14 +133,13 @@ function showComments(commentList, post) {
 
 // Gets replies to comments
 async function getReplies(comment, post) {
-  if (comment.kind === 't1') {
-    if (
-      comment.data.replies &&
-      comment.data.replies.kind === 'Listing' &&
-      comment.data.replies.data.children
-    ) {
-      showComments(comment.data.replies.data.children, post);
-    }
+  if (
+    comment.kind === 't1' &&
+    comment.data.replies &&
+    comment.data.replies.kind === 'Listing' &&
+    comment.data.replies.data.children
+  ) {
+    showComments(comment.data.replies.data.children, post);
   }
 }
 
