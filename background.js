@@ -43,33 +43,17 @@ function getQueries(url) {
 }
 
 // Gets list of matching reddit posts
-function getPosts(queries) {
-  const promisesFetch = [];
-  const promisesJson = [];
-  let postArr = [];
+async function getPosts(queries) {
+  const resJsons = await Promise.all(
+    queries.map(async (query) => (await fetch(query)).json())
+  );
+  let postArr = resJsons
+    .filter((json) => json.kind === 'Listing' && json.data.children.length > 0)
+    .map((json) => json.data.children);
 
-  for (let i = 0; i < queries.length; i++) {
-    promisesFetch.push(fetch(queries[i]));
-  }
-
-  Promise.all(promisesFetch).then((resFetch) => {
-    for (let i = 0; i < resFetch.length; i++) {
-      promisesJson.push(resFetch[i].json());
-    }
-    Promise.all(promisesJson).then((resJson) => {
-      for (let i = 0; i < resJson.length; i++) {
-        if (
-          resJson[i].kind === 'Listing' &&
-          resJson[i].data.children.length > 0
-        ) {
-          postArr = postArr.concat(resJson[i].data.children);
-        }
-      }
-      setIcon(postArr);
-      postArr = postArr.sort(compare);
-      chrome.storage.local.set({ postArr });
-    });
-  });
+  setIcon(postArr[0]);
+  postArr = postArr[0].sort(compare);
+  chrome.storage.local.set({ postArr });
 }
 
 // Sets extension icon based on if there are matching posts
