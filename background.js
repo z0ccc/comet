@@ -10,50 +10,77 @@ chrome.tabs.onActivated.addListener(() => {
 
 // Gets reddit search query URLs
 function getQueries(url) {
-  let queries = [];
-
   chrome.storage.local.set({ url });
+  const queries = [`https://api.reddit.com/submit?url=${url}`];
 
-  if (url.indexOf('youtube.com/watch?v=') !== -1) {
-    queries = [
-      `https://api.reddit.com/search/?q=site:youtube.com+OR+site:youtu.be+url:${
-        url.split('v=')[1]
-      }&include_over_18=on&t=all&sort=top`,
-    ];
+  if (url.startsWith('https')) {
+    queries.push(
+      `https://api.reddit.com/submit?url=${url.replace('https', 'http')}`
+    );
   } else {
-    queries = [
-      `https://www.reddit.com/api/info.json?url=${encodeURIComponent(url)}`,
-    ];
+    queries.push(
+      `https://api.reddit.com/submit?url=${url.replace('http', 'https')}`
+    );
+  }
 
-    if (url.startsWith('https')) {
-      queries.push(
-        `https://www.reddit.com/api/info.json?url=${encodeURIComponent(
-          url.replace('https', 'http')
-        )}`
-      );
+  for (let i = 0; i < 2; i++) {
+    if (url.endsWith('/')) {
+      queries.push(queries[i].slice(0, -1));
     } else {
-      queries.push(
-        `https://www.reddit.com/api/info.json?url=${encodeURIComponent(
-          url.replace('http', 'https')
-        )}`
-      );
+      queries.push(`${queries[i]}/`);
     }
   }
+
+  for (let i = 0; i < 4; i++) {
+    queries.push(
+      queries[i].replace(
+        'api.reddit.com/submit?url=',
+        'www.reddit.com/api/info.json?url='
+      )
+    );
+  }
+
+  if (url.indexOf('www.youtube.com/watch?v=') !== -1) {
+    for (let i = 0; i < 8; i++) {
+      queries.push(queries[i].replace('www.youtube.com/watch?v=', 'youtu.be/'));
+    }
+  }
+
   getPosts(queries);
 }
 
 // Gets list of matching reddit posts
-async function getPosts(queries) {
-  const resJsons = await Promise.all(
-    queries.map(async (query) => (await fetch(query)).json())
-  );
-  let postArr = resJsons
-    .filter((json) => json.kind === 'Listing' && json.data.children.length > 0)
-    .map((json) => json.data.children);
+function getPosts(queries) {
+  const promisesFetch = [];
+  const promisesJson = [];
+  let postArr = [];
 
-  setIcon(postArr[0]);
-  postArr = postArr[0].sort(compare);
-  chrome.storage.local.set({ postArr });
+  for (let i = 0; i < queries.length; i++) {
+    promisesFetch.push(fetch(queries[i]));
+  }
+
+  Promise.all(promisesFetch).then((resFetch) => {
+    for (let i = 0; i < resFetch.length; i++) {
+      promisesJson.push(resFetch[i].json());
+    }
+    Promise.all(promisesJson).then((resJson) => {
+      for (let i = 0; i < resJson.length; i++) {
+        if (
+          resJson[i].kind === 'Listing' &&
+          resJson[i].data.children.length > 0
+        ) {
+          postArr = postArr.concat(resJson[i].data.children);
+        }
+      }
+      setIcon(postArr);
+      postArr = [
+        ...new Map(postArr.map((item) => [item.data.id, item])).values(),
+      ];
+
+      postArr = postArr.sort(compare);
+      chrome.storage.local.set({ postArr });
+    });
+  });
 }
 
 // Sets extension icon based on if there are matching posts
