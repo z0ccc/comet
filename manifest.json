@@ -26,5 +26,6 @@
     "resources": ["/templates/post.html", "/templates/comment.html"],
     "matches": [],
     "extension_ids": []
-   }]
+   }],
+   "options_page": "options.html"
 }

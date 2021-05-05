@@ -243,7 +243,7 @@ window.onclick = function click(event) {
   }
 };
 
-window.onchange = async function change() {
+window.onchange = function change() {
   const currentPost = document.querySelector('.currentPost').id;
 
   document.getElementById('message').innerHTML = 'loading...';
