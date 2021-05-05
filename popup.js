@@ -1,15 +1,37 @@
-chrome.storage.local.get('postArr', ({ postArr }) => {
-  if (postArr.length === 0) {
-    document.body.style.width = '200px';
-    chrome.storage.local.get('url', ({ url }) => {
-      document.getElementById(
-        'message'
-      ).innerHTML = `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`;
-    });
+// Checks if 'clickOnly' option is on
+chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
+  if (clickOnly === true) {
+    clickOnlyOn();
   } else {
-    getSubreddits(postArr);
+    checkPosts();
   }
 });
+
+// Runs functions is 'clickOnly' option is on
+function clickOnlyOn() {
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    chrome.runtime.sendMessage({ url: tabs[0].url }, (response) => {
+      console.log(response);
+      checkPosts();
+    });
+  });
+}
+
+// Checks if there are posts for the current url
+function checkPosts() {
+  chrome.storage.local.get('postArr', ({ postArr }) => {
+    if (postArr.length === 0) {
+      // document.body.style.width = '200px';
+      chrome.storage.local.get('url', ({ url }) => {
+        document.getElementById(
+          'message'
+        ).innerHTML = `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`;
+      });
+    } else {
+      getSubreddits(postArr);
+    }
+  });
+}
 
 // Gets and prints list of subreddits
 function getSubreddits(data) {

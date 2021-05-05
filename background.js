@@ -1,15 +1,33 @@
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  console.log(msg.url);
+  asyncMessage(msg.url).then(sendResponse);
+  return true;
+});
+
+async function asyncMessage(url) {
+  await getQueries(url, true);
+}
+
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
-  getQueries(tab.url);
+  chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
+    if (clickOnly === false) {
+      getQueries(tab.url, false);
+    }
+  });
 });
 
 chrome.tabs.onActivated.addListener(() => {
-  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-    getQueries(tabs[0].url);
+  chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
+    if (clickOnly === false) {
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        getQueries(tabs[0].url, false);
+      });
+    }
   });
 });
 
 // Gets reddit search query URLs
-function getQueries(url) {
+async function getQueries(url, clickOnly) {
   chrome.storage.local.set({ url });
   const queries = [`https://api.reddit.com/submit?url=${url}`];
 
@@ -45,12 +63,11 @@ function getQueries(url) {
       queries.push(queries[i].replace('www.youtube.com/watch?v=', 'youtu.be/'));
     }
   }
-
-  getPosts(queries);
+  await getPosts(queries, clickOnly);
 }
 
 // Gets list of matching reddit posts
-function getPosts(queries) {
+async function getPosts(queries, clickOnly) {
   const promisesFetch = [];
   const promisesJson = [];
   let postArr = [];
@@ -59,11 +76,11 @@ function getPosts(queries) {
     promisesFetch.push(fetch(queries[i]));
   }
 
-  Promise.all(promisesFetch).then((resFetch) => {
+  await Promise.all(promisesFetch).then(async (resFetch) => {
     for (let i = 0; i < resFetch.length; i++) {
       promisesJson.push(resFetch[i].json());
     }
-    Promise.all(promisesJson).then((resJson) => {
+    await Promise.all(promisesJson).then((resJson) => {
       for (let i = 0; i < resJson.length; i++) {
         if (
           resJson[i].kind === 'Listing' &&
@@ -72,7 +89,9 @@ function getPosts(queries) {
           postArr = postArr.concat(resJson[i].data.children);
         }
       }
-      setIcon(postArr);
+      if (clickOnly === false) {
+        setIcon(postArr);
+      }
       postArr = [
         ...new Map(postArr.map((item) => [item.data.id, item])).values(),
       ];

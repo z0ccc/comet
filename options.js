@@ -1,6 +1,5 @@
 chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
-  const value = !clickOnly;
-  document.getElementById('clickOnly').checked = value;
+  document.getElementById('clickOnly').checked = clickOnly;
 });
 
 window.onchange = function change(event) {
@@ -8,6 +7,13 @@ window.onchange = function change(event) {
     chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
       const value = !clickOnly;
       chrome.storage.sync.set({ clickOnly: value });
+      if (value === true) {
+        chrome.action.setIcon({
+          path: {
+            16: 'images/reddit_16.png',
+          },
+        });
+      }
     });
   }
 };
