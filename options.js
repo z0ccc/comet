@@ -2,6 +2,10 @@ chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
   document.getElementById('clickOnly').checked = clickOnly;
 });
 
+chrome.storage.sync.get('ytDefault', ({ ytDefault }) => {
+  document.getElementById('ytDefault').checked = ytDefault;
+});
+
 window.onchange = function change(event) {
   if (event.target.matches('#clickOnly')) {
     chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
@@ -14,6 +18,11 @@ window.onchange = function change(event) {
           },
         });
       }
+    });
+  } else if (event.target.matches('#ytDefault')) {
+    chrome.storage.sync.get('ytDefault', ({ ytDefault }) => {
+      const value = !ytDefault;
+      chrome.storage.sync.set({ ytDefault: value });
     });
   }
 };

@@ -7,11 +7,14 @@
   --dark-grey: #888;
 }
 
-body {
+#redComments {
   color: var(--text);
-  width: 500px;
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.popupWidth {
+  width: 600px;
 }
 
 p {
@@ -23,6 +26,18 @@ blockquote {
   color: #4f4f4f;
   padding: 0 8px;
   margin: 2px 0 2px 5px;
+}
+
+#redImgWrap {
+  display: none;
+  justify-content: flex-end;
+  margin: 0 0 -50px 0;
+  position: relative;
+}
+
+#subredditWrap {
+  display: flex;
+  justify-content: space-between;
 }
 
 #subreddits::-webkit-scrollbar {
@@ -42,11 +57,15 @@ blockquote {
   border-radius: 2px;
 }
 
+.toggleImg {
+  margin: 0 0 0 8px;
+  cursor: pointer;
+}
+
 #subreddits {
   display: flex;
   overflow: auto;
   white-space: nowrap;
-  -ms-overflow-style: none; /* IE 10+ */
 }
 
 .subreddit {
@@ -56,6 +75,7 @@ blockquote {
   border-radius: 2px;
   cursor: pointer;
   background-color: #fff;
+  font-size: 12px;
 }
 
 .subreddit:hover {
@@ -73,7 +93,7 @@ blockquote {
 }
 
 .postTitle {
-  font-size: 14px;
+  font-size: 16px;
   margin: 0 0 4px 0;
   color: var(--text);
   text-decoration: none;
@@ -85,7 +105,7 @@ blockquote {
 
 .postScore {
   margin: 0 8px 0 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--dark-grey);
 }
@@ -93,7 +113,7 @@ blockquote {
 .infoPostWrap {
   display: flex;
   align-items: center;
-  margin: 2px 0 0 0;
+  font-size: 10px;
 }
 
 .postAuthor {
@@ -121,6 +141,7 @@ blockquote {
 .infoWrap {
   display: flex;
   align-items: center;
+  font-size: 10px;
 }
 
 .infoWrap > *:not(:last-child) {
@@ -140,6 +161,7 @@ blockquote {
 .loadMore {
   padding: 6px 0 6px 0px;
   cursor: pointer;
+  font-size: 10px;
 }
 
 .comment .loadMore {
@@ -148,7 +170,6 @@ blockquote {
 }
 
 .info {
-  font-size: 10px;
   color: var(--dark-grey);
 }
 
@@ -179,6 +200,6 @@ select {
   border: solid 1px var(--border);
   border-radius: 2px;
   color: var(--text);
-  font-size: 12px;
   margin: 0 0 6px 0;
+  font-size: 12px;
 }

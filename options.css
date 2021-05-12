@@ -1,3 +1,9 @@
+.optionTitle {
+  margin: 0 0 8px 0;
+  font-weight: 500;
+  font-size: 14px;
+}
+
 .checkBoxWrap {
  display: flex;
  align-items: center;

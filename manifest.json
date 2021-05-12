@@ -6,7 +6,15 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "css": ["main.css"],
+      "js": ["mustache.min.js", "main.js", "events.js", "content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": ["storage", "tabs", "activeTab"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -22,10 +30,15 @@
     "48": "/images/reddit_48.png",
     "128": "/images/reddit_128.png"
   },
-  "web_accessible_resources": [{
-    "resources": ["/templates/post.html", "/templates/comment.html"],
-    "matches": [],
-    "extension_ids": []
-   }],
-   "options_page": "options.html"
+  "web_accessible_resources": [
+    {
+      "resources": ["/templates/post.html", "/templates/comment.html", "/templates/youtube.html", "/images/youtube_32.png", "/images/grey_32.png"],
+      "matches": ["*://*.youtube.com/*"],
+      "extension_ids": []
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  }
 }
