@@ -1,17 +1,28 @@
-:root {
+#redComments {
   --scrollbar: #ccc;
   --light-grey: #e9e9e9;
   --border: #cacfd2;
   --text: #212121;
   --blue: #369;
   --dark-grey: #888;
-}
-
-#redComments {
+  --background: #fff;
+  --link-blue: #0079d3;
   color: var(--text);
+  background-color: var(--background);
   font-size: 14px;
   line-height: 20px;
 }
+
+#redComments[data-theme='dark'] {
+  --scrollbar: #ACACAC;
+  --light-grey: #3c3c3c;
+  --border: #3c3c3c;
+  --text: #ACACAC;
+  --blue: #3498DB;
+  --link-blue: #3498DB;
+  --dark-grey: #909090;
+  --background: #212121;
+} 
 
 .popupWidth {
   width: 600px;
@@ -74,7 +85,6 @@ blockquote {
   border: solid 1px var(--border);
   border-radius: 2px;
   cursor: pointer;
-  background-color: #fff;
   font-size: 12px;
 }
 
@@ -173,12 +183,8 @@ blockquote {
   color: var(--dark-grey);
 }
 
-/* .commentBody {
-  padding: 0 0 6px 0;
-} */
-
 .md a {
-  color: #0079d3;
+  color: var(--link-blue);
   text-decoration: none;
 }
 
@@ -187,7 +193,7 @@ blockquote {
 }
 
 .submit {
-  color: #0079d3;
+  color: var(--link-blue);
   text-decoration: none;
 }
 
@@ -198,6 +204,7 @@ blockquote {
 select {
   display: inline-block;
   border: solid 1px var(--border);
+  background-color: var(--background);
   border-radius: 2px;
   color: var(--text);
   margin: 0 0 6px 0;

@@ -3,7 +3,7 @@ window.onclick = function click(event) {
     const currentPost = document.querySelector('.currentPost');
     if (event.target.matches('.subreddit')) {
       document.getElementById('message').innerHTML = 'loading...';
-      currentPost.style.backgroundColor = '#fff';
+      currentPost.style.backgroundColor = 'var(--background)';
       document.getElementById(event.target.id).style.backgroundColor =
         'var(--light-grey)';
 

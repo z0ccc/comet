@@ -1,3 +1,11 @@
+function setTheme() {
+  chrome.storage.sync.get('darkMode', ({ darkMode }) => {
+    if (darkMode) {
+      document.getElementById('redComments').dataset.theme = 'dark';
+    }
+  });
+}
+
 // Gets reddit search query URLs
 function getQueries(url, bgScript) {
   const queries = [`https://api.reddit.com/submit?url=${url}`];

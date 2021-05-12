@@ -1,3 +1,7 @@
+chrome.storage.sync.get('darkMode', ({ darkMode }) => {
+  document.getElementById('darkMode').checked = darkMode;
+});
+
 chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
   document.getElementById('clickOnly').checked = clickOnly;
 });
@@ -7,7 +11,12 @@ chrome.storage.sync.get('ytDefault', ({ ytDefault }) => {
 });
 
 window.onchange = function change(event) {
-  if (event.target.matches('#clickOnly')) {
+  if (event.target.matches('#darkMode')) {
+    chrome.storage.sync.get('darkMode', ({ darkMode }) => {
+      const value = !darkMode;
+      chrome.storage.sync.set({ darkMode: value });
+    });
+  } else if (event.target.matches('#clickOnly')) {
     chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
       const value = !clickOnly;
       chrome.storage.sync.set({ clickOnly: value });

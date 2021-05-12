@@ -14,6 +14,7 @@ function ytPrepare() {
 
   redComments = document.createElement('div');
   redComments.setAttribute('id', 'redComments');
+  redComments.style.backgroundColor = 'transparent';
   redImgWrap = document.createElement('div');
   redImgWrap.setAttribute('id', 'redImgWrap');
 
@@ -42,6 +43,8 @@ function ytPrepare() {
 
   ytComments.parentNode.insertBefore(redImgWrap, ytComments);
   ytComments.parentNode.insertBefore(redComments, ytComments);
+
+  setTheme();
 
   getQueries(window.location.href, false);
 }
