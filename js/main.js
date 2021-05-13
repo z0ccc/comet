@@ -42,13 +42,8 @@ function getQueries(url, bgScript) {
     for (let i = 0; i < 8; i++) {
       queries.push(queries[i].replace('www.youtube.com/watch?v=', 'youtu.be/'));
     }
-    queries.push(
-      `https://api.reddit.com/search/?q=site:youtube.com+OR+site:youtu.be+url:${
-        url.split('v=')[1]
-      }&include_over_18=on&t=all&sort=top`
-    );
   }
-  return getPosts(queries, url, bgScript);
+  getPosts(queries, url, bgScript);
 }
 
 // Gets list of matching reddit posts
@@ -61,11 +56,11 @@ async function getPosts(queries, url, bgScript) {
     promisesFetch.push(fetch(queries[i]));
   }
 
-  await Promise.all(promisesFetch).then(async (resFetch) => {
+  Promise.all(promisesFetch).then((resFetch) => {
     for (let i = 0; i < resFetch.length; i++) {
       promisesJson.push(resFetch[i].json());
     }
-    await Promise.all(promisesJson).then((resJson) => {
+    Promise.all(promisesJson).then((resJson) => {
       for (let i = 0; i < resJson.length; i++) {
         if (
           resJson[i].kind === 'Listing' &&
@@ -74,7 +69,6 @@ async function getPosts(queries, url, bgScript) {
           postArr = postArr.concat(resJson[i].data.children);
         }
       }
-
       if (bgScript === true) {
         setIcon(postArr);
       } else {
