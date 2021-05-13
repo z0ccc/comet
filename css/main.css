@@ -32,6 +32,11 @@ p {
   margin: 0;
 }
 
+ol {
+  margin: 0;
+  padding-inline-start: 40px !important;
+}
+
 blockquote {
   border-left: 2px solid var(--border);
   color: #4f4f4f;

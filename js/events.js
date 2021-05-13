@@ -42,7 +42,7 @@ window.onclick = function click(event) {
   }
 };
 
-window.onchange = function change() {
+window.onchange = function change(event) {
   const currentPost = document.querySelector('.currentPost').id;
 
   document.getElementById('message').innerHTML = 'loading...';
