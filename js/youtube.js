@@ -48,7 +48,6 @@ function ytPrepare() {
     ytComments.parentNode.insertBefore(redComments, ytComments);
 
     setTheme();
-    console.log(window.location.href);
     getQueries(window.location.href, false);
   }
 }

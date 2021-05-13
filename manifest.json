@@ -10,7 +10,12 @@
     {
       "matches": ["*://*.youtube.com/*"],
       "css": ["css/main.css"],
-      "js": ["js/mustache.min.js", "js/main.js", "js/events.js", "js/content.js"],
+      "js": [
+        "js/mustache.min.js",
+        "js/main.js",
+        "js/events.js",
+        "js/youtube.js"
+      ],
       "run_at": "document_end"
     }
   ],
@@ -32,7 +37,13 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["html/post.html", "html/comment.html", "html/youtube.html", "images/youtube_32.png", "images/grey_32.png"],
+      "resources": [
+        "html/post.html",
+        "html/comment.html",
+        "html/youtube.html",
+        "images/youtube_32.png",
+        "images/grey_32.png"
+      ],
       "matches": ["*://*.youtube.com/*"],
       "extension_ids": []
     }

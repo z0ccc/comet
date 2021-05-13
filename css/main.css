@@ -14,15 +14,15 @@
 }
 
 #redComments[data-theme='dark'] {
-  --scrollbar: #ACACAC;
+  --scrollbar: #acacac;
   --light-grey: #3c3c3c;
   --border: #3c3c3c;
-  --text: #ACACAC;
-  --blue: #3498DB;
-  --link-blue: #3498DB;
+  --text: #acacac;
+  --blue: #3498db;
+  --link-blue: #3498db;
   --dark-grey: #909090;
   --background: #212121;
-} 
+}
 
 .popupWidth {
   width: 600px;
