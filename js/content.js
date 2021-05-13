@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => ytPrepare());
 document.addEventListener('yt-navigate-finish', () => ytPrepare());
 document.addEventListener('spfdone', () => ytPrepare());
 
+// prepares the youtube page for reddit comments
 function ytPrepare() {
   const ytComments = document.getElementById('comments');
   let redComments = document.getElementById('redComments');
@@ -28,15 +29,15 @@ function ytPrepare() {
   });
 
   redImgWrap.innerHTML = `<img id="redImg" class="toggleImg" src="${chrome.runtime.getURL(
-    '/images/grey_32.png'
+    '../images/grey_32.png'
   )}" height="30px" width="30px"/>`;
 
-  fetch(chrome.runtime.getURL('/templates/youtube.html'))
+  fetch(chrome.runtime.getURL('html/youtube.html'))
     .then((response) => response.text())
     .then((template) => {
       Mustache.parse(template);
       const rendered = Mustache.render(template, {
-        image: chrome.runtime.getURL('/images/youtube_32.png'),
+        image: chrome.runtime.getURL('../images/youtube_32.png'),
       });
       redComments.innerHTML = rendered;
     });

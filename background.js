@@ -1,4 +1,4 @@
-importScripts('main.js');
+importScripts('js/main.js');
 
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {

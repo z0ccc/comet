@@ -1,3 +1,4 @@
+// sets theme to dark mode if option is selected
 function setTheme() {
   chrome.storage.sync.get('darkMode', ({ darkMode }) => {
     if (darkMode) {
@@ -133,7 +134,7 @@ function getSubreddits(data) {
 
 // Gets and print post info
 function getPost(item, first) {
-  fetch(chrome.runtime.getURL('/templates/post.html'))
+  fetch(chrome.runtime.getURL('html/post.html'))
     .then((response) => response.text())
     .then((template) => {
       Mustache.parse(template);
@@ -190,7 +191,7 @@ function showComments(commentList, post) {
   let loadID;
   let bodyHTML;
 
-  fetch(chrome.runtime.getURL('/templates/comment.html'))
+  fetch(chrome.runtime.getURL('html/comment.html'))
     .then((response) => response.text())
     .then((template) => {
       for (let i = 0; i < commentList.length; i++) {

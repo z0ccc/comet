@@ -23,7 +23,7 @@ window.onchange = function change(event) {
       if (value === true) {
         chrome.action.setIcon({
           path: {
-            16: 'images/reddit_16.png',
+            16: '../images/reddit_16.png',
           },
         });
       }

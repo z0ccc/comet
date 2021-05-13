@@ -2,7 +2,7 @@
   "name": "reddit-wherever",
   "version": "1.0.0",
   "description": "View Reddit comments of the current webpage.",
-  "main": "background.js",
+  "main": "js/background.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

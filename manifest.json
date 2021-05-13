@@ -9,36 +9,36 @@
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
-      "css": ["main.css"],
-      "js": ["mustache.min.js", "main.js", "events.js", "content.js"],
+      "css": ["css/main.css"],
+      "js": ["js/mustache.min.js", "js/main.js", "js/events.js", "js/content.js"],
       "run_at": "document_end"
     }
   ],
   "permissions": ["storage", "tabs", "activeTab"],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "html/popup.html",
     "default_icon": {
-      "16": "/images/reddit_16.png",
-      "32": "/images/reddit_32.png",
-      "48": "/images/reddit_48.png",
-      "128": "/images/reddit_128.png"
+      "16": "images/reddit_16.png",
+      "32": "images/reddit_32.png",
+      "48": "images/reddit_48.png",
+      "128": "images/reddit_128.png"
     }
   },
   "icons": {
-    "16": "/images/reddit_16.png",
-    "32": "/images/reddit_32.png",
-    "48": "/images/reddit_48.png",
-    "128": "/images/reddit_128.png"
+    "16": "images/reddit_16.png",
+    "32": "images/reddit_32.png",
+    "48": "images/reddit_48.png",
+    "128": "images/reddit_128.png"
   },
   "web_accessible_resources": [
     {
-      "resources": ["/templates/post.html", "/templates/comment.html", "/templates/youtube.html", "/images/youtube_32.png", "/images/grey_32.png"],
+      "resources": ["html/post.html", "html/comment.html", "html/youtube.html", "images/youtube_32.png", "images/grey_32.png"],
       "matches": ["*://*.youtube.com/*"],
       "extension_ids": []
     }
   ],
   "options_ui": {
-    "page": "options.html",
+    "page": "html/options.html",
     "open_in_tab": false
   }
 }
