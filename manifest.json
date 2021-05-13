@@ -1,6 +1,6 @@
 {
   "name": "Reddit Wherever",
-  "description": "View Reddit comments of the current webpage.",
+  "description": "View Reddit comments of the current webpage or Youtube video.",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
