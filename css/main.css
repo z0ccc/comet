@@ -1,21 +1,40 @@
-:root {
+#redComments {
   --scrollbar: #ccc;
   --light-grey: #e9e9e9;
   --border: #cacfd2;
   --text: #212121;
   --blue: #369;
   --dark-grey: #888;
+  --background: #fff;
+  --link-blue: #0079d3;
+  color: var(--text);
+  background-color: var(--background);
+  font-size: 14px;
+  line-height: 20px;
 }
 
-body {
-  color: var(--text);
-  width: 500px;
-  font-size: 12px;
-  line-height: 1.6;
+#redComments[data-theme='dark'] {
+  --scrollbar: #acacac;
+  --light-grey: #3c3c3c;
+  --border: #3c3c3c;
+  --text: #acacac;
+  --blue: #3498db;
+  --link-blue: #3498db;
+  --dark-grey: #909090;
+  --background: #212121;
+}
+
+.popupWidth {
+  width: 600px;
 }
 
 p {
   margin: 0;
+}
+
+ol {
+  margin: 0;
+  padding-inline-start: 40px !important;
 }
 
 blockquote {
@@ -23,6 +42,18 @@ blockquote {
   color: #4f4f4f;
   padding: 0 8px;
   margin: 2px 0 2px 5px;
+}
+
+#redImgWrap {
+  display: none;
+  justify-content: flex-end;
+  margin: 0 0 -50px 0;
+  position: relative;
+}
+
+#subredditWrap {
+  display: flex;
+  justify-content: space-between;
 }
 
 #subreddits::-webkit-scrollbar {
@@ -42,11 +73,15 @@ blockquote {
   border-radius: 2px;
 }
 
+.toggleImg {
+  margin: 0 0 0 8px;
+  cursor: pointer;
+}
+
 #subreddits {
   display: flex;
   overflow: auto;
   white-space: nowrap;
-  -ms-overflow-style: none; /* IE 10+ */
 }
 
 .subreddit {
@@ -55,7 +90,7 @@ blockquote {
   border: solid 1px var(--border);
   border-radius: 2px;
   cursor: pointer;
-  background-color: #fff;
+  font-size: 12px;
 }
 
 .subreddit:hover {
@@ -73,7 +108,7 @@ blockquote {
 }
 
 .postTitle {
-  font-size: 14px;
+  font-size: 16px;
   margin: 0 0 4px 0;
   color: var(--text);
   text-decoration: none;
@@ -85,7 +120,7 @@ blockquote {
 
 .postScore {
   margin: 0 8px 0 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--dark-grey);
 }
@@ -93,7 +128,7 @@ blockquote {
 .infoPostWrap {
   display: flex;
   align-items: center;
-  margin: 2px 0 0 0;
+  font-size: 10px;
 }
 
 .postAuthor {
@@ -121,6 +156,7 @@ blockquote {
 .infoWrap {
   display: flex;
   align-items: center;
+  font-size: 10px;
 }
 
 .infoWrap > *:not(:last-child) {
@@ -140,6 +176,7 @@ blockquote {
 .loadMore {
   padding: 6px 0 6px 0px;
   cursor: pointer;
+  font-size: 10px;
 }
 
 .comment .loadMore {
@@ -148,16 +185,11 @@ blockquote {
 }
 
 .info {
-  font-size: 10px;
   color: var(--dark-grey);
 }
 
-/* .commentBody {
-  padding: 0 0 6px 0;
-} */
-
 .md a {
-  color: #0079d3;
+  color: var(--link-blue);
   text-decoration: none;
 }
 
@@ -166,7 +198,7 @@ blockquote {
 }
 
 .submit {
-  color: #0079d3;
+  color: var(--link-blue);
   text-decoration: none;
 }
 
@@ -177,8 +209,9 @@ blockquote {
 select {
   display: inline-block;
   border: solid 1px var(--border);
+  background-color: var(--background);
   border-radius: 2px;
   color: var(--text);
-  font-size: 12px;
   margin: 0 0 6px 0;
+  font-size: 12px;
 }

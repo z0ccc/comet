@@ -1,15 +1,111 @@
-chrome.storage.local.get('postArr', ({ postArr }) => {
-  if (postArr.length === 0) {
-    document.body.style.width = '200px';
-    chrome.storage.local.get('url', ({ url }) => {
-      document.getElementById(
-        'message'
-      ).innerHTML = `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`;
+// sets theme to dark mode if option is selected
+function setTheme() {
+  chrome.storage.sync.get('darkMode', ({ darkMode }) => {
+    if (darkMode) {
+      document.getElementById('redComments').dataset.theme = 'dark';
+    }
+  });
+}
+
+// Gets reddit search query URLs
+function getQueries(url, bgScript) {
+  const queries = [`https://api.reddit.com/submit?url=${url}`];
+
+  if (url.startsWith('https')) {
+    queries.push(
+      `https://api.reddit.com/submit?url=${url.replace('https', 'http')}`
+    );
+  } else {
+    queries.push(
+      `https://api.reddit.com/submit?url=${url.replace('http', 'https')}`
+    );
+  }
+
+  for (let i = 0; i < 2; i++) {
+    if (url.endsWith('/')) {
+      queries.push(queries[i].slice(0, -1));
+    } else {
+      queries.push(`${queries[i]}/`);
+    }
+  }
+
+  for (let i = 0; i < 4; i++) {
+    queries.push(
+      queries[i].replace(
+        'api.reddit.com/submit?url=',
+        'www.reddit.com/api/info.json?url='
+      )
+    );
+  }
+
+  if (url.indexOf('www.youtube.com/watch?v=') !== -1) {
+    for (let i = 0; i < 8; i++) {
+      queries.push(queries[i].replace('www.youtube.com/watch?v=', 'youtu.be/'));
+    }
+  }
+  getPosts(queries, url, bgScript);
+}
+
+// Gets list of matching reddit posts
+async function getPosts(queries, url, bgScript) {
+  const promisesFetch = [];
+  const promisesJson = [];
+  let postArr = [];
+
+  for (let i = 0; i < queries.length; i++) {
+    promisesFetch.push(fetch(queries[i]));
+  }
+
+  Promise.all(promisesFetch).then((resFetch) => {
+    for (let i = 0; i < resFetch.length; i++) {
+      promisesJson.push(resFetch[i].json());
+    }
+    Promise.all(promisesJson).then((resJson) => {
+      for (let i = 0; i < resJson.length; i++) {
+        if (
+          resJson[i].kind === 'Listing' &&
+          resJson[i].data.children.length > 0
+        ) {
+          postArr = postArr.concat(resJson[i].data.children);
+        }
+      }
+      if (bgScript === true) {
+        setIcon(postArr);
+      } else {
+        postArr = [
+          ...new Map(postArr.map((item) => [item.data.id, item])).values(),
+        ];
+        postArr = postArr.sort(compare);
+        checkPosts(postArr, url);
+      }
     });
+  });
+}
+
+// Sets extension icon based on if there are matching posts
+function setIcon(postArr) {
+  const icon = postArr.length ? 'images/reddit_16.png' : 'images/grey_16.png';
+  chrome.action.setIcon({
+    path: {
+      16: icon,
+    },
+  });
+}
+
+function compare(a, b) {
+  return b.data.num_comments - a.data.num_comments;
+}
+
+// Checks if there are posts for the current url
+function checkPosts(postArr, url) {
+  if (postArr.length === 0) {
+    document.getElementById(
+      'message'
+    ).innerHTML = `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`;
   } else {
     getSubreddits(postArr);
   }
-});
+}
 
 // Gets and prints list of subreddits
 function getSubreddits(data) {
@@ -32,7 +128,7 @@ function getSubreddits(data) {
 
 // Gets and print post info
 function getPost(item, first) {
-  fetch(chrome.runtime.getURL('/templates/post.html'))
+  fetch(chrome.runtime.getURL('html/post.html'))
     .then((response) => response.text())
     .then((template) => {
       Mustache.parse(template);
@@ -89,7 +185,7 @@ function showComments(commentList, post) {
   let loadID;
   let bodyHTML;
 
-  fetch(chrome.runtime.getURL('/templates/comment.html'))
+  fetch(chrome.runtime.getURL('html/comment.html'))
     .then((response) => response.text())
     .then((template) => {
       for (let i = 0; i < commentList.length; i++) {
@@ -207,53 +303,3 @@ function convertDate(timestamp) {
   diff /= 12;
   return `${parseInt(diff, 10)} year${parseInt(diff, 10) === 1 ? '' : 's'} ago`;
 }
-
-window.onclick = function click(event) {
-  if (event) {
-    const currentPost = document.querySelector('.currentPost');
-    if (event.target.matches('.subreddit')) {
-      document.getElementById('message').innerHTML = 'loading...';
-      currentPost.style.backgroundColor = '#fff';
-      document.getElementById(event.target.id).style.backgroundColor =
-        'var(--light-grey)';
-
-      document.getElementById(`p_${currentPost.id}`).style.display = 'none';
-      document.getElementById(`p_${event.target.id}`).style.display = 'block';
-
-      currentPost.className = 'subreddit';
-      document.getElementById(event.target.id).className += ' currentPost';
-
-      getComments(
-        `https://api.reddit.com${event.target.id}`,
-        event.target.id,
-        false
-      );
-    } else if (event.target.matches('.loadMore')) {
-      const children = event.target.id.substring(2).split(',');
-
-      for (let i = 0; i < children.length; i++) {
-        getComments(
-          `https://api.reddit.com${currentPost.id}${children[i]}`,
-          currentPost.id,
-          true
-        );
-      }
-      document.getElementById(event.target.id).style.display = 'none';
-    }
-  }
-};
-
-window.onchange = function change() {
-  const currentPost = document.querySelector('.currentPost').id;
-
-  document.getElementById('message').innerHTML = 'loading...';
-  document.getElementById(`c_${currentPost}`).innerHTML = '';
-
-  getComments(
-    `https://api.reddit.com${currentPost}?sort=${
-      document.getElementById(`s_${currentPost}`).value
-    }`,
-    currentPost,
-    true
-  );
-};

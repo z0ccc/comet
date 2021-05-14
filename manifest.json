@@ -1,31 +1,55 @@
 {
   "name": "Reddit Wherever",
-  "description": "View Reddit comments of the current webpage.",
-  "version": "1.0",
+  "description": "View Reddit comments of the current webpage or YouTube video.",
+  "version": "1.1",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "css": ["css/main.css"],
+      "js": [
+        "js/mustache.min.js",
+        "js/main.js",
+        "js/events.js",
+        "js/youtube.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
   "permissions": ["storage", "tabs"],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "html/popup.html",
     "default_icon": {
-      "16": "/images/reddit_16.png",
-      "32": "/images/reddit_32.png",
-      "48": "/images/reddit_48.png",
-      "128": "/images/reddit_128.png"
+      "16": "images/reddit_16.png",
+      "32": "images/reddit_32.png",
+      "48": "images/reddit_48.png",
+      "128": "images/reddit_128.png"
     }
   },
   "icons": {
-    "16": "/images/reddit_16.png",
-    "32": "/images/reddit_32.png",
-    "48": "/images/reddit_48.png",
-    "128": "/images/reddit_128.png"
+    "16": "images/reddit_16.png",
+    "32": "images/reddit_32.png",
+    "48": "images/reddit_48.png",
+    "128": "images/reddit_128.png"
   },
-  "web_accessible_resources": [{
-    "resources": ["/templates/post.html", "/templates/comment.html"],
-    "matches": [],
-    "extension_ids": []
-   }],
-   "options_page": "options.html"
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "html/post.html",
+        "html/comment.html",
+        "html/youtube.html",
+        "images/youtube_32.png",
+        "images/grey_32.png"
+      ],
+      "matches": ["*://*.youtube.com/*"],
+      "extension_ids": []
+    }
+  ],
+  "options_ui": {
+    "page": "html/options.html",
+    "open_in_tab": false
+  }
 }

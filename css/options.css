@@ -1,0 +1,10 @@
+.checkBoxWrap {
+  display: flex;
+  align-items: center;
+  margin: 0 0 12px 0;
+}
+
+a {
+  color: #0079d3;
+  text-decoration: none;
+}
