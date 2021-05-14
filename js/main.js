@@ -8,7 +8,7 @@ function setTheme() {
 }
 
 // Gets reddit search query URLs
-function getQueries(url, bgScript) {
+function getQueries(url, scriptType) {
   const queries = [`https://api.reddit.com/submit?url=${url}`];
 
   if (url.startsWith('https')) {
@@ -43,11 +43,11 @@ function getQueries(url, bgScript) {
       queries.push(queries[i].replace('www.youtube.com/watch?v=', 'youtu.be/'));
     }
   }
-  getPosts(queries, url, bgScript);
+  getPosts(queries, url, scriptType);
 }
 
 // Gets list of matching reddit posts
-async function getPosts(queries, url, bgScript) {
+async function getPosts(queries, url, scriptType) {
   const promisesFetch = [];
   const promisesJson = [];
   let postArr = [];
@@ -69,14 +69,14 @@ async function getPosts(queries, url, bgScript) {
           postArr = postArr.concat(resJson[i].data.children);
         }
       }
-      if (bgScript === true) {
+      if (scriptType === true) {
         setIcon(postArr);
       } else {
         postArr = [
           ...new Map(postArr.map((item) => [item.data.id, item])).values(),
         ];
         postArr = postArr.sort(compare);
-        checkPosts(postArr, url);
+        checkPosts(postArr, url, scriptType);
       }
     });
   });
@@ -97,8 +97,14 @@ function compare(a, b) {
 }
 
 // Checks if there are posts for the current url
-function checkPosts(postArr, url) {
+function checkPosts(postArr, url, scriptType) {
   if (postArr.length === 0) {
+    if (scriptType === 2) {
+      document.getElementById('comments').style.display = 'block';
+      window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
+      document.getElementById('redComments').style.display = 'none';
+      document.getElementById('redImgWrap').style.display = 'flex';
+    }
     document.getElementById(
       'message'
     ).innerHTML = `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`;
