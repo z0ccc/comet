@@ -69,7 +69,7 @@ async function getPosts(queries, url, scriptType) {
           postArr = postArr.concat(resJson[i].data.children);
         }
       }
-      if (scriptType === true) {
+      if (scriptType === 0) {
         setIcon(postArr);
       } else {
         postArr = [
@@ -101,7 +101,6 @@ function checkPosts(postArr, url, scriptType) {
   if (postArr.length === 0) {
     if (scriptType === 2) {
       document.getElementById('comments').style.display = 'block';
-      window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
       document.getElementById('redComments').style.display = 'none';
       document.getElementById('redImgWrap').style.display = 'flex';
     }
