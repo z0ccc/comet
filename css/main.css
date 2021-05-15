@@ -32,7 +32,7 @@ p {
   margin: 0;
 }
 
-ol {
+ol, ul {
   margin: 0;
   padding-inline-start: 40px !important;
 }
