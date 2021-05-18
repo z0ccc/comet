@@ -18,6 +18,7 @@ function ytPrepare() {
 
     redComments = document.createElement('div');
     redComments.setAttribute('id', 'redComments');
+    redComments.setAttribute('class', 'ytClass');
     redComments.style.backgroundColor = 'transparent';
     redImgWrap = document.createElement('div');
     redImgWrap.setAttribute('id', 'redImgWrap');
@@ -35,7 +36,7 @@ function ytPrepare() {
       '../images/grey_32.png'
     )}" height="30px" width="30px"/>`;
 
-    fetch(chrome.runtime.getURL('html/youtube.html'))
+    fetch(chrome.runtime.getURL('html/youtube.html'), { mode: 'cors' })
       .then((response) => response.text())
       .then((template) => {
         Mustache.parse(template);
