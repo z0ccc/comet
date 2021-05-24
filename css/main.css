@@ -96,6 +96,7 @@ blockquote {
   border-radius: 2px;
   cursor: pointer;
   font-size: 12px;
+  background-color: var(--background);
 }
 
 .subreddit:hover {
