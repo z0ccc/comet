@@ -14,6 +14,11 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'no-plusplus': 'off',
+    'comma-dangle': 'off',
+    'operator-linebreak': 'off',
+    'no-use-before-define': 'off',
+    'linebreak-style': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [
       1,
