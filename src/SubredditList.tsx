@@ -1,17 +1,13 @@
 import * as React from 'react';
+import { Item } from './types';
 
-// type Item = {
-//   name: string;
-//   commentNum: string;
-// };
+interface ComponentProps {
+  items: Item[];
+}
 
-// interface ComponentProps {
-//   items: Item[];
-// }
-
-const SubredditList = ({ items }: any) => (
+const SubredditList = ({ items }: ComponentProps) => (
   <>
-    {items.map((item: any) => (
+    {items.map((item: Item) => (
       <div className="subreddit">
         {item.name} {item.commentNum}
       </div>

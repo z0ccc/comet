@@ -1,3 +1,5 @@
+import { Item } from './types';
+
 // Gets reddit search query URLs
 export const getQueries = (url: string) => {
   const queries = [`https://api.reddit.com/submit?url=${url}`];
@@ -92,7 +94,7 @@ const compare = (a: any, b: any) => b.data.num_comments - a.data.num_comments;
 
 // Gets and prints list of subreddits
 export const getSubreddits = (data: any) => {
-  const subreddits: any = [];
+  const subreddits: Item[] = [];
   for (let i = 0; i < data.length; i++) {
     subreddits.push({ name: data[i].data.subreddit, commentNum: `(${data[i].data.num_comments})` });
   }
