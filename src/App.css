@@ -1,39 +1,70 @@
-.App {
-  text-align: center;
+:root {
+  --scrollbar: #ccc;
+  --light-grey: #e9e9e9;
+  --border: #cacfd2;
+  --text: #212121;
+  --blue: #369;
+  --dark-grey: #888;
+  --background: #fff;
+  --link-blue: #0079d3;
+  --blockQuote: #4f4f4f;
+  scrollbar-color: var(--scrollbar) transparent !important;
+  scrollbar-width: thin !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#redComments {
+  font-family: Verdana, sans-serif;
+  color: var(--text);
+  background-color: var(--background);
+  font-size: 25px;
+  line-height: 22px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.popup {
+  width: 600px;
+  margin: 8px;
 }
 
-.App-header {
-  background-color: #282c34;
+#subredditWrap {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  min-width: 100px;
-  padding: 10px;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+#subreddits::-webkit-scrollbar {
+  height: 7px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 2px;
+}
+
+#subreddits {
+  display: flex;
+  overflow: auto;
+  white-space: nowrap;
+  scrollbar-color: var(--scrollbar) transparent !important;
+  scrollbar-width: thin !important;
+}
+
+.subreddit {
+  padding: 4px;
+  margin: 0 4px 0 0;
+  border: solid 1px var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 12px;
+  background-color: var(--background);
+}
+
+.subreddit:hover {
+  background-color: var(--light-grey) !important;
 }

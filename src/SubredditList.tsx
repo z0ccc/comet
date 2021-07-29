@@ -6,13 +6,13 @@ interface ComponentProps {
 }
 
 const SubredditList = ({ items }: ComponentProps) => (
-  <>
+  <div id="subreddits">
     {items.map((item: Item) => (
       <div className="subreddit">
         {item.name} {item.commentNum}
       </div>
     ))}
-  </>
+  </div>
 );
 
 export default SubredditList;
