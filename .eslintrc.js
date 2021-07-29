@@ -35,7 +35,8 @@ module.exports = {
       },
     ],
     'import/prefer-default-export': 'off',
-    '@typescript-eslint/no-use-before-define': 'off',
+    'max-len': 'off',
+    'react/jsx-one-expression-per-line': 'off'
   },
   settings: {
     'import/resolver': {
