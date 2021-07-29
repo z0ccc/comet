@@ -34,8 +34,39 @@ export const getQueries = (url: string) => {
       queries.push(queries[i].replace('www.youtube.com/watch?v=', 'youtu.be/'));
     }
   }
-  console.log(queries);
-  // getPosts(queries, url, scriptType);
+  getPosts(queries, url);
 };
 
-export const foo = 'foo';
+// Gets list of matching reddit posts
+async function getPosts(queries: string[], url: string) {
+  const promisesFetch: Promise<Response>[] = [];
+  const promisesJson: Promise<Response>[] = [];
+  let postArr: string[] = [];
+
+  for (let i = 0; i < queries.length; i++) {
+    promisesFetch.push(fetch(queries[i]));
+  }
+
+  Promise.all(promisesFetch).then((resFetch: Response[]) => {
+    for (let i = 0; i < resFetch.length; i++) {
+      promisesJson.push(resFetch[i].json());
+    }
+    Promise.all(promisesJson).then((resJson: Response[]) => {
+      for (let i = 0; i < resJson.length; i++) {
+        if (
+          (<any>resJson[i]).kind === 'Listing' &&
+          (<any>resJson[i]).data.children.length > 0
+        ) {
+          postArr = postArr.concat((<any>resJson[i]).data.children);
+        }
+      }
+      postArr = [
+        ...new Map(postArr.map((item: any) => [item.data.id, item])).values(),
+      ];
+      postArr = postArr.sort(compare);
+      checkPosts(postArr, url);
+    });
+  });
+}
+
+const compare = (a: any, b: any) => b.data.num_comments - a.data.num_comments;
