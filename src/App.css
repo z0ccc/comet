@@ -56,7 +56,7 @@
 }
 
 .subreddit {
-  padding: 4px;
+  padding: 6px;
   margin: 0 4px 0 0;
   border: solid 1px var(--border);
   border-radius: 2px;

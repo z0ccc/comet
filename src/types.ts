@@ -12,3 +12,11 @@ export type PostType = {
   date: string,
   author: string,
 };
+
+export type CommentType = {
+  id: number,
+  author: string,
+  score: string,
+  date: string,
+  bodyHTML: string,
+};

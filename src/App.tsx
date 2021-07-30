@@ -2,19 +2,27 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {
-  getQueries, getPostArr, getSubreddits, getPosts, getComments
+  getQueries,
+  getPostArr,
+  getSubreddits,
+  getPosts,
+  getCommentArr,
+  getComments,
 } from './main';
-import { SubredditType, PostType } from './types';
-import SubredditList from './SubredditList';
+import { SubredditType, PostType, CommentType } from './types';
+import Subreddits from './Subreddits';
 import Post from './Post';
+import Comments from './Comments';
+
 import './App.css';
 
 const App = () => {
+  const [firstRender, setfirstRender] = useState<boolean>(false);
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
-  const [firstRender, setfirstRender] = useState<boolean>(false);
+  const [comments, setComments] = useState<CommentType[]>([]);
 
   useEffect(() => {
     setfirstRender(true);
@@ -24,9 +32,9 @@ const App = () => {
       setPosts(getPosts(postArr));
       const firstPost: PostType[] = getPosts(postArr);
       setPost(firstPost[0]);
-      // getComments(firstPost[0].permalink).then((comments) => {
-      //   console.log(comments);
-      // });
+      getCommentArr(firstPost[0].permalink).then((commentArr) => {
+        setComments(getComments(commentArr));
+      });
     });
   }, []);
 
@@ -36,12 +44,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <SubredditList
+      <Subreddits
         subreddits={subreddits}
         selected={selected}
         setSelected={setSelected}
       />
       {post !== null && <Post post={post} />}
+      <Comments comments={comments} />
     </div>
   );
 };

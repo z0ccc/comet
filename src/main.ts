@@ -1,4 +1,4 @@
-import { SubredditType, PostType } from './types';
+import { SubredditType, PostType, CommentType } from './types';
 
 // Gets reddit search query URLs
 export const getQueries = (url: string) => {
@@ -94,8 +94,9 @@ export const getPosts = (data: any) => {
 };
 
 // Gets list of comments from post
-export const getComments = (permalink: string) => {
-  fetch(`https://api.reddit.com${permalink}`)
+export const getCommentArr = async (permalink: string) => {
+  let commentArr: string[] = [];
+  await fetch(`https://api.reddit.com${permalink}`)
     .then((response) => response.json())
     .then((json) => {
       if (
@@ -105,67 +106,82 @@ export const getComments = (permalink: string) => {
         json[1].data &&
         json[1].data.children.length
       ) {
-        console.log(json[1].data.children);
-        // commentArr = await Promise.all(json[1].data.children);
-        // showComments(commentArr, post);
+        commentArr = json[1].data.children;
       }
     });
+  return commentArr;
+};
+
+// Gets and print post info
+export const getComments = (data: any) => {
+  const comments: CommentType[] = [];
+  let bodyHTML: string;
+  for (let i = 0; i < data.length; i++) {
+    bodyHTML = decodeHtml(data[i].data.body_html).replace(
+      '<a href=',
+      '<a target="_blank" href='
+    );
+    comments.push({
+      id: data[i].data.id, author: data[i].data.author, score: formatNumber(data[i].data.score), date: convertDate(data[i].data.created_utc), bodyHTML
+    });
+  }
+  return comments;
 };
 
 // Prints comments
-const showComments = (commentArr, post) => {
-  let loadID;
-  let bodyHTML;
+// const showComments = (commentArr, post) => {
+//   let loadID;
+//   let bodyHTML;
 
-  fetch(chrome.runtime.getURL('html/comment.html'))
-    .then((response) => response.text())
-    .then((template) => {
-      for (let i = 0; i < commentArr.length; i++) {
-        if (commentArr[i].kind === 'more') {
-          loadID = document.getElementById(
-            commentArr[i].data.parent_id.substring(3)
-          );
-          if (loadID) {
-            loadID.insertAdjacentHTML(
-              'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
-            );
-          } else {
-            document.getElementById(
-              `c_${post}`
-            ).insertAdjacentHTML(
-              'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
-            );
-          }
-        } else {
-          getReplies(commentArr[i], post);
-          bodyHTML = decodeHtml(commentArr[i].data.body_html).replace(
-            '<a href=',
-            '<a target="_blank" href='
-          );
-          Mustache.parse(template);
-          const rendered = Mustache.render(template, {
-            id: commentArr[i].data.id,
-            author: commentArr[i].data.author,
-            score: formatNumber(commentArr[i].data.score),
-            date: convertDate(commentArr[i].data.created_utc),
-            bodyHTML,
-          });
+//   fetch(chrome.runtime.getURL('html/comment.html'))
+//     .then((response) => response.text())
+//     .then((template) => {
+//       for (let i = 0; i < commentArr.length; i++) {
+//         if (commentArr[i].kind === 'more') {
+//           loadID = document.getElementById(
+//             commentArr[i].data.parent_id.substring(3)
+//           );
+//           if (loadID) {
+//             loadID.insertAdjacentHTML(
+//               'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
+//             );
+//           } else {
+//             document.getElementById(
+//               `c_${post}`
+//             ).insertAdjacentHTML(
+//               'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
+//             );
+//           }
+//         } else {
+//           getReplies(commentArr[i], post);
+//           bodyHTML = decodeHtml(commentArr[i].data.body_html).replace(
+//             '<a href=',
+//             '<a target="_blank" href='
+//           );
+//           Mustache.parse(template);
+//           const rendered = Mustache.render(template, {
+//             id: commentArr[i].data.id,
+//             author: commentArr[i].data.author,
+//             score: formatNumber(commentArr[i].data.score),
+//             date: convertDate(commentArr[i].data.created_utc),
+//             bodyHTML,
+//           });
 
-          if (commentArr[i].data.parent_id.substring(0, 2) === 't1') {
-            document.getElementById(
-              commentArr[i].data.parent_id.substring(3)
-            ).insertAdjacentHTML(
-              'beforeend', rendered
-            );
-          } else {
-            document.getElementById(`c_${post}`).insertAdjacentHTML(
-              'beforeend', rendered
-            );
-          }
-        }
-      }
-    });
-};
+//           if (commentArr[i].data.parent_id.substring(0, 2) === 't1') {
+//             document.getElementById(
+//               commentArr[i].data.parent_id.substring(3)
+//             ).insertAdjacentHTML(
+//               'beforeend', rendered
+//             );
+//           } else {
+//             document.getElementById(`c_${post}`).insertAdjacentHTML(
+//               'beforeend', rendered
+//             );
+//           }
+//         }
+//       }
+//     });
+// };
 
 const decodeHtml = (html: string) => {
   const txt = document.createElement('textarea');
