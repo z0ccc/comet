@@ -68,3 +68,50 @@
 .subreddit:hover {
   background-color: var(--light-grey) !important;
 }
+
+.post {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.postTitle {
+  font-size: 16px;
+  margin: 0 0 4px 0;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.postTitle:hover {
+  text-decoration: underline;
+}
+
+.postScore {
+  margin: 0 8px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark-grey);
+}
+
+.infoPostWrap {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+}
+
+.postAuthor {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.postAuthor:hover {
+  text-decoration: underline;
+}
+
+.info {
+  color: var(--dark-grey);
+}
+
+.selectedPost {
+  background-color: var(--light-grey);
+}

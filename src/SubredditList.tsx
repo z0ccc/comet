@@ -1,17 +1,22 @@
 import * as React from 'react';
-import { Item } from './types';
+import { SubredditType } from './types';
 
 interface ComponentProps {
-  items: Item[];
+  subreddits: SubredditType[];
+  selected: number;
 }
 
-const SubredditList = ({ items }: ComponentProps) => (
+const SubredditList = ({ subreddits, selected }: ComponentProps) => (
   <div id="subreddits">
-    {items.map((item: Item) => (
-      <div className="subreddit">
-        {item.name} {item.commentNum}
-      </div>
-    ))}
+    {subreddits.map((subreddit: SubredditType) => {
+      let selectedMatch: boolean = false;
+      if (selected === subreddit.id) selectedMatch = true;
+      return (
+        <div className={`${selectedMatch ? 'selectedPost' : ''} subreddit`}>
+          {subreddit.name} {subreddit.commentNum}
+        </div>
+      );
+    })}
   </div>
 );
 

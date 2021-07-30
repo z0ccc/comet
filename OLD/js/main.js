@@ -43,11 +43,11 @@ function getQueries(url, scriptType) {
       queries.push(queries[i].replace('www.youtube.com/watch?v=', 'youtu.be/'));
     }
   }
-  getPosts(queries, url, scriptType);
+  getJson(queries, url, scriptType);
 }
 
 // Gets list of matching reddit posts
-async function getPosts(queries, url, scriptType) {
+async function getJson(queries, url, scriptType) {
   const promisesFetch = [];
   const promisesJson = [];
   let postArr = [];
