@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import {
   getQueries, getJson, getSubreddits, getPosts
 } from './main';
@@ -14,8 +14,10 @@ const App = () => {
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
+  const [firstRender, setfirstRender] = useState<boolean>(false);
 
   useEffect(() => {
+    setfirstRender(true);
     const queries: string[] = getQueries('https://www.youtube.com/watch?v=6swmTBVI83k');
     getJson(queries).then((value) => {
       setSubreddits(getSubreddits(value));
@@ -26,9 +28,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(selected);
-    console.log(posts[selected]);
-    if (selected) setPost(posts[selected]);
+    if (firstRender) setPost(posts[selected]);
   }, [selected]);
 
   return (
