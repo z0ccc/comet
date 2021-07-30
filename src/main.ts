@@ -109,6 +109,7 @@ export const getCommentArr = async (permalink: string) => {
         commentArr = json[1].data.children;
       }
     });
+  console.log(commentArr);
   return commentArr;
 };
 
@@ -117,15 +118,33 @@ export const getComments = (data: any) => {
   const comments: CommentType[] = [];
   let bodyHTML: string;
   for (let i = 0; i < data.length; i++) {
-    bodyHTML = decodeHtml(data[i].data.body_html).replace(
-      '<a href=',
-      '<a target="_blank" href='
-    );
-    comments.push({
-      id: data[i].data.id, author: data[i].data.author, score: formatNumber(data[i].data.score), date: convertDate(data[i].data.created_utc), bodyHTML
-    });
+    if (data[i].kind === 'more') {
+      console.log(data[i]);
+    } else {
+      getReplies(data[i]);
+      bodyHTML = decodeHtml(data[i].data.body_html).replace(
+        '<a href=',
+        '<a target="_blank" href='
+      );
+      comments.push({
+        id: data[i].data.id, author: data[i].data.author, score: formatNumber(data[i].data.score), date: convertDate(data[i].data.created_utc), bodyHTML
+      });
+    }
   }
   return comments;
+};
+
+// Gets replies to comments
+export const getReplies = (comment: any) => {
+  if (
+    comment.kind === 't1' &&
+    comment.data.replies &&
+    comment.data.replies.kind === 'Listing' &&
+    comment.data.replies.data.children
+  ) {
+    console.log(comment.data.replies.data.children);
+    // showComments(comment.data.replies.data.children, post);
+  }
 };
 
 // Prints comments

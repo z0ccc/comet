@@ -37,7 +37,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'max-len': 'off',
     'react/jsx-one-expression-per-line': 'off',
-    'react/no-danger': 'off'
   },
   settings: {
     'import/resolver': {

@@ -20,3 +20,9 @@ export type CommentType = {
   date: string,
   bodyHTML: string,
 };
+
+// export type LoadMoreType = {
+//   id: number,
+//   title: string,
+//   id: number,
+// };
