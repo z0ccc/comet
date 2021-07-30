@@ -14,7 +14,9 @@ export type PostType = {
 };
 
 export type CommentType = {
-  id: number,
+  index: number,
+  id: string,
+  parentID: string | null,
   author: string,
   score: string,
   date: string,

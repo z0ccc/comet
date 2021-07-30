@@ -109,25 +109,30 @@ export const getCommentArr = async (permalink: string) => {
         commentArr = json[1].data.children;
       }
     });
-  console.log(commentArr);
   return commentArr;
 };
 
 // Gets and print post info
-export const getComments = (data: any) => {
+export const getComments = (data: any, topLevel: boolean) => {
   const comments: CommentType[] = [];
   let bodyHTML: string;
+  let parentID: string | null;
   for (let i = 0; i < data.length; i++) {
     if (data[i].kind === 'more') {
-      console.log(data[i]);
+      // console.log(data[i]);
     } else {
-      getReplies(data[i]);
+      // getReplies(data[i]);
       bodyHTML = decodeHtml(data[i].data.body_html).replace(
         '<a href=',
         '<a target="_blank" href='
       );
+      if (topLevel) {
+        parentID = null;
+      } else {
+        parentID = data[i].data.parent_id.substring(3);
+      }
       comments.push({
-        id: data[i].data.id, author: data[i].data.author, score: formatNumber(data[i].data.score), date: convertDate(data[i].data.created_utc), bodyHTML
+        index: i, id: data[i].data.id, parentID, author: data[i].data.author, score: formatNumber(data[i].data.score), date: convertDate(data[i].data.created_utc), bodyHTML
       });
     }
   }
@@ -142,65 +147,12 @@ export const getReplies = (comment: any) => {
     comment.data.replies.kind === 'Listing' &&
     comment.data.replies.data.children
   ) {
-    console.log(comment.data.replies.data.children);
-    // showComments(comment.data.replies.data.children, post);
+    // console.log(comment.data.replies.data.children);
+    return getComments(comment.data.replies.data.children, false);
+    // return comment.data.replies.data.children;
   }
+  return null;
 };
-
-// Prints comments
-// const showComments = (commentArr, post) => {
-//   let loadID;
-//   let bodyHTML;
-
-//   fetch(chrome.runtime.getURL('html/comment.html'))
-//     .then((response) => response.text())
-//     .then((template) => {
-//       for (let i = 0; i < commentArr.length; i++) {
-//         if (commentArr[i].kind === 'more') {
-//           loadID = document.getElementById(
-//             commentArr[i].data.parent_id.substring(3)
-//           );
-//           if (loadID) {
-//             loadID.insertAdjacentHTML(
-//               'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
-//             );
-//           } else {
-//             document.getElementById(
-//               `c_${post}`
-//             ).insertAdjacentHTML(
-//               'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
-//             );
-//           }
-//         } else {
-//           getReplies(commentArr[i], post);
-//           bodyHTML = decodeHtml(commentArr[i].data.body_html).replace(
-//             '<a href=',
-//             '<a target="_blank" href='
-//           );
-//           Mustache.parse(template);
-//           const rendered = Mustache.render(template, {
-//             id: commentArr[i].data.id,
-//             author: commentArr[i].data.author,
-//             score: formatNumber(commentArr[i].data.score),
-//             date: convertDate(commentArr[i].data.created_utc),
-//             bodyHTML,
-//           });
-
-//           if (commentArr[i].data.parent_id.substring(0, 2) === 't1') {
-//             document.getElementById(
-//               commentArr[i].data.parent_id.substring(3)
-//             ).insertAdjacentHTML(
-//               'beforeend', rendered
-//             );
-//           } else {
-//             document.getElementById(`c_${post}`).insertAdjacentHTML(
-//               'beforeend', rendered
-//             );
-//           }
-//         }
-//       }
-//     });
-// };
 
 const decodeHtml = (html: string) => {
   const txt = document.createElement('textarea');

@@ -8,6 +8,7 @@ import {
   getPosts,
   getCommentArr,
   getComments,
+  getReplies,
 } from './main';
 import { SubredditType, PostType, CommentType } from './types';
 import Subreddits from './Subreddits';
@@ -22,7 +23,7 @@ const App = () => {
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const [comments, setComments] = useState<any>([]);
 
   useEffect(() => {
     setfirstRender(true);
@@ -32,8 +33,22 @@ const App = () => {
       setPosts(getPosts(postArr));
       const firstPost: PostType[] = getPosts(postArr);
       setPost(firstPost[0]);
+
       getCommentArr(firstPost[0].permalink).then((commentArr) => {
-        setComments(getComments(commentArr));
+        const arr: any = getComments(commentArr, true);
+        console.log(getComments(commentArr, true));
+        commentArr.forEach((i: any) => {
+          const replies: any = getReplies(i);
+          if (replies !== null) {
+            replies.forEach((j: any) => {
+              const test = arr.find((obj: any) => obj.id === j.parentID);
+              // console.log(test.index);
+              arr.splice(test.index + 1, 0, j);
+            });
+          }
+        });
+        console.log(arr);
+        setComments(arr);
       });
     });
   }, []);
@@ -50,7 +65,7 @@ const App = () => {
         setSelected={setSelected}
       />
       {post !== null && <Post post={post} />}
-      <Comments comments={comments} />
+      <Comments commentsArr={comments} />
     </div>
   );
 };
