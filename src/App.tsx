@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {
-  getQueries, getJson, getSubreddits, getPosts
+  getQueries, PostArr, getSubreddits, getPosts, getComments
 } from './main';
 import { SubredditType, PostType } from './types';
 import SubredditList from './SubredditList';
@@ -19,11 +19,13 @@ const App = () => {
   useEffect(() => {
     setfirstRender(true);
     const queries: string[] = getQueries('https://www.youtube.com/watch?v=6swmTBVI83k');
-    getJson(queries).then((value) => {
-      setSubreddits(getSubreddits(value));
-      setPosts(getPosts(value));
-      const firstPost: PostType[] = getPosts(value);
+    getPostArr(queries).then((postArr) => {
+      setSubreddits(getSubreddits(postArr));
+      setPosts(getPosts(postArr));
+      const firstPost: PostType[] = getPosts(postArr);
       setPost(firstPost[0]);
+      getComments(firstPost[0].permalink).then((postArr) => {
+      }
     });
   }, []);
 

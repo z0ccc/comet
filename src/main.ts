@@ -40,7 +40,7 @@ export const getQueries = (url: string) => {
 };
 
 // Gets list of matching reddit posts
-export const getJson = async (queries: string[]) => {
+export const getPostArr = async (queries: string[]) => {
   const promisesFetch: Promise<Response>[] = [];
   const promisesJson: Promise<Response>[] = [];
   let postArr: string[] = [];
