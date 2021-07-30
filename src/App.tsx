@@ -32,7 +32,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <SubredditList subreddits={subreddits} selected={selected} />
+      <SubredditList
+        subreddits={subreddits}
+        selected={selected}
+        setSelected={setSelected}
+      />
       <Post post={post} />
     </div>
   );
