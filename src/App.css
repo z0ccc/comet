@@ -115,3 +115,108 @@
 .selectedPost {
   background-color: var(--light-grey);
 }
+
+.comment {
+  display: block;
+}
+
+.comment .comment {
+  padding: 0 0 0 12px;
+  border-left: 1px solid var(--border);
+}
+
+.commentInfo {
+  margin: 6px 0 6px 0;
+}
+
+.infoWrap {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+}
+
+.infoWrap > *:not(:last-child) {
+  margin: 0 6px 0 0;
+}
+
+.commentTitle {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.commentTitle:hover {
+  text-decoration: underline;
+}
+
+.commentBody {
+  font-size: 14px;
+}
+
+.loadMore {
+  padding: 6px 0 6px 0px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.comment .loadMore {
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+}
+
+.info {
+  color: var(--dark-grey);
+}
+
+.md a {
+  color: var(--link-blue);
+  text-decoration: none;
+}
+
+#message {
+  text-align: center;
+}
+
+.submit {
+  color: var(--link-blue);
+  text-decoration: none;
+}
+
+.submit:hover {
+  text-decoration: underline;
+}
+
+select {
+  display: inline-block;
+  border: solid 1px var(--border);
+  background-color: var(--background);
+  border-radius: 2px;
+  color: var(--text);
+  margin: 0 0 6px 0;
+  font-size: 12px;
+}
+
+p {
+  margin: 0;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding-inline-start: 40px !important;
+}
+
+blockquote {
+  border-left: 2px solid var(--border);
+  color: var(--blockQuote);
+  padding: 0 8px;
+  margin: 2px 0 2px 5px;
+}
+
+.md h1,
+.md h2 {
+  font-size: 20px;
+  line-height: 22px;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
