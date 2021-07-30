@@ -106,8 +106,63 @@ export const getComments = (permalink: string) => {
         json[1].data.children.length
       ) {
         console.log(json[1].data.children);
-        // commentList = await Promise.all(json[1].data.children);
-        // showComments(commentList, post);
+        // commentArr = await Promise.all(json[1].data.children);
+        // showComments(commentArr, post);
+      }
+    });
+};
+
+// Prints comments
+const showComments = (commentArr, post) => {
+  let loadID;
+  let bodyHTML;
+
+  fetch(chrome.runtime.getURL('html/comment.html'))
+    .then((response) => response.text())
+    .then((template) => {
+      for (let i = 0; i < commentArr.length; i++) {
+        if (commentArr[i].kind === 'more') {
+          loadID = document.getElementById(
+            commentArr[i].data.parent_id.substring(3)
+          );
+          if (loadID) {
+            loadID.insertAdjacentHTML(
+              'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
+            );
+          } else {
+            document.getElementById(
+              `c_${post}`
+            ).insertAdjacentHTML(
+              'beforeend', `<div class="commentTitle loadMore" id="m_${commentArr[i].data.children}">load more comments (${commentArr[i].data.count})</div>`
+            );
+          }
+        } else {
+          getReplies(commentArr[i], post);
+          bodyHTML = decodeHtml(commentArr[i].data.body_html).replace(
+            '<a href=',
+            '<a target="_blank" href='
+          );
+          Mustache.parse(template);
+          const rendered = Mustache.render(template, {
+            id: commentArr[i].data.id,
+            author: commentArr[i].data.author,
+            score: formatNumber(commentArr[i].data.score),
+            date: convertDate(commentArr[i].data.created_utc),
+            bodyHTML,
+          });
+
+          if (commentArr[i].data.parent_id.substring(0, 2) === 't1') {
+            document.getElementById(
+              commentArr[i].data.parent_id.substring(3)
+            ).insertAdjacentHTML(
+              'beforeend', rendered
+            );
+          } else {
+            document.getElementById(`c_${post}`).insertAdjacentHTML(
+              'beforeend', rendered
+            );
+          }
+        }
       }
     });
 };

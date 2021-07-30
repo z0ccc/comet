@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {
-  getQueries, PostArr, getSubreddits, getPosts, getComments
+  getQueries, getPostArr, getSubreddits, getPosts, getComments
 } from './main';
 import { SubredditType, PostType } from './types';
 import SubredditList from './SubredditList';
@@ -24,8 +24,9 @@ const App = () => {
       setPosts(getPosts(postArr));
       const firstPost: PostType[] = getPosts(postArr);
       setPost(firstPost[0]);
-      getComments(firstPost[0].permalink).then((postArr) => {
-      }
+      // getComments(firstPost[0].permalink).then((comments) => {
+      //   console.log(comments);
+      // });
     });
   }, []);
 
