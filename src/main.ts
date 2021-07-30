@@ -73,54 +73,16 @@ export const getJson = async (queries: string[]) => {
 
 const compare = (a: any, b: any) => b.data.num_comments - a.data.num_comments;
 
-// // Checks if there are posts for the current url
-// export const checkPosts = async (queries: string[]) => {
-// function checkPosts(postArr, url) {
-//   if (postArr.length === 0) {
-//     // if (scriptType === 2) {
-//     //   document.getElementById('comments').style.display = 'block';
-//     //   document.getElementById('redComments').style.display = 'none';
-//     //   document.getElementById('redImgWrap').style.display = 'flex';
-//     // }
-//     const messageEl = document.getElementById('message');
-//     messageEl.textContent = '';
-//     messageEl.insertAdjacentHTML(
-//       'beforeend', `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`
-//     );
-//   } else {
-//     getSubreddits(postArr);
-//   }
-// }
-
 // Gets and prints list of subreddits
 export const getSubreddits = (data: any) => {
   const subreddits: SubredditType[] = [];
   for (let i = 0; i < data.length; i++) {
     subreddits.push({ id: i, name: data[i].data.subreddit, commentNum: `(${data[i].data.num_comments})` });
-    // if (i === 0) {
-    //   // getPost(data[i]);
-    // }
   }
   return subreddits;
-
-  // document
-  //   .getElementById('subreddits')
-  //   .insertAdjacentHTML(
-  //     'beforeend',
-  //     `<div class="subreddit" id="${data[i].data.permalink}">${data[i].data.subreddit} (${data[i].data.num_comments})</div>`
-  //   );
-
-  // if (i === 0) {
-  //   document.getElementById(data[i].data.permalink).style.backgroundColor =
-  //     'var(--light-grey)';
-  //   document.getElementById(data[i].data.permalink).className +=
-  //     ' currentPost';
-  //   getPost(data[i], 1);
-  // } else {
-  //   getPost(data[i], 0);
-  // }
 };
 
+// Gets and print post info
 export const getPosts = (data: any) => {
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
@@ -131,26 +93,24 @@ export const getPosts = (data: any) => {
   return posts;
 };
 
-// Gets and print post info
-// export const getPost = (item: any) => {
-// fetch(chrome.runtime.getURL('html/post.html'))
-//   .then((response) => response.text())
-//   .then((template) => {
-//     Mustache.parse(template);
-//     const rendered = Mustache.render(template, {
-//       id: item.data.id,
-//       score: formatNumber(item.data.score),
-//       title: decodeHtml(item.data.title),
-//       permalink: item.data.permalink,
-//       date: convertDate(item.data.created_utc),
-//       author: item.data.author,
-//     });
-
-//     document.getElementById('posts').insertAdjacentHTML(
-//       'beforeend', rendered
-//     );
-//   });
-// };
+// Gets list of comments from post
+export const getComments = (permalink: string) => {
+  fetch(`https://api.reddit.com${permalink}`)
+    .then((response) => response.json())
+    .then((json) => {
+      if (
+        json &&
+        json[1] &&
+        json[1].kind === 'Listing' &&
+        json[1].data &&
+        json[1].data.children.length
+      ) {
+        console.log(json[1].data.children);
+        // commentList = await Promise.all(json[1].data.children);
+        // showComments(commentList, post);
+      }
+    });
+};
 
 const decodeHtml = (html: string) => {
   const txt = document.createElement('textarea');
