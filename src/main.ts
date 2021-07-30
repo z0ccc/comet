@@ -128,7 +128,6 @@ export const getPosts = (data: any) => {
       id: i, score: formatNumber(data[i].data.score), title: decodeHtml(data[i].data.title), permalink: data[i].data.permalink, date: convertDate(data[i].data.created_utc), author: data[i].data.author
     });
   }
-  console.log(posts);
   return posts;
 };
 

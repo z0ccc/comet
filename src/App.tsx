@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   getQueries, getJson, getSubreddits, getPosts
 } from './main';
@@ -12,23 +12,24 @@ import './App.css';
 const App = () => {
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
-  const [post, setPost] = useState<PostType>({
-    id: 0,
-    score: '',
-    title: '',
-    permalink: '',
-    date: '',
-    author: '',
-  });
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const [post, setPost] = useState<PostType | null>(null);
 
   useEffect(() => {
     const queries: string[] = getQueries('https://www.youtube.com/watch?v=6swmTBVI83k');
     getJson(queries).then((value) => {
       setSubreddits(getSubreddits(value));
+      setPosts(getPosts(value));
       const firstPost: PostType[] = getPosts(value);
       setPost(firstPost[0]);
     });
   }, []);
+
+  useEffect(() => {
+    console.log(selected);
+    console.log(posts[selected]);
+    if (selected) setPost(posts[selected]);
+  }, [selected]);
 
   return (
     <div className="App">
@@ -37,7 +38,7 @@ const App = () => {
         selected={selected}
         setSelected={setSelected}
       />
-      <Post post={post} />
+      {post !== null && <Post post={post} />}
     </div>
   );
 };
