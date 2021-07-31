@@ -148,7 +148,7 @@ export const getReplies = (comment: any) => {
     comment.data.replies.data.children
   ) {
     // console.log(comment.data.replies.data.children);
-    return getComments(comment.data.replies.data.children, false);
+    return getComments(comment.data.replies.data.children.reverse(), false);
     // return comment.data.replies.data.children;
   }
   return null;

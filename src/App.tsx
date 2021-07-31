@@ -41,9 +41,11 @@ const App = () => {
           const replies: any = getReplies(i);
           if (replies !== null) {
             replies.forEach((j: any) => {
-              const test = arr.find((obj: any) => obj.id === j.parentID);
-              // console.log(test.index);
-              arr.splice(test.index + 1, 0, j);
+              const object = arr.find((obj: any) => obj.id === j.parentID);
+              const index = arr.indexOf(object);
+              console.log(object);
+              console.log(index);
+              arr.splice(index + 1, 0, j);
             });
           }
         });
