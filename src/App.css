@@ -117,10 +117,11 @@
 }
 
 .comment {
-  display: block;
+  display: flex;
 }
 
-.comment .comment {
+.commentLine {
+  height: auto;
   padding: 0 0 0 12px;
   border-left: 1px solid var(--border);
 }

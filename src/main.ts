@@ -125,7 +125,6 @@ export const getCommentArr = async (permalink: string) => {
 // Gets and print post info
 export const getComments = (data: any) => {
   const comments: any = [];
-  console.log(data);
 
   for (let i = 0; i < data.length; i++) {
     // console.log(data[i].data.body_html);
@@ -157,18 +156,6 @@ export const getComments = (data: any) => {
     }
   }
   return comments;
-};
-
-// Gets replies to comments
-export const getReplies = (arr: any) => {
-  // console.log(arr.length);
-  if (arr.length) {
-    for (let i = 0; i < arr.length; i++) {
-      getReplies(arr[i]);
-    }
-  } else {
-    console.log(arr);
-  }
 };
 
 // Gets and print post info

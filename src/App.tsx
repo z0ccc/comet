@@ -8,7 +8,6 @@ import {
   getPosts,
   getCommentArr,
   getComments,
-  getReplies,
 } from './main';
 import { SubredditType, PostType, CommentType } from './types';
 import Subreddits from './Subreddits';
@@ -51,7 +50,7 @@ const App = () => {
         // });
         // eslint-disable-next-line prefer-spread
         // const merged: any = [].concat.apply([], arr);
-        console.log(arr.flat(Infinity));
+        // console.log(arr.flat(Infinity));
 
         // getReplies(arr);
         // console.log(arr);
