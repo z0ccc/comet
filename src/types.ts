@@ -20,6 +20,7 @@ export type CommentType = {
   score: string,
   date: string,
   bodyHTML: string,
+  depth: number,
 };
 
 // export type LoadMoreType = {

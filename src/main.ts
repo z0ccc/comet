@@ -125,7 +125,7 @@ export const getCommentArr = async (permalink: string) => {
 // Gets and print post info
 export const getComments = (data: any) => {
   const comments: any = [];
-  // console.log(data);
+  console.log(data);
 
   for (let i = 0; i < data.length; i++) {
     // console.log(data[i].data.body_html);
@@ -142,6 +142,7 @@ export const getComments = (data: any) => {
         score: formatNumber(data[i].data.score),
         date: convertDate(data[i].data.created_utc),
         bodyHTML,
+        depth: data[i].data.depth,
       });
       if (
         data[i].data.replies &&

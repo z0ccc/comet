@@ -11,7 +11,7 @@ interface ComponentProps {
 const Comments = ({ comments }: ComponentProps) => (
   <div id="comments">
     {comments.map((comment: any) => (
-      <div className="commentInfo">
+      <div className="commentInfo" style={{ marginLeft: comment.depth * 12 }}>
         <div className="infoWrap">
           <a
             href={`https://reddit.com/u/${comment.author}`}
