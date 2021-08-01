@@ -121,13 +121,14 @@
 }
 
 .commentLine {
+  opacity: 0.4;
   height: auto;
-  padding: 0 0 0 12px;
+  padding: 0 0 0px 12px;
   border-left: 1px solid var(--border);
 }
 
 .commentInfo {
-  margin: 6px 0 6px 0;
+  margin: 6px 0;
 }
 
 .infoWrap {
