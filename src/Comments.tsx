@@ -5,16 +5,16 @@ import Parser from 'html-react-parser';
 import { CommentType } from './types';
 
 interface ComponentProps {
-  commentsArr: any;
+  comments: any;
 }
 
-const Comments = ({ commentsArr }: ComponentProps) => (
+const Comments = ({ comments }: ComponentProps) => (
   <div id="comments">
-    {commentsArr.map((comment: any) => (
+    {comments.map((comment: any) => (
       <div className="commentInfo">
         <div className="infoWrap">
           <a
-            href="https://reddit.com/u/{{author}}"
+            href={`https://reddit.com/u/${comment.author}`}
             target="_blank"
             className="commentTitle"
             rel="noreferrer"

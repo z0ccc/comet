@@ -35,22 +35,27 @@ const App = () => {
       setPost(firstPost[0]);
 
       getCommentArr(firstPost[0].permalink).then((commentArr) => {
-        const arr: any = getComments(commentArr, true);
-        console.log(getComments(commentArr, true));
-        commentArr.forEach((i: any) => {
-          const replies: any = getReplies(i);
-          if (replies !== null) {
-            replies.forEach((j: any) => {
-              const object = arr.find((obj: any) => obj.id === j.parentID);
-              const index = arr.indexOf(object);
-              console.log(object);
-              console.log(index);
-              arr.splice(index + 1, 0, j);
-            });
-          }
-        });
-        console.log(arr);
-        setComments(arr);
+        const arr: any = getComments(commentArr);
+        // console.log(getComments(commentArr, true));
+        // commentArr.forEach((i: any) => {
+        //   const replies: any = getReplies(i);
+        //   if (replies !== null) {
+        //     replies.forEach((j: any) => {
+        //       const object = arr.find((obj: any) => obj.id === j.parentID);
+        //       const index = arr.indexOf(object);
+        //       // console.log(object);
+        //       // console.log(index);
+        //       arr.splice(index + 1, 0, j);
+        //     });
+        //   }
+        // });
+        // eslint-disable-next-line prefer-spread
+        // const merged: any = [].concat.apply([], arr);
+        console.log(arr.flat(Infinity));
+
+        // getReplies(arr);
+        // console.log(arr);
+        setComments(arr.flat(Infinity));
       });
     });
   }, []);
@@ -67,7 +72,7 @@ const App = () => {
         setSelected={setSelected}
       />
       {post !== null && <Post post={post} />}
-      <Comments commentsArr={comments} />
+      <Comments comments={comments} />
     </div>
   );
 };
