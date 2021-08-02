@@ -159,6 +159,10 @@
   padding: 6px 0 6px 0px;
   cursor: pointer;
   font-size: 10px;
+  border: none;
+  background-color: transparent;
+  line-height: 22px;
+  font-family: Verdana, sans-serif;
 }
 
 .info {

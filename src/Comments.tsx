@@ -17,11 +17,12 @@ const Comments = ({ comments }: ComponentProps) => (
           {[...Array(comment.depth)].map(() => (
             <div className="commentLine" />
           ))}
-          <div
+          <button
             className="commentTitle loadMore"
+            type="submit"
           >
-            load more comments ({comment.count})
-          </div>
+            load more comments ({comment.count}{comments.indexOf(comment)})
+          </button>
         </div>
       ) : (
         <div className="comment">
