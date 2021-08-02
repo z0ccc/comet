@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useCallback, Dispatch, SetStateAction } from 'react';
@@ -10,28 +11,41 @@ interface ComponentProps {
 
 const Comments = ({ comments }: ComponentProps) => (
   <div id="comments">
-    {comments.map((comment: any) => (
-      <div className="comment">
-        {[...Array(comment.depth)].map(() => (
-          <div className="commentLine" />
-        ))}
-        <div className="commentInfo">
-          <div className="infoWrap">
-            <a
-              href={`https://reddit.com/u/${comment.author}`}
-              target="_blank"
-              className="commentTitle"
-              rel="noreferrer"
-            >
-              {comment.author}
-            </a>
-            <div className="info">{comment.score} points</div>
-            <div className="info">{comment.date}</div>
+    {comments.map((comment: any) => {
+      return comment.kind === 'more' ? (
+        <div className="comment">
+          {[...Array(comment.depth)].map(() => (
+            <div className="commentLine" />
+          ))}
+          <div
+            className="commentTitle loadMore"
+          >
+            load more comments ({comment.count})
           </div>
-          <div className="commentBody">{Parser(comment.bodyHTML)}</div>
         </div>
-      </div>
-    ))}
+      ) : (
+        <div className="comment">
+          {[...Array(comment.depth)].map(() => (
+            <div className="commentLine" />
+          ))}
+          <div className="commentInfo">
+            <div className="infoWrap">
+              <a
+                href={`https://reddit.com/u/${comment.author}`}
+                target="_blank"
+                className="commentTitle"
+                rel="noreferrer"
+              >
+                {comment.author}
+              </a>
+              <div className="info">{comment.score} points</div>
+              <div className="info">{comment.date}</div>
+            </div>
+            <div className="commentBody">{Parser(comment.bodyHTML)}</div>
+          </div>
+        </div>
+      );
+    })}
   </div>
 );
 

@@ -128,14 +128,20 @@ export const getComments = (data: any) => {
 
   for (let i = 0; i < data.length; i++) {
     // console.log(data[i].data.body_html);
-    if (
-      data[i].kind === 't1') {
+    if (data[i].kind === 'more') {
+      comments.push({
+        kind: data[i].kind,
+        children: data[i].data.children,
+        count: data[i].data.count,
+        depth: data[i].data.depth,
+      });
+    } else {
       const bodyHTML: string = decodeHtml(data[i].data.body_html).replace(
         '<a href=',
         '<a target="_blank" href='
       );
       comments.push({
-        index: i,
+        kind: data[i].kind,
         id: data[i].data.id,
         author: data[i].data.author,
         score: formatNumber(data[i].data.score),
@@ -144,14 +150,16 @@ export const getComments = (data: any) => {
         depth: data[i].data.depth,
       });
       if (
+
+        data[i].kind === 't1' &&
         data[i].data.replies &&
           data[i].data.replies.kind === 'Listing' &&
           data[i].data.replies.data.children
       ) {
-        // console.log(data[i].data.replies.data.children);
+      // console.log(data[i].data.replies.data.children);
         comments.push(getComments(data[i].data.replies.data.children));
 
-        // getComments(data[i].data.replies.data.children);
+      // getComments(data[i].data.replies.data.children);
       }
     }
   }

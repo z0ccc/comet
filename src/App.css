@@ -121,7 +121,7 @@
 }
 
 .commentLine {
-  opacity: 0.4;
+  opacity: 0.6;
   height: auto;
   padding: 0 0 0px 12px;
   border-left: 1px solid var(--border);
@@ -161,11 +161,6 @@
   font-size: 10px;
 }
 
-.comment .loadMore {
-  padding-left: 12px;
-  border-left: 1px solid var(--border);
-}
-
 .info {
   color: var(--dark-grey);
 }
@@ -173,10 +168,6 @@
 .md a {
   color: var(--link-blue);
   text-decoration: none;
-}
-
-#message {
-  text-align: center;
 }
 
 .submit {
