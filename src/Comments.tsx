@@ -16,9 +16,9 @@ interface ComponentProps {
 
 const Comments = memo(({ comments, setComments, permalink }: ComponentProps) => {
   const loadMore = useCallback(
-    (id, comments2) => {
+    (id, comments2, index) => {
       console.log(comments2);
-      comments2.push({
+      comments2.splice(index, 0, {
         author: 'hhh',
         bodyHTML: '111',
         date: '4 months ago',
@@ -27,6 +27,15 @@ const Comments = memo(({ comments, setComments, permalink }: ComponentProps) => 
         kind: 't1',
         score: '72',
       });
+      // comments2.push({
+      //   author: 'hhh',
+      //   bodyHTML: '111',
+      //   date: '4 months ago',
+      //   depth: 2,
+      //   id: 'gsakm322',
+      //   kind: 't1',
+      //   score: '72',
+      // });
       setComments(comments2);
       setComments((coms: any) => coms.filter((c:any) => c.id !== id));
     },
@@ -44,7 +53,9 @@ const Comments = memo(({ comments, setComments, permalink }: ComponentProps) => 
             <button
               className="commentTitle loadMore"
               type="submit"
-              onClick={() => loadMore(comment.id, comments)}
+              onClick={() =>
+                loadMore(comment.id, comments, comments.indexOf(comment))
+              }
             >
               load more comments ({comment.count})
             </button>
