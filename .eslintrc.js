@@ -20,6 +20,8 @@ module.exports = {
     'no-use-before-define': 'off',
     'linebreak-style': 'off',
     'react/react-in-jsx-scope': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'react/jsx-curly-newline': 'off',
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.jsx', '.js', '.tsx', '.ts'] },

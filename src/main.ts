@@ -125,14 +125,17 @@ export const getCommentArr = async (permalink: string) => {
 // Gets and print post info
 export const getComments = (data: any) => {
   const comments: any = [];
+  // console.log(data);
 
   for (let i = 0; i < data.length; i++) {
     // console.log(data[i].data.body_html);
     if (data[i].kind === 'more') {
       comments.push({
+        id: data[i].data.children[0] + 0,
         kind: data[i].kind,
         children: data[i].data.children,
         count: data[i].data.count,
+        permalink: data[i].data.permalink,
         depth: data[i].data.depth,
       });
     } else {

@@ -32,7 +32,7 @@ const App = () => {
       setPosts(getPosts(postArr));
       const firstPost: PostType[] = getPosts(postArr);
       setPost(firstPost[0]);
-
+      // console.log(firstPost[0].permalink);
       getCommentArr(firstPost[0].permalink).then((commentArr) => {
         const arr: any = getComments(commentArr);
         // console.log(getComments(commentArr, true));
@@ -63,6 +63,11 @@ const App = () => {
     if (firstRender) setPost(posts[selected]);
   }, [selected]);
 
+  useEffect(() => {
+    console.log('hel');
+    // console.log(comments);
+  }, [comments]);
+
   return (
     <div className="App">
       <Subreddits
@@ -70,8 +75,16 @@ const App = () => {
         selected={selected}
         setSelected={setSelected}
       />
-      {post !== null && <Post post={post} />}
-      <Comments comments={comments} />
+      {post !== null && (
+      <>
+        <Post post={post} />
+        <Comments
+          comments={comments}
+          setComments={setComments}
+          permalink={post.permalink}
+        />
+      </>
+      )}
     </div>
   );
 };
