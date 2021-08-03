@@ -17,7 +17,7 @@ import Comments from './Comments';
 import './App.css';
 
 const App = () => {
-  const [firstRender, setfirstRender] = useState<boolean>(false);
+  const [firstRender, setfirstRender] = useState<boolean>(true);
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -25,7 +25,7 @@ const App = () => {
   const [comments, setComments] = useState<any>([]);
 
   useEffect(() => {
-    setfirstRender(true);
+    setfirstRender(false);
     const queries: string[] = getQueries('https://www.youtube.com/watch?v=6swmTBVI83k');
     getPostArr(queries).then((postArr) => {
       setSubreddits(getSubreddits(postArr));
@@ -39,13 +39,14 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (firstRender) setPost(posts[selected]);
+    // console.log(posts[0]);
+    if (!firstRender) {
+      setPost(posts[selected]);
+      getCommentArr(posts[selected].permalink).then((commentArr) => {
+        setComments(getComments(commentArr).flat(Infinity));
+      });
+    }
   }, [selected]);
-
-  // useEffect(() => {
-  //   console.log('hel');
-  //   // console.log(comments);
-  // }, [comments]);
 
   return (
     <div className="App">
