@@ -42,6 +42,7 @@ const App = () => {
     // console.log(posts[0]);
     if (!firstRender) {
       setPost(posts[selected]);
+      setComments([]);
       getCommentArr(posts[selected].permalink).then((commentArr) => {
         setComments(getComments(commentArr).flat(Infinity));
       });

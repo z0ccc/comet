@@ -18,11 +18,11 @@ const Comments = memo(
     const [load, setLoad] = useState<any>();
 
     const loadMore = useCallback(
-      async (commentsList, id, children, depth, index) => {
+      async (link, commentsList, id, children, depth, index) => {
         setLoad(id);
         const promisesFetch: any = [];
         for (let i = 0; i < children.length; i++) {
-          promisesFetch.push(getCommentArr(permalink + children[i]));
+          promisesFetch.push(getCommentArr(link + children[i]));
         }
 
         await Promise.all(promisesFetch).then((value: any) => {
@@ -52,6 +52,7 @@ const Comments = memo(
                 type="submit"
                 onClick={() =>
                   loadMore(
+                    permalink,
                     comments,
                     comment.id,
                     comment.children,
