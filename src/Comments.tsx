@@ -16,28 +16,22 @@ interface ComponentProps {
 
 const Comments = memo(({ comments, setComments, permalink }: ComponentProps) => {
   const loadMore = useCallback(
-    (id, comments2, index) => {
-      console.log(comments2);
-      comments2.splice(index, 0, {
-        author: 'hhh',
-        bodyHTML: '111',
-        date: '4 months ago',
-        depth: 2,
-        id: 'gsakm322',
-        kind: 't1',
-        score: '72',
+    async (commentsList, id, children, depth, index) => {
+      const promisesFetch: any = [];
+      for (let i = 0; i < children.length; i++) {
+        promisesFetch.push(getCommentArr(permalink + children[i]));
+      }
+
+      await Promise.all(promisesFetch).then((value: any) => {
+        const arr: any = getComments(value.flat(Infinity)).flat(Infinity);
+        for (let i = 0; i < arr.length; i++) {
+          const reply: any = arr[i];
+          reply.depth += depth;
+          commentsList.splice(index + i, 0, reply);
+        }
       });
-      // comments2.push({
-      //   author: 'hhh',
-      //   bodyHTML: '111',
-      //   date: '4 months ago',
-      //   depth: 2,
-      //   id: 'gsakm322',
-      //   kind: 't1',
-      //   score: '72',
-      // });
-      setComments(comments2);
-      setComments((coms: any) => coms.filter((c:any) => c.id !== id));
+      setComments(commentsList);
+      setComments((coms: any) => coms.filter((c: any) => c.id !== id));
     },
     []
   );
@@ -54,7 +48,7 @@ const Comments = memo(({ comments, setComments, permalink }: ComponentProps) => 
               className="commentTitle loadMore"
               type="submit"
               onClick={() =>
-                loadMore(comment.id, comments, comments.indexOf(comment))
+                loadMore(comments, comment.id, comment.children, comment.depth, comments.indexOf(comment))
               }
             >
               load more comments ({comment.count})

@@ -30,31 +30,10 @@ const App = () => {
     getPostArr(queries).then((postArr) => {
       setSubreddits(getSubreddits(postArr));
       setPosts(getPosts(postArr));
-      const firstPost: PostType[] = getPosts(postArr);
-      setPost(firstPost[0]);
-      // console.log(firstPost[0].permalink);
-      getCommentArr(firstPost[0].permalink).then((commentArr) => {
-        const arr: any = getComments(commentArr);
-        // console.log(getComments(commentArr, true));
-        // commentArr.forEach((i: any) => {
-        //   const replies: any = getReplies(i);
-        //   if (replies !== null) {
-        //     replies.forEach((j: any) => {
-        //       const object = arr.find((obj: any) => obj.id === j.parentID);
-        //       const index = arr.indexOf(object);
-        //       // console.log(object);
-        //       // console.log(index);
-        //       arr.splice(index + 1, 0, j);
-        //     });
-        //   }
-        // });
-        // eslint-disable-next-line prefer-spread
-        // const merged: any = [].concat.apply([], arr);
-        console.log(arr.flat(Infinity));
-
-        // getReplies(arr);
-        // console.log(arr);
-        setComments(arr.flat(Infinity));
+      const firstPost: PostType = getPosts(postArr)[0];
+      setPost(firstPost);
+      getCommentArr(firstPost.permalink).then((commentArr) => {
+        setComments(getComments(commentArr).flat(Infinity));
       });
     });
   }, []);
@@ -63,10 +42,10 @@ const App = () => {
     if (firstRender) setPost(posts[selected]);
   }, [selected]);
 
-  useEffect(() => {
-    console.log('hel');
-    // console.log(comments);
-  }, [comments]);
+  // useEffect(() => {
+  //   console.log('hel');
+  //   // console.log(comments);
+  // }, [comments]);
 
   return (
     <div className="App">
