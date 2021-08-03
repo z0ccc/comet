@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
 import {
-  useCallback, Dispatch, SetStateAction, memo
+  useState, useCallback, Dispatch, SetStateAction, memo
 } from 'react';
 import Parser from 'html-react-parser';
 import { CommentType } from './types';
@@ -15,8 +15,11 @@ interface ComponentProps {
 }
 
 const Comments = memo(({ comments, setComments, permalink }: ComponentProps) => {
+  const [load, setLoad] = useState<any>();
+
   const loadMore = useCallback(
     async (commentsList, id, children, depth, index) => {
+      setLoad(id);
       const promisesFetch: any = [];
       for (let i = 0; i < children.length; i++) {
         promisesFetch.push(getCommentArr(permalink + children[i]));
@@ -48,10 +51,18 @@ const Comments = memo(({ comments, setComments, permalink }: ComponentProps) => 
               className="commentTitle loadMore"
               type="submit"
               onClick={() =>
-                loadMore(comments, comment.id, comment.children, comment.depth, comments.indexOf(comment))
+                loadMore(
+                  comments,
+                  comment.id,
+                  comment.children,
+                  comment.depth,
+                  comments.indexOf(comment)
+                )
               }
             >
-              load more comments ({comment.count})
+              {load === comment.id
+                ? 'loading...'
+                : `load more comments (${comment.count})`}
             </button>
           </div>
         ) : (
