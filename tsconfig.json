@@ -8,6 +8,10 @@
         "module": "es6",
         "moduleResolution": "node",
         "target": "es5",
+        "lib": [
+            "DOM",
+            "es2019"
+        ],
         "allowJs": true,
         "jsx": "react",
         "downlevelIteration": true,

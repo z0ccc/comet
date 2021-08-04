@@ -35,7 +35,7 @@ const App = () => {
       const firstPost: PostType = getPosts(postArr)[0];
       setPost(firstPost);
       getCommentArr(firstPost.permalink).then((commentArr) => {
-        setComments(getComments(commentArr).flat(Infinity));
+        setComments(getComments(commentArr));
       });
     });
   }, []);
@@ -46,7 +46,7 @@ const App = () => {
       setSort('best');
       setComments([]);
       getCommentArr(posts[selected].permalink).then((commentArr) => {
-        setComments(getComments(commentArr).flat(Infinity));
+        setComments(getComments(commentArr));
       });
     }
   }, [selected]);
@@ -55,7 +55,7 @@ const App = () => {
     if (!firstRender) {
       setComments([]);
       getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
-        setComments(getComments(commentArr).flat(Infinity));
+        setComments(getComments(commentArr));
       });
     }
   }, [sort]);

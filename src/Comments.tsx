@@ -26,7 +26,7 @@ const Comments = memo(
         }
 
         await Promise.all(promisesFetch).then((value: any) => {
-          const arr: any = getComments(value.flat(Infinity)).flat(Infinity);
+          const arr: any = getComments(value.flat(Infinity));
           for (let i = 0; i < arr.length; i++) {
             const reply: any = arr[i];
             reply.depth += depth;

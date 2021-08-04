@@ -14,12 +14,20 @@ export type PostType = {
 };
 
 export type CommentType = {
-  index: number;
-  id: string;
+  id: string | number;
+  kind: string;
   author: string;
   score: string;
   date: string;
   bodyHTML: string;
+  depth: number;
+};
+
+export type LoadMoreType = {
+  id: string;
+  kind: string;
+  children: string[];
+  count: number;
   depth: number;
 };
 

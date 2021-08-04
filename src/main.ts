@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { SubredditType, PostType, CommentType, DataType } from './types';
+import {
+  SubredditType,
+  PostType,
+  CommentType,
+  DataType,
+  LoadMoreType,
+} from './types';
 
 // Gets reddit search query URLs
 export const getQueries = (url: string) => {
@@ -106,7 +112,7 @@ export const getPosts = (data: DataType[]) => {
 
 // Gets list of comments from post
 export const getCommentArr = async (permalink: string) => {
-  let commentArr: string[] = [];
+  let commentArr: DataType[] = [];
   await fetch(`https://api.reddit.com${permalink}`)
     .then((response) => response.json())
     .then((json) => {
@@ -125,15 +131,18 @@ export const getCommentArr = async (permalink: string) => {
 
 // Gets and print post info
 export const getComments = (data: DataType[]) => {
-  const comments: any = [];
+  // console.log('----');
+  // console.log(data);
+  // const comments: (CommentType | LoadMoreType)[] = [];
+  const comments: (CommentType | LoadMoreType | any)[] = [];
+
   for (let i = 0; i < data.length; i++) {
     if (data[i].kind === 'more') {
       comments.push({
-        id: data[i].data.children[0] + 0,
+        id: `${data[i].data.children[0]}0`,
         kind: data[i].kind,
         children: data[i].data.children,
         count: data[i].data.count,
-        permalink: data[i].data.permalink,
         depth: data[i].data.depth,
       });
     } else {
@@ -142,8 +151,8 @@ export const getComments = (data: DataType[]) => {
         '<a target="_blank" href='
       );
       comments.push({
-        kind: data[i].kind,
         id: data[i].data.id,
+        kind: data[i].kind,
         author: data[i].data.author,
         score: formatNumber(data[i].data.score),
         date: convertDate(data[i].data.created_utc),
@@ -160,7 +169,7 @@ export const getComments = (data: DataType[]) => {
       }
     }
   }
-  return comments;
+  return comments.flat(Infinity);
 };
 
 const decodeHtml = (html: string) => {
