@@ -54,5 +54,6 @@ export type DataType = {
   };
   kind: string;
   length: number;
+  depth: number;
 };
 

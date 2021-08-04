@@ -11,13 +11,13 @@ const SortDropDown = ({
   setSort,
 }: ComponentProps) => {
   const sortComments = useCallback(
-    (e: any) => {
+    (e) => {
       setSort(e.target.value);
     },
     [setSort]
   );
   return (
-    <select onChange={(e: any) => sortComments(e)} value={sort}>
+    <select onChange={(e) => sortComments(e)} value={sort}>
       <option value="best">Best</option>
       <option value="top">Top</option>
       <option value="new">New</option>

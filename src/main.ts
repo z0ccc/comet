@@ -8,7 +8,7 @@ import {
 } from './types';
 
 // Gets reddit search query URLs
-export const getQueries = (url: string) => {
+export const getQueries = (url: string): string[] => {
   const queries = [`https://api.reddit.com/submit?url=${url}`];
 
   if (url.startsWith('https')) {
@@ -47,7 +47,7 @@ export const getQueries = (url: string) => {
 };
 
 // Gets list of matching reddit posts
-export const getPostArr = async (queries: string[]) => {
+export const getPostArr = async (queries: string[]): Promise<DataType[]> => {
   const promisesFetch: Promise<Response>[] = [];
   const promisesJson: Promise<Response>[] = [];
   let postArr: DataType[] = [];
@@ -70,7 +70,9 @@ export const getPostArr = async (queries: string[]) => {
         }
       }
       postArr = [
-        ...new Map(postArr.map((item: DataType) => [item.data.id, item])).values(),
+        ...new Map(
+          postArr.map((item: DataType) => [item.data.id, item])
+        ).values(),
       ];
       postArr = postArr.sort(compare);
     });
@@ -78,11 +80,11 @@ export const getPostArr = async (queries: string[]) => {
   return postArr;
 };
 
-const compare = (a: DataType, b: DataType) =>
+const compare = (a: DataType, b: DataType): number =>
   b.data.num_comments - a.data.num_comments;
 
 // Gets and prints list of subreddits
-export const getSubreddits = (data: DataType[]) => {
+export const getSubreddits = (data: DataType[]): SubredditType[] => {
   const subreddits: SubredditType[] = [];
   for (let i = 0; i < data.length; i++) {
     subreddits.push({
@@ -95,7 +97,7 @@ export const getSubreddits = (data: DataType[]) => {
 };
 
 // Gets and print post info
-export const getPosts = (data: DataType[]) => {
+export const getPosts = (data: DataType[]): PostType[] => {
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
     posts.push({
@@ -111,7 +113,7 @@ export const getPosts = (data: DataType[]) => {
 };
 
 // Gets list of comments from post
-export const getCommentArr = async (permalink: string) => {
+export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
   let commentArr: DataType[] = [];
   await fetch(`https://api.reddit.com${permalink}`)
     .then((response) => response.json())
@@ -172,8 +174,8 @@ export const getComments = (data: DataType[]) => {
   return comments.flat(Infinity);
 };
 
-const decodeHtml = (html: string) => {
-  const txt = document.createElement('textarea');
+const decodeHtml = (html: string): string => {
+  const txt: HTMLTextAreaElement = document.createElement('textarea');
   txt.innerHTML = html;
   return txt.value;
 };

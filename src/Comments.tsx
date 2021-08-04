@@ -4,29 +4,29 @@ import {
   useState, useCallback, Dispatch, SetStateAction, memo
 } from 'react';
 import Parser from 'html-react-parser';
-import { CommentType } from './types';
+import { DataType, CommentType, LoadMoreType } from './types';
 import { getCommentArr, getComments } from './main';
 
 interface ComponentProps {
-  comments: any;
-  setComments: any;
+  comments: (CommentType | LoadMoreType)[];
+  setComments: Dispatch<SetStateAction<(CommentType | LoadMoreType)[]>>;
   permalink: string;
 }
 
 const Comments = memo(
   ({ comments, setComments, permalink }: ComponentProps) => {
-    const [load, setLoad] = useState<any>();
+    const [load, setLoad] = useState<string>();
 
     const loadMore = useCallback(
       async (link, commentsList, id, children, depth, index) => {
         setLoad(id);
-        const promisesFetch: any = [];
+        const promisesFetch: Promise<DataType[]>[] = [];
         for (let i = 0; i < children.length; i++) {
           promisesFetch.push(getCommentArr(link + children[i]));
         }
 
         await Promise.all(promisesFetch).then((value: any) => {
-          const arr: any = getComments(value.flat(Infinity));
+          const arr: DataType[] = getComments(value.flat(Infinity));
           for (let i = 0; i < arr.length; i++) {
             const reply: any = arr[i];
             reply.depth += depth;

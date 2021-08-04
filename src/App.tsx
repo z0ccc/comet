@@ -9,7 +9,9 @@ import {
   getCommentArr,
   getComments,
 } from './main';
-import { SubredditType, PostType, CommentType } from './types';
+import {
+  SubredditType, PostType, CommentType, LoadMoreType
+} from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
 import Comments from './Comments';
@@ -23,7 +25,7 @@ const App = () => {
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
-  const [comments, setComments] = useState<any>([]);
+  const [comments, setComments] = useState<(CommentType | LoadMoreType)[]>([]);
   const [sort, setSort] = useState<string>('');
 
   useEffect(() => {
