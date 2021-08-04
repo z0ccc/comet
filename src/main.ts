@@ -72,7 +72,7 @@ export const getPostArr = async (queries: string[]) => {
   return postArr;
 };
 
-const compare = (a: any, b: any) =>
+const compare = (a: DataType, b: DataType) =>
   b.data.num_comments - a.data.num_comments;
 
 // Gets and prints list of subreddits
@@ -90,7 +90,6 @@ export const getSubreddits = (data: DataType[]) => {
 
 // Gets and print post info
 export const getPosts = (data: DataType[]) => {
-  console.log(data);
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
     posts.push({
