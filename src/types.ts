@@ -33,7 +33,18 @@ export type DataType = {
     subreddit: string;
     num_comments: number;
     id: number;
+    children: string[];
+    count: number;
+    depth: number;
+    body_html: string;
+    replies: {
+      kind: string;
+      data: {
+        children: DataType[];
+      };
+    };
   };
+  kind: string;
   length: number;
 };
 

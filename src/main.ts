@@ -124,7 +124,7 @@ export const getCommentArr = async (permalink: string) => {
 };
 
 // Gets and print post info
-export const getComments = (data: any) => {
+export const getComments = (data: DataType[]) => {
   const comments: any = [];
   for (let i = 0; i < data.length; i++) {
     if (data[i].kind === 'more') {
@@ -151,11 +151,10 @@ export const getComments = (data: any) => {
         depth: data[i].data.depth,
       });
       if (
-
         data[i].kind === 't1' &&
         data[i].data.replies &&
-          data[i].data.replies.kind === 'Listing' &&
-          data[i].data.replies.data.children
+        data[i].data.replies.kind === 'Listing' &&
+        data[i].data.replies.data.children
       ) {
         comments.push(getComments(data[i].data.replies.data.children));
       }
