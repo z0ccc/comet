@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PostType } from './types';
-import SelectDropDown from './SelectDropDown';
 
 interface ComponentProps {
   post: PostType;
@@ -32,7 +31,6 @@ const Posts = ({ post }: ComponentProps) => (
         </div>
       </div>
     </div>
-    <SelectDropDown />
   </div>
 );
 

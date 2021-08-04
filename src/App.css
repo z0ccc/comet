@@ -184,7 +184,7 @@
 }
 
 select {
-  display: inline-block;
+  display: block;
   border: solid 1px var(--border);
   background-color: var(--background);
   border-radius: 2px;

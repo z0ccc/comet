@@ -8,10 +8,17 @@ interface ComponentProps {
   setSelected: Dispatch<SetStateAction<number>>;
 }
 
-const SubredditList = ({ subreddits, selected, setSelected }: ComponentProps) => {
-  const selectPost = useCallback((id: number) => {
-    setSelected(id);
-  }, [setSelected]);
+const SubredditList = ({
+  subreddits,
+  selected,
+  setSelected,
+}: ComponentProps) => {
+  const selectPost = useCallback(
+    (id: number) => {
+      setSelected(id);
+    },
+    [setSelected]
+  );
 
   return (
     <div id="subreddits">

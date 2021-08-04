@@ -13,6 +13,7 @@ import { SubredditType, PostType, CommentType } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
 import Comments from './Comments';
+import SortDropDown from './SortDropDown';
 
 import './App.css';
 
@@ -23,6 +24,7 @@ const App = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
   const [comments, setComments] = useState<any>([]);
+  const [sort, setSort] = useState<string>('');
 
   useEffect(() => {
     setfirstRender(false);
@@ -39,7 +41,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // console.log(posts[0]);
     if (!firstRender) {
       setPost(posts[selected]);
       setComments([]);
@@ -49,6 +50,15 @@ const App = () => {
     }
   }, [selected]);
 
+  useEffect(() => {
+    if (!firstRender) {
+      setComments([]);
+      getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
+        setComments(getComments(commentArr).flat(Infinity));
+      });
+    }
+  }, [sort]);
+
   return (
     <div className="App">
       <Subreddits
@@ -57,14 +67,15 @@ const App = () => {
         setSelected={setSelected}
       />
       {post !== null && (
-      <>
-        <Post post={post} />
-        <Comments
-          comments={comments}
-          setComments={setComments}
-          permalink={post.permalink}
-        />
-      </>
+        <>
+          <Post post={post} />
+          <SortDropDown sort={sort} setSort={setSort} />
+          <Comments
+            comments={comments}
+            setComments={setComments}
+            permalink={post.permalink}
+          />
+        </>
       )}
     </div>
   );
