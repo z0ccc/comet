@@ -43,6 +43,7 @@ const App = () => {
   useEffect(() => {
     if (!firstRender) {
       setPost(posts[selected]);
+      setSort('best');
       setComments([]);
       getCommentArr(posts[selected].permalink).then((commentArr) => {
         setComments(getComments(commentArr).flat(Infinity));
@@ -69,7 +70,7 @@ const App = () => {
       {post !== null && (
         <>
           <Post post={post} />
-          <SortDropDown setSort={setSort} />
+          <SortDropDown sort={sort} setSort={setSort} />
           <Comments
             comments={comments}
             setComments={setComments}

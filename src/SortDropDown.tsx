@@ -2,10 +2,12 @@ import * as React from 'react';
 import { useCallback, Dispatch, SetStateAction } from 'react';
 
 interface ComponentProps {
+  sort: string;
   setSort: Dispatch<SetStateAction<string>>;
 }
 
 const SortDropDown = ({
+  sort,
   setSort,
 }: ComponentProps) => {
   const sortComments = useCallback(
@@ -15,7 +17,7 @@ const SortDropDown = ({
     [setSort]
   );
   return (
-    <select onChange={(e: any) => sortComments(e)}>
+    <select onChange={(e: any) => sortComments(e)} value={sort}>
       <option value="best">Best</option>
       <option value="top">Top</option>
       <option value="new">New</option>
