@@ -69,7 +69,7 @@ const App = () => {
       {post !== null && (
         <>
           <Post post={post} />
-          <SortDropDown sort={sort} setSort={setSort} />
+          <SortDropDown setSort={setSort} />
           <Comments
             comments={comments}
             setComments={setComments}

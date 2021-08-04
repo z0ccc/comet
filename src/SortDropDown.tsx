@@ -1,21 +1,16 @@
-/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useCallback, Dispatch, SetStateAction } from 'react';
-import { SubredditType } from './types';
 
 interface ComponentProps {
-  sort: string;
   setSort: Dispatch<SetStateAction<string>>;
 }
 
 const SortDropDown = ({
-  sort,
   setSort,
 }: ComponentProps) => {
   const sortComments = useCallback(
     (e: any) => {
       setSort(e.target.value);
-      // console.log(e.target.value);
     },
     [setSort]
   );

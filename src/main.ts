@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { SubredditType, PostType, CommentType } from './types';
+import { SubredditType, PostType, CommentType, DataType } from './types';
 
 // Gets reddit search query URLs
 export const getQueries = (url: string) => {
@@ -44,7 +44,7 @@ export const getQueries = (url: string) => {
 export const getPostArr = async (queries: string[]) => {
   const promisesFetch: Promise<Response>[] = [];
   const promisesJson: Promise<Response>[] = [];
-  let postArr: string[] = [];
+  let postArr: DataType[] = [];
 
   for (let i = 0; i < queries.length; i++) {
     promisesFetch.push(fetch(queries[i]));
@@ -69,13 +69,15 @@ export const getPostArr = async (queries: string[]) => {
       postArr = postArr.sort(compare);
     });
   });
+  console.log(postArr);
   return postArr;
 };
 
-const compare = (a: any, b: any) => b.data.num_comments - a.data.num_comments;
+const compare = (a: any, b: any) =>
+  b.data.num_comments - a.data.num_comments;
 
 // Gets and prints list of subreddits
-export const getSubreddits = (data: any) => {
+export const getSubreddits = (data: DataType[]) => {
   const subreddits: SubredditType[] = [];
   for (let i = 0; i < data.length; i++) {
     subreddits.push({
@@ -88,7 +90,8 @@ export const getSubreddits = (data: any) => {
 };
 
 // Gets and print post info
-export const getPosts = (data: any) => {
+export const getPosts = (data: DataType[]) => {
+  console.log(data);
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
     posts.push({
@@ -168,69 +171,6 @@ export const getComments = (data: any) => {
   }
   return comments;
 };
-
-// Gets and print post info
-// export const getComments2 = (data: any, topLevel: boolean) => {
-//   const comments: any = [];
-//   let bodyHTML: string;
-//   let parentID: string | null;
-//   for (let i = 0; i < data.length; i++) {
-//     if (data[i].kind === 'more') {
-//       // console.log(data[i]);
-//     } else {
-//       // console.log(getReplies(data[i]));
-//       if (
-//         data[i].kind === 't1' &&
-//         data[i].data.replies &&
-//         data[i].data.replies.kind === 'Listing' &&
-//         data[i].data.replies.data.children
-//       ) {
-//         if (data[i].data.replies.data.children.length !== 0) {
-//           const replies: any = getComments(data[i].data.replies.data.children, false);
-//           replies.forEach((reply: any) => {
-//             if (reply.length !== 0) {
-//               console.log(reply);
-//               comments.push(getComments(reply, false));
-//             }
-//           });
-//         }
-//       }
-//       bodyHTML = decodeHtml(data[i].data.body_html).replace(
-//         '<a href=',
-//         '<a target="_blank" href='
-//       );
-//       if (topLevel) {
-//         parentID = null;
-//       } else {
-//         parentID = data[i].data.parent_id.substring(3);
-//       }
-//       comments.push({
-//         index: i,
-//         id: data[i].data.id,
-//         parentID,
-//         author: data[i].data.author,
-//         score: formatNumber(data[i].data.score),
-//         date: convertDate(data[i].data.created_utc),
-//         bodyHTML,
-//       });
-//     }
-//   }
-//   return comments;
-// };
-
-// Gets replies to comments
-// export const getReplies = (comment: any) => {
-//   if (
-//     comment.kind === 't1' &&
-//     comment.data.replies &&
-//     comment.data.replies.kind === 'Listing' &&
-//     comment.data.replies.data.children
-//   ) {
-//     // console.log(comment.data.replies.data.children);
-//     return getComments(comment.data.replies.data.children.reverse(), false);
-//   }
-//   return null;
-// };
 
 const decodeHtml = (html: string) => {
   const txt = document.createElement('textarea');
