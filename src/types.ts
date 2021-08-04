@@ -32,6 +32,7 @@ export type DataType = {
     author: string;
     subreddit: string;
     num_comments: number;
+    id: number;
   };
   length: number;
 };

@@ -64,12 +64,11 @@ export const getPostArr = async (queries: string[]) => {
         }
       }
       postArr = [
-        ...new Map(postArr.map((item: any) => [item.data.id, item])).values(),
+        ...new Map(postArr.map((item: DataType) => [item.data.id, item])).values(),
       ];
       postArr = postArr.sort(compare);
     });
   });
-  console.log(postArr);
   return postArr;
 };
 
@@ -128,10 +127,7 @@ export const getCommentArr = async (permalink: string) => {
 // Gets and print post info
 export const getComments = (data: any) => {
   const comments: any = [];
-  // console.log(data);
-
   for (let i = 0; i < data.length; i++) {
-    // console.log(data[i].data.body_html);
     if (data[i].kind === 'more') {
       comments.push({
         id: data[i].data.children[0] + 0,
@@ -162,10 +158,7 @@ export const getComments = (data: any) => {
           data[i].data.replies.kind === 'Listing' &&
           data[i].data.replies.data.children
       ) {
-      // console.log(data[i].data.replies.data.children);
         comments.push(getComments(data[i].data.replies.data.children));
-
-      // getComments(data[i].data.replies.data.children);
       }
     }
   }
