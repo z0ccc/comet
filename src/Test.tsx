@@ -1,10 +1,21 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 
-const Test = () => (
-  <div className="App">
-    hello
-  </div>
-);
+import './App.css';
 
-export default Test;
+const App = () => {
+  useEffect(() => {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+      const queries: string[] = getQueries(tabs[0].url!);
+    });
+  }, []);
+  return (
+    <div className="App">
+      HELLO
+    </div>
+  );
+};
+
+export default App;
