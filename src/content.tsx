@@ -1,11 +1,11 @@
-// // This file is injected as a content script
-// import * as React from 'react';
-// import * as ReactDOM from 'react-dom';
+// This file is injected as a content script
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-// import App from './App';
-// import './popup.css';
+import Test from './Test';
+import './popup.css';
 
-// const mountNode = document.getElementById('popup');
-// ReactDOM.render(<App />, mountNode);
+const mountNode = document.getElementById('container');
+ReactDOM.render(<Test />, mountNode);
 
 console.log('Hello from content script!');
