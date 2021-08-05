@@ -134,9 +134,6 @@ export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
 
 // Gets and print post info
 export const getComments = (data: DataType[]): CommentListType[] => {
-  // console.log('----');
-  // console.log(data);
-  // const comments: (CommentType | LoadMoreType)[] = [];
   const comments: CommentListType[] = [];
 
   for (let i = 0; i < data.length; i++) {

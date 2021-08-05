@@ -32,14 +32,16 @@ const App = () => {
 
   useEffect(() => {
     setfirstRender(false);
-    const queries: string[] = getQueries('https://www.youtube.com/watch?v=6swmTBVI83k');
-    getPostArr(queries).then((postArr) => {
-      setSubreddits(getSubreddits(postArr));
-      setPosts(getPosts(postArr));
-      const firstPost: PostType = getPosts(postArr)[0];
-      setPost(firstPost);
-      getCommentArr(firstPost.permalink).then((commentArr) => {
-        setComments(getComments(commentArr));
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+      const queries: string[] = getQueries(tabs[0].url!);
+      getPostArr(queries).then((postArr) => {
+        setSubreddits(getSubreddits(postArr));
+        setPosts(getPosts(postArr));
+        const firstPost: PostType = getPosts(postArr)[0];
+        setPost(firstPost);
+        getCommentArr(firstPost.permalink).then((commentArr) => {
+          setComments(getComments(commentArr));
+        });
       });
     });
   }, []);
