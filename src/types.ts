@@ -13,24 +13,6 @@ export type PostType = {
   author: string;
 };
 
-export type CommentType = {
-  id: string | number;
-  kind: string;
-  author: string;
-  score: string;
-  date: string;
-  bodyHTML: string;
-  depth: number;
-};
-
-export type LoadMoreType = {
-  id: string;
-  kind: string;
-  children: string[];
-  count: number;
-  depth: number;
-};
-
 export type DataType = {
   data: {
     score: number;
@@ -57,3 +39,22 @@ export type DataType = {
   depth: number;
 };
 
+export type CommentType = {
+  id: string | number;
+  kind: string;
+  author: string;
+  score: string;
+  date: string;
+  bodyHTML: string;
+  depth: number;
+};
+
+export type LoadMoreType = {
+  id: string;
+  kind: string;
+  children: string[];
+  count: number;
+  depth: number;
+};
+
+export type CommentListType = CommentType | LoadMoreType | CommentListType[];

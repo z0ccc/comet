@@ -4,12 +4,16 @@ import {
   useState, useCallback, Dispatch, SetStateAction, memo
 } from 'react';
 import Parser from 'html-react-parser';
-import { DataType, CommentType, LoadMoreType } from './types';
+import {
+  DataType, CommentType, LoadMoreType, CommentListType
+} from './types';
 import { getCommentArr, getComments } from './main';
 
+const isObjectArray = (obj: CommentListType): obj is CommentListType[] => 'length' in obj;
+
 interface ComponentProps {
-  comments: (CommentType | LoadMoreType)[];
-  setComments: Dispatch<SetStateAction<(CommentType | LoadMoreType)[]>>;
+  comments: CommentListType[];
+  setComments: Dispatch<SetStateAction<CommentListType[]>>;
   permalink: string;
 }
 
@@ -26,15 +30,22 @@ const Comments = memo(
         }
 
         await Promise.all(promisesFetch).then((value: any) => {
-          const arr: DataType[] = getComments(value.flat(Infinity));
+          const arr: CommentListType[] = getComments(value.flat(Infinity));
           for (let i = 0; i < arr.length; i++) {
-            const reply: any = arr[i];
-            reply.depth += depth;
-            commentsList.splice(index + i, 0, reply);
+            const reply: CommentListType = arr[i];
+            if (!isObjectArray(reply)) {
+              reply.depth += depth;
+              commentsList.splice(index + i, 0, reply);
+            }
           }
         });
         setComments(commentsList);
-        setComments((arr: any) => arr.filter((item: any) => item.id !== id));
+        setComments((arr) => arr.filter((item) => {
+          if (!isObjectArray(item)) {
+            return item.id !== id;
+          }
+          return null;
+        }));
       },
       []
     );

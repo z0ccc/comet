@@ -5,6 +5,7 @@ import {
   CommentType,
   DataType,
   LoadMoreType,
+  CommentListType,
 } from './types';
 
 // Gets reddit search query URLs
@@ -132,11 +133,11 @@ export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
 };
 
 // Gets and print post info
-export const getComments = (data: DataType[]) => {
+export const getComments = (data: DataType[]): CommentListType[] => {
   // console.log('----');
   // console.log(data);
   // const comments: (CommentType | LoadMoreType)[] = [];
-  const comments: (CommentType | LoadMoreType | any)[] = [];
+  const comments: CommentListType[] = [];
 
   for (let i = 0; i < data.length; i++) {
     if (data[i].kind === 'more') {
