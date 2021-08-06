@@ -14,6 +14,7 @@ import Subreddits from './Subreddits';
 import Post from './Post';
 import Comments from './Comments';
 import SortDropDown from './SortDropDown';
+import CommentToggle from './CommentToggle';
 
 import './App.css';
 
@@ -62,22 +63,25 @@ const App = () => {
 
   return (
     <div className="App">
-      <Subreddits
-        subreddits={subreddits}
-        selected={selected}
-        setSelected={setSelected}
-      />
-      {post !== null && (
-        <>
-          <Post post={post} />
-          <SortDropDown sort={sort} setSort={setSort} />
-          <Comments
-            comments={comments}
-            setComments={setComments}
-            permalink={post.permalink}
-          />
-        </>
-      )}
+      <CommentToggle />
+      <div>
+        <Subreddits
+          subreddits={subreddits}
+          selected={selected}
+          setSelected={setSelected}
+        />
+        {post !== null && (
+          <>
+            <Post post={post} />
+            <SortDropDown sort={sort} setSort={setSort} />
+            <Comments
+              comments={comments}
+              setComments={setComments}
+              permalink={post.permalink}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 };
