@@ -6,6 +6,16 @@ import * as ReactDOM from 'react-dom';
 import Test from './Test';
 import './popup.css';
 
+document.addEventListener('yt-navigate-finish', () => {
+  const mountNode = document.getElementById('comments');
+  console.log(mountNode);
+  if (mountNode) {
+    ytPrepare(mountNode);
+  }
+});
+// console.log(window.location.href);
+
+// document.addEventListener('spfdone', () => ytPrepare(mountNode!));
 const observer = new MutationObserver((mutations, me) => {
   // `mutations` is an array of mutations that occurred
   // `me` is the MutationObserver instance
