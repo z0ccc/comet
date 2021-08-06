@@ -51,7 +51,7 @@ const Comments = memo(
     );
 
     return (
-      <div id="comments">
+      <>
         {comments.map((comment: any) =>
           (comment.kind === 'more' ? (
             <div className="comment" key={comment.id}>
@@ -99,7 +99,7 @@ const Comments = memo(
               </div>
             </div>
           )))}
-      </div>
+      </>
     );
   }
 );
