@@ -6,36 +6,48 @@ import * as ReactDOM from 'react-dom';
 import Test from './Test';
 import './popup.css';
 
-document.addEventListener('yt-navigate-finish', () => {
-  const mountNode = document.getElementById('comments');
-  console.log(mountNode);
-  if (mountNode) {
-    ytPrepare(mountNode);
-  }
-});
+if (window.location.href.includes('watch?v=')) {
+  document.addEventListener('yt-navigate-finish', () => {
+    const mountNode = document.getElementById('comments');
+    if (mountNode) {
+    // console.log('mountNode1:');
+    // console.log(mountNode);
+      ytPrepare(mountNode);
+    }
+  });
+}
 // console.log(window.location.href);
 
-// document.addEventListener('spfdone', () => ytPrepare(mountNode!));
-const observer = new MutationObserver((mutations, me) => {
-  // `mutations` is an array of mutations that occurred
-  // `me` is the MutationObserver instance
-  const mountNode = document.getElementById('comments');
-  if (mountNode) {
-    ytPrepare(mountNode);
-    me.disconnect(); // stop observing
-  }
-});
+// const observer = new MutationObserver((mutations, me) => {
+//   // `mutations` is an array of mutations that occurred
+//   // `me` is the MutationObserver instance
+//   const mountNode = document.getElementById('comments');
+//   if (mountNode) {
+//     console.log('mountNode2:');
+//     console.log(mountNode);
+//     ytPrepare(mountNode);
+//     me.disconnect(); // stop observing
+//   }
+// });
 
-// start observing
-observer.observe(document, {
-  childList: true,
-  subtree: true,
-});
+// // start observing
+// observer.observe(document, {
+//   childList: true,
+//   subtree: true,
+// });
 
 const ytPrepare = (mountNode: HTMLElement | undefined) => {
-  const redComments = document.createElement('redComments');
-  redComments.innerHTML = 'Hello World!';
+  let redComments = document.getElementById('redComments');
+  if (redComments) {
+    // console.log('redComments remove:');
+    // console.log(redComments);
+    redComments.remove();
+  }
+  redComments = document.createElement('div');
+  redComments.setAttribute('id', 'redComments');
   mountNode!.parentNode!.insertBefore(redComments, mountNode!);
+  // console.log('redComments add:');
+  // console.log(redComments);
   document.getElementById('comments')!.style.display = 'none';
   ReactDOM.render(<Test />, redComments);
 };
