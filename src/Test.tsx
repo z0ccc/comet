@@ -74,16 +74,23 @@ const App = () => {
 
   return (
     <>
-      <button type="submit" onClick={toggle}>
-        toggle
-      </button>
       {showComments && (
         <div className="App">
-          <Subreddits
-            subreddits={subreddits}
-            selected={selected}
-            setSelected={setSelected}
-          />
+          <div className="subredditContainer">
+            <Subreddits
+              subreddits={subreddits}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <button type="submit" className="toggleButton" onClick={toggle}>
+              <img
+                id="redImg"
+                className="toggleImg"
+                alt="Youtube toggle icon"
+                src={chrome.runtime.getURL('../images/grey_32.png')}
+              />
+            </button>
+          </div>
           {post !== null && (
             <>
               <Post post={post} />

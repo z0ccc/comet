@@ -24,6 +24,29 @@
   margin: 8px;
 }
 
+button {
+  border: none;
+  background: transparent;
+}
+
+.toggleButton {
+  height: 28px;
+  width: 28px;
+  padding: 0;
+  margin: 0 0 0 8px;
+}
+
+.toggleImg {
+  cursor: pointer;
+  height: 28px;
+  width: 28px;
+}
+
+.subredditContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
 #subredditWrap {
   display: flex;
   justify-content: space-between;
@@ -60,7 +83,7 @@
   border: solid 1px var(--border);
   border-radius: 2px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   background-color: var(--background);
 }
 

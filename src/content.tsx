@@ -6,30 +6,11 @@ import * as ReactDOM from 'react-dom';
 import Test from './Test';
 import './popup.css';
 
-document.addEventListener('DOMContentLoaded', () => ytPrepare());
-document.addEventListener('yt-navigate-finish', () => ytPrepare());
-document.addEventListener('spfdone', () => ytPrepare());
-// console.log(window.location.href);
+document.addEventListener('DOMContentLoaded', () => prepareComments());
+document.addEventListener('yt-navigate-finish', () => prepareComments());
+document.addEventListener('spfdone', () => prepareComments());
 
-// const observer = new MutationObserver((mutations, me) => {
-//   // `mutations` is an array of mutations that occurred
-//   // `me` is the MutationObserver instance
-//   const mountNode = document.getElementById('comments');
-//   if (mountNode) {
-//     console.log('mountNode2:');
-//     console.log(mountNode);
-//     ytPrepare(mountNode);
-//     me.disconnect(); // stop observing
-//   }
-// });
-
-// // start observing
-// observer.observe(document, {
-//   childList: true,
-//   subtree: true,
-// });
-
-const ytPrepare = () => {
+const prepareComments = () => {
   if (window.location.href.includes('watch?v=')) {
     const mountNode = document.getElementById('comments');
     if (mountNode) {
