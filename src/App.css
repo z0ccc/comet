@@ -15,7 +15,6 @@
 #redComments {
   font-family: Verdana, sans-serif;
   color: var(--text);
-  background-color: var(--background);
   font-size: 25px;
   line-height: 22px;
 }

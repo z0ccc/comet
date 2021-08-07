@@ -26,6 +26,7 @@ const App = () => {
   const [post, setPost] = useState<PostType | null>(null);
   const [comments, setComments] = useState<CommentListType[]>([]);
   const [sort, setSort] = useState<string>('');
+  const [showComments, setShowComments] = useState<boolean>(true);
 
   useEffect(() => {
     setfirstRender(false);
@@ -61,28 +62,39 @@ const App = () => {
     }
   }, [sort]);
 
+  const toggle = () => {
+    console.log('hello');
+    setShowComments(!showComments);
+    document.getElementById('comments')!.style.display = 'block';
+    window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
+  };
+
   return (
-    <div className="App">
-      <CommentToggle />
-      <div>
-        <Subreddits
-          subreddits={subreddits}
-          selected={selected}
-          setSelected={setSelected}
-        />
-        {post !== null && (
-          <>
-            <Post post={post} />
-            <SortDropDown sort={sort} setSort={setSort} />
-            <Comments
-              comments={comments}
-              setComments={setComments}
-              permalink={post.permalink}
-            />
-          </>
-        )}
-      </div>
-    </div>
+    <>
+      <button type="submit" onClick={toggle}>
+        toggle
+      </button>
+      {showComments && (
+        <div className="App">
+          <Subreddits
+            subreddits={subreddits}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          {post !== null && (
+            <>
+              <Post post={post} />
+              <SortDropDown sort={sort} setSort={setSort} />
+              <Comments
+                comments={comments}
+                setComments={setComments}
+                permalink={post.permalink}
+              />
+            </>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

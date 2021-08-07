@@ -10,8 +10,6 @@ if (window.location.href.includes('watch?v=')) {
   document.addEventListener('yt-navigate-finish', () => {
     const mountNode = document.getElementById('comments');
     if (mountNode) {
-    // console.log('mountNode1:');
-    // console.log(mountNode);
       ytPrepare(mountNode);
     }
   });
@@ -39,15 +37,11 @@ if (window.location.href.includes('watch?v=')) {
 const ytPrepare = (mountNode: HTMLElement | undefined) => {
   let redComments = document.getElementById('redComments');
   if (redComments) {
-    // console.log('redComments remove:');
-    // console.log(redComments);
     redComments.remove();
   }
   redComments = document.createElement('div');
   redComments.setAttribute('id', 'redComments');
   mountNode!.parentNode!.insertBefore(redComments, mountNode!);
-  // console.log('redComments add:');
-  // console.log(redComments);
   document.getElementById('comments')!.style.display = 'none';
   ReactDOM.render(<Test />, redComments);
 };
