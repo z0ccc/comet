@@ -63,10 +63,13 @@ const App = () => {
   }, [sort]);
 
   const toggle = () => {
-    console.log('hello');
     setShowComments(!showComments);
-    document.getElementById('comments')!.style.display = 'block';
-    window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
+    if (showComments) {
+      document.getElementById('comments')!.style.display = 'block';
+      window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
+    } else {
+      document.getElementById('comments')!.style.display = 'none';
+    }
   };
 
   return (

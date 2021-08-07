@@ -6,14 +6,9 @@ import * as ReactDOM from 'react-dom';
 import Test from './Test';
 import './popup.css';
 
-if (window.location.href.includes('watch?v=')) {
-  document.addEventListener('yt-navigate-finish', () => {
-    const mountNode = document.getElementById('comments');
-    if (mountNode) {
-      ytPrepare(mountNode);
-    }
-  });
-}
+document.addEventListener('DOMContentLoaded', () => ytPrepare());
+document.addEventListener('yt-navigate-finish', () => ytPrepare());
+document.addEventListener('spfdone', () => ytPrepare());
 // console.log(window.location.href);
 
 // const observer = new MutationObserver((mutations, me) => {
@@ -34,7 +29,16 @@ if (window.location.href.includes('watch?v=')) {
 //   subtree: true,
 // });
 
-const ytPrepare = (mountNode: HTMLElement | undefined) => {
+const ytPrepare = () => {
+  if (window.location.href.includes('watch?v=')) {
+    const mountNode = document.getElementById('comments');
+    if (mountNode) {
+      loadComments(mountNode);
+    }
+  }
+};
+
+const loadComments = (mountNode: HTMLElement | undefined) => {
   let redComments = document.getElementById('redComments');
   if (redComments) {
     redComments.remove();
