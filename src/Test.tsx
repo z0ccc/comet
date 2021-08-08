@@ -26,7 +26,7 @@ const App = () => {
   const [post, setPost] = useState<PostType | null>(null);
   const [comments, setComments] = useState<CommentListType[]>([]);
   const [sort, setSort] = useState<string>('');
-  const [showComments, setShowComments] = useState<boolean>(true);
+  // const [showComments, setShowComments] = useState<boolean>(true);
 
   useEffect(() => {
     setfirstRender(false);
@@ -63,48 +63,42 @@ const App = () => {
   }, [sort]);
 
   const toggle = () => {
-    setShowComments(!showComments);
-    if (showComments) {
-      document.getElementById('comments')!.style.display = 'block';
-      window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
-    } else {
-      document.getElementById('comments')!.style.display = 'none';
-    }
+    // setShowComments(!showComments);
+    document.getElementById('redComments')!.style.display = 'none';
+    document.getElementById('comments')!.style.display = 'block';
+    document.getElementById('redImgWrap')!.style.display = 'flex';
+    window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
   };
 
   return (
-    <>
-      {showComments && (
-        <div className="App">
-          <div className="subredditContainer">
-            <Subreddits
-              subreddits={subreddits}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <button type="submit" className="toggleButton" onClick={toggle}>
-              <img
-                id="redImg"
-                className="toggleImg"
-                alt="Youtube toggle icon"
-                src={chrome.runtime.getURL('../images/grey_32.png')}
-              />
-            </button>
-          </div>
-          {post !== null && (
-            <>
-              <Post post={post} />
-              <SortDropDown sort={sort} setSort={setSort} />
-              <Comments
-                comments={comments}
-                setComments={setComments}
-                permalink={post.permalink}
-              />
-            </>
-          )}
-        </div>
+    <div className="App">
+      <div className="subredditContainer">
+        <Subreddits
+          subreddits={subreddits}
+          selected={selected}
+          setSelected={setSelected}
+        />
+        <button type="submit" className="toggleButton" onClick={toggle}>
+          <img
+            id="redImg"
+            className="toggleImg"
+            alt="Youtube toggle icon"
+            src={chrome.runtime.getURL('../images/youtube_32.png')}
+          />
+        </button>
+      </div>
+      {post !== null && (
+      <>
+        <Post post={post} />
+        <SortDropDown sort={sort} setSort={setSort} />
+        <Comments
+          comments={comments}
+          setComments={setComments}
+          permalink={post.permalink}
+        />
+      </>
       )}
-    </>
+    </div>
   );
 };
 
