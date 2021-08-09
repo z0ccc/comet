@@ -1,15 +1,14 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+
+const toggle = () => {
+  document.getElementById('comments')!.style.display = 'none';
+  document.getElementById('redImgWrap')!.style.display = 'none';
+  document.getElementById('redComments')!.style.display = 'block';
+};
 
 const CommentToggle = () => {
-  const toggle = () => {
-    document.getElementById('comments')!.style.display = 'none';
-    document.getElementById('redImgWrap')!.style.display = 'none';
-    document.getElementById('redComments')!.style.display = 'block';
-  };
-
   return (
     <button type="submit" className="toggleButton" onClick={toggle}>
       <img

@@ -21,7 +21,12 @@ import SortDropDown from './SortDropDown';
 
 import './App.css';
 
-const App = () => {
+interface ComponentProps {
+  onYoutube: boolean;
+  url: string;
+}
+
+const App = ({ onYoutube, url }: ComponentProps) => {
   const [firstRender, setfirstRender] = useState<boolean>(true);
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
@@ -32,16 +37,14 @@ const App = () => {
 
   useEffect(() => {
     setfirstRender(false);
-    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-      const queries: string[] = getQueries(tabs[0].url!);
-      getPostArr(queries).then((postArr) => {
-        setSubreddits(getSubreddits(postArr));
-        setPosts(getPosts(postArr));
-        const firstPost: PostType = getPosts(postArr)[0];
-        setPost(firstPost);
-        getCommentArr(firstPost.permalink).then((commentArr) => {
-          setComments(getComments(commentArr));
-        });
+    const queries: string[] = getQueries(url);
+    getPostArr(queries).then((postArr) => {
+      setSubreddits(getSubreddits(postArr));
+      setPosts(getPosts(postArr));
+      const firstPost: PostType = getPosts(postArr)[0];
+      setPost(firstPost);
+      getCommentArr(firstPost.permalink).then((commentArr) => {
+        setComments(getComments(commentArr));
       });
     });
   }, []);
@@ -66,13 +69,32 @@ const App = () => {
     }
   }, [sort]);
 
+  const toggle = () => {
+    document.getElementById('redComments')!.style.display = 'none';
+    document.getElementById('comments')!.style.display = 'block';
+    document.getElementById('redImgWrap')!.style.display = 'flex';
+    window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
+  };
+
   return (
     <div className="App">
-      <Subreddits
-        subreddits={subreddits}
-        selected={selected}
-        setSelected={setSelected}
-      />
+      <div className="subredditContainer">
+        <Subreddits
+          subreddits={subreddits}
+          selected={selected}
+          setSelected={setSelected}
+        />
+        {onYoutube && (
+          <button type="submit" className="toggleButton" onClick={toggle}>
+            <img
+              id="redImg"
+              className="toggleImg"
+              alt="Youtube toggle icon"
+              src={chrome.runtime.getURL('../images/youtube_32.png')}
+            />
+          </button>
+        )}
+      </div>
       {post !== null && (
         <>
           <Post post={post} />

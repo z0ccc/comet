@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import Test from './Test';
+import App from './App';
 import CommentToggle from './CommentToggle';
 import './popup.css';
 
@@ -41,6 +42,6 @@ const loadComments = (mountNode: HTMLElement | undefined) => {
   mountNode!.parentNode!.insertBefore(redComments, mountNode!);
   mountNode!.parentNode!.insertBefore(redImgWrap, mountNode!);
 
-  ReactDOM.render(<Test />, redComments);
+  ReactDOM.render(<App onYoutube url={window.location.href} />, redComments);
   ReactDOM.render(<CommentToggle />, redImgWrap);
 };

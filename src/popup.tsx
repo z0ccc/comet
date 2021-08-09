@@ -5,4 +5,6 @@ import App from './App';
 import './popup.css';
 
 const mountNode = document.getElementById('popup');
-ReactDOM.render(<App />, mountNode);
+chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+  ReactDOM.render(<App onYoutube={false} url={tabs[0].url!} />, mountNode);
+});
