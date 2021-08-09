@@ -34,18 +34,24 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   const [post, setPost] = useState<PostType | null>(null);
   const [comments, setComments] = useState<CommentListType[]>([]);
   const [sort, setSort] = useState<string>('');
+  const [message, setMessage] = useState<string>('loading...');
 
   useEffect(() => {
     setfirstRender(false);
     const queries: string[] = getQueries(url);
     getPostArr(queries).then((postArr) => {
-      setSubreddits(getSubreddits(postArr));
-      setPosts(getPosts(postArr));
-      const firstPost: PostType = getPosts(postArr)[0];
-      setPost(firstPost);
-      getCommentArr(firstPost.permalink).then((commentArr) => {
-        setComments(getComments(commentArr));
-      });
+      if (postArr.length !== 0) {
+        setSubreddits(getSubreddits(postArr));
+        setPosts(getPosts(postArr));
+        const firstPost: PostType = getPosts(postArr)[0];
+        setPost(firstPost);
+        getCommentArr(firstPost.permalink).then((commentArr) => {
+          setComments(getComments(commentArr));
+          setMessage('');
+        });
+      } else {
+        setMessage('No posts found');
+      }
     });
   }, []);
 
@@ -106,6 +112,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           />
         </>
       )}
+      <div>{message}</div>
     </div>
   );
 };

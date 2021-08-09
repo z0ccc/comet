@@ -3,7 +3,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import Test from './Test';
 import App from './App';
 import CommentToggle from './CommentToggle';
 import './popup.css';
