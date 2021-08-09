@@ -112,7 +112,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           />
         </>
       )}
-      <div>{message}</div>
+      <div className="message">{message}</div>
     </div>
   );
 };

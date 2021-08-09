@@ -246,3 +246,8 @@ blockquote {
   margin-top: 13px;
   margin-bottom: 13px;
 }
+
+.message {
+  text-align: center;
+  font-size: 14px;
+}
