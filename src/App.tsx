@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import Parser from 'html-react-parser';
 import {
   getQueries,
   getPostArr,
@@ -50,7 +51,9 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           setMessage('');
         });
       } else {
-        setMessage('No posts found');
+        setMessage(
+          `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`
+        );
       }
     });
   }, []);
@@ -112,7 +115,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           />
         </>
       )}
-      <div className="message">{message}</div>
+      <div className="message">{Parser(message)}</div>
     </div>
   );
 };
