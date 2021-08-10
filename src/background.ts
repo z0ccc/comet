@@ -31,17 +31,15 @@ chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
 });
 
 chrome.tabs.onActivated.addListener(() => {
-  setTimeout(() => {
-    chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
-      if (!clickOnly) {
-        chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-          console.log(getQueries(tabs[0].url!));
-          const queries: string[] = getQueries(tabs[0].url!);
-          getPostArr(queries).then((postArr) => {
-            setIcon(postArr);
-          });
+  chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
+    if (!clickOnly) {
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        console.log(getQueries(tabs[0].url!));
+        const queries: string[] = getQueries(tabs[0].url!);
+        getPostArr(queries).then((postArr) => {
+          setIcon(postArr);
         });
-      }
-    });
-  }, 500);
+      });
+    }
+  });
 });
