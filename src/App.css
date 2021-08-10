@@ -251,3 +251,9 @@ blockquote {
   text-align: center;
   font-size: 14px;
 }
+
+@media screen and (max-width: 1000px) {
+  #redImgWrap {
+    z-index: 10;
+  }
+}

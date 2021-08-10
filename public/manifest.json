@@ -31,12 +31,13 @@
   },
   "web_accessible_resources": [
     {
-      "resources": [
-        "images/youtube_32.png",
-        "images/grey_32.png"
-      ],
+      "resources": ["images/youtube_32.png", "images/grey_32.png"],
       "matches": ["*://*.youtube.com/*"],
       "extension_ids": []
     }
-  ]
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  }
 }
