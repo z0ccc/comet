@@ -51,6 +51,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           setMessage('');
         });
       } else {
+        if (onYoutube) toggle();
         setMessage(
           `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`
         );
