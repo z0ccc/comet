@@ -36,7 +36,14 @@ const loadComments = (mountNode: HTMLElement | undefined) => {
   redImgWrap = document.createElement('div');
   redImgWrap.setAttribute('id', 'redImgWrap');
 
-  ytComments!.style.display = 'none';
+  chrome.storage.sync.get('ytDefault', ({ ytDefault }) => {
+    if (ytDefault) {
+      redComments!.style.display = 'none';
+      redImgWrap!.style.display = 'flex';
+    } else {
+      ytComments!.style.display = 'none';
+    }
+  });
 
   mountNode!.parentNode!.insertBefore(redComments, mountNode!);
   mountNode!.parentNode!.insertBefore(redImgWrap, mountNode!);
