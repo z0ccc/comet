@@ -5,10 +5,8 @@ import { useState, useEffect } from 'react';
 
 import './App.css';
 
-const Option = () => {
-  return (
-    <div className="App">jjj</div>
-  );
+const OptionsPage = () => {
+  return <div className="App">jjj</div>;
 };
 
-export default Option;
+export default OptionsPage;
