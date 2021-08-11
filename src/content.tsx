@@ -36,8 +36,8 @@ const loadComments = (mountNode: HTMLElement | undefined) => {
   redImgWrap = document.createElement('div');
   redImgWrap.setAttribute('id', 'redImgWrap');
 
-  chrome.storage.sync.get('ytDefault', ({ ytDefault }) => {
-    if (ytDefault) {
+  chrome.storage.sync.get('commentDefault', ({ commentDefault }) => {
+    if (commentDefault) {
       redComments!.style.display = 'none';
       redImgWrap!.style.display = 'flex';
     } else {

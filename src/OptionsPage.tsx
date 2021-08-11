@@ -21,9 +21,9 @@ const setClickOnly = () => {
 };
 
 const setCommentDefault = () => {
-  chrome.storage.sync.get('ytDefault', ({ ytDefault }) => {
-    const value = !ytDefault;
-    chrome.storage.sync.set({ ytDefault: value });
+  chrome.storage.sync.get('commentDefault', ({ commentDefault }) => {
+    const value = !commentDefault;
+    chrome.storage.sync.set({ commentDefault: value });
   });
 };
 
@@ -52,11 +52,11 @@ const OptionsPage = () => {
       <div className="optionItemWrap">
         <input
           type="checkbox"
-          id="ytDefault"
-          name="ytDefault"
+          id="commentDefault"
+          name="commentDefault"
           onChange={setCommentDefault}
         />
-        <label htmlFor="ytDefault">Show YouTube comments as default</label>
+        <label htmlFor="commentDefault">Show YouTube comments as default</label>
       </div>
       <div className="optionText">
         Github:{' '}
