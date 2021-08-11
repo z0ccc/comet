@@ -1,0 +1,22 @@
+.optionItemWrap {
+  display: flex;
+  align-items: center;
+  margin: 0 0 18px 0;
+}
+
+.selectBoxWrap {
+  margin: 0 6px 0 0;  
+}
+
+input[type=checkBox] {
+  margin: 0 6px 0 0;
+}
+
+a {
+  color: #0079d3;
+  text-decoration: none;
+}
+
+.optionText {
+  margin: 3px 3px 3px 4px;
+}
