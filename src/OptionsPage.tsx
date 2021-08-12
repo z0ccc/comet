@@ -28,10 +28,21 @@ const setCommentDefault = () => {
 };
 
 const OptionsPage = () => {
+  const [themeType, setTheme] = useState<string>('default');
+
+  useEffect(() => {
+    chrome.storage.sync.set({ theme: themeType });
+  }, [themeType]);
+
   return (
     <div>
       <div className="optionItemWrap">
-        <select className="selectBoxWrap" name="theme" id="theme">
+        <select
+          className="selectBoxWrap"
+          name="theme"
+          onChange={(e) => setTheme(e.target.value)}
+          value={themeType}
+        >
           <option value="default">Default</option>
           <option value="dark">Dark</option>
           <option value="light">Light</option>

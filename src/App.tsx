@@ -22,6 +22,19 @@ import SortDropDown from './SortDropDown';
 
 import './App.css';
 
+const detectTheme = () => {
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // OS theme setting detected as dark
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  chrome.storage.sync.get('theme', ({ theme }) => {
+    // local storage is used to override OS theme settings
+    if (theme === 'dark' || theme === 'light') {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  });
+};
+
 interface ComponentProps {
   onYoutube: boolean;
   url: string;
@@ -38,6 +51,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   const [message, setMessage] = useState<string>('loading...');
 
   useEffect(() => {
+    detectTheme();
     setfirstRender(false);
     const queries: string[] = getQueries(url);
     getPostArr(queries).then((postArr) => {

@@ -5,11 +5,25 @@
   --text: #212121;
   --blue: #369;
   --dark-grey: #888;
-  --background: #fff;
+  --background: transparent;
+  --white: #fff;
   --link-blue: #0079d3;
   --blockQuote: #4f4f4f;
   scrollbar-color: var(--scrollbar) transparent !important;
   scrollbar-width: thin !important;
+}
+
+[data-theme='dark'] {
+  --scrollbar: #626567;
+  --light-grey: #565656;
+  --border: #565656;
+  --text: #f0f3f4;
+  --blue: #3498db;
+  --link-blue: #3498db;
+  --dark-grey: #909090;
+  --background: #212121;
+  --white: #212121;
+  --blockQuote: #acacac;
 }
 
 #redComments {
@@ -17,6 +31,7 @@
   color: var(--text);
   font-size: 25px;
   line-height: 22px;
+  background-color: var(--background);
 }
 
 .popup {
@@ -91,7 +106,7 @@ button {
   border-radius: 2px;
   cursor: pointer;
   font-size: 13px;
-  background-color: var(--background);
+  background-color: var(--white);
 }
 
 .subreddit:hover {
@@ -215,7 +230,7 @@ button {
 select {
   display: block;
   border: solid 1px var(--border);
-  background-color: var(--background);
+  background-color: var(--white);
   border-radius: 2px;
   color: var(--text);
   margin: 0 0 6px 0;
