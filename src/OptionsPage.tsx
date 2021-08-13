@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 import './App.css';
 
-const setClickOnly = () => {
+const handleClickOnly = () => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     const value = !clickOnly;
     chrome.storage.sync.set({ clickOnly: value });
@@ -20,7 +20,7 @@ const setClickOnly = () => {
   });
 };
 
-const setCommentDefault = () => {
+const handleCommentDefault = () => {
   chrome.storage.sync.get('commentDefault', ({ commentDefault }) => {
     const value = !commentDefault;
     chrome.storage.sync.set({ commentDefault: value });
@@ -28,11 +28,25 @@ const setCommentDefault = () => {
 };
 
 const OptionsPage = () => {
-  const [themeType, setTheme] = useState<string>('default');
+  const [themeVal, setTheme] = useState<string>('');
+  const [clickOnlyVal, setClickOnly] = useState<boolean>();
+  const [commentDefaultVal, setCommentDefault] = useState<boolean>();
 
   useEffect(() => {
-    chrome.storage.sync.set({ theme: themeType });
-  }, [themeType]);
+    chrome.storage.sync.get('theme', ({ theme }) => {
+      setTheme(theme);
+    });
+    chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
+      setClickOnly(clickOnly);
+    });
+    chrome.storage.sync.get('commentDefault', ({ commentDefault }) => {
+      setCommentDefault(commentDefault);
+    });
+  }, []);
+
+  useEffect(() => {
+    chrome.storage.sync.set({ theme: themeVal });
+  }, [themeVal]);
 
   return (
     <div>
@@ -41,7 +55,7 @@ const OptionsPage = () => {
           className="selectBoxWrap"
           name="theme"
           onChange={(e) => setTheme(e.target.value)}
-          value={themeType}
+          value={themeVal}
         >
           <option value="default">Default</option>
           <option value="dark">Dark</option>
@@ -54,7 +68,8 @@ const OptionsPage = () => {
           type="checkbox"
           id="clickOnly"
           name="clickOnly"
-          onChange={setClickOnly}
+          onChange={handleClickOnly}
+          defaultChecked={clickOnlyVal}
         />
         <label htmlFor="clickOnly">
           Run browser popup only when icon is clicked
@@ -65,7 +80,8 @@ const OptionsPage = () => {
           type="checkbox"
           id="commentDefault"
           name="commentDefault"
-          onChange={setCommentDefault}
+          onChange={handleCommentDefault}
+          defaultChecked={commentDefaultVal}
         />
         <label htmlFor="commentDefault">Show YouTube comments as default</label>
       </div>
