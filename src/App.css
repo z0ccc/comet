@@ -21,7 +21,7 @@
   --blue: #3498db;
   --link-blue: #3498db;
   --dark-grey: #909090;
-  --background: #212121;
+  --background: #181818;
   --white: #212121;
   --blockQuote: #acacac;
 }
@@ -107,6 +107,7 @@ button {
   cursor: pointer;
   font-size: 13px;
   background-color: var(--white);
+  color: var(--text);
 }
 
 .subreddit:hover {
