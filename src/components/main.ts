@@ -8,6 +8,26 @@ import {
   CommentListType,
 } from './types';
 
+export const toggleYoutube = () => {
+  document.getElementById('redComments')!.style.display = 'none';
+  document.getElementById('comments')!.style.display = 'block';
+  document.getElementById('redditImgWrap')!.style.display = 'flex';
+  window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
+};
+
+export const detectTheme = () => {
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // OS theme setting detected as dark
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  chrome.storage.sync.get('theme', ({ theme }) => {
+    // local storage is used to override OS theme settings
+    if (theme === 'dark' || theme === 'light') {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  });
+};
+
 // Gets reddit search query URLs
 export const getQueries = (url: string): string[] => {
   const queries = [`https://api.reddit.com/submit?url=${url}`];

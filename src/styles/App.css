@@ -63,7 +63,7 @@ button {
   width: 28px;
 }
 
-#redImgWrap {
+#redditImgWrap {
   display: none;
   justify-content: flex-end;
   margin: 20px 0 -50px 0;
@@ -275,7 +275,7 @@ blockquote {
 }
 
 @media screen and (max-width: 1000px) {
-  #redImgWrap {
+  #redditImgWrap {
     z-index: 10;
   }
 }

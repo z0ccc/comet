@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import App from './App';
-import CommentToggle from './CommentToggle';
+import CommentToggle from './ToggleReddit';
 
 document.addEventListener('DOMContentLoaded', () => prepareComments());
 document.addEventListener('yt-navigate-finish', () => prepareComments());
@@ -22,31 +22,31 @@ const prepareComments = () => {
 const loadComments = (mountNode: HTMLElement | undefined) => {
   const ytComments = document.getElementById('comments');
   let redComments = document.getElementById('redComments');
-  let redImgWrap = document.getElementById('redImgWrap');
+  let redditImgWrap = document.getElementById('redditImgWrap');
 
   if (redComments) {
     redComments.remove();
-    redImgWrap!.remove();
+    redditImgWrap!.remove();
   }
   redComments = document.createElement('div');
   redComments.setAttribute('id', 'redComments');
   redComments.style.marginTop = '20px';
 
-  redImgWrap = document.createElement('div');
-  redImgWrap.setAttribute('id', 'redImgWrap');
+  redditImgWrap = document.createElement('div');
+  redditImgWrap.setAttribute('id', 'redditImgWrap');
 
   chrome.storage.sync.get('commentDefault', ({ commentDefault }) => {
     if (commentDefault) {
       redComments!.style.display = 'none';
-      redImgWrap!.style.display = 'flex';
+      redditImgWrap!.style.display = 'flex';
     } else {
       ytComments!.style.display = 'none';
     }
   });
 
   mountNode!.parentNode!.insertBefore(redComments, mountNode!);
-  mountNode!.parentNode!.insertBefore(redImgWrap, mountNode!);
+  mountNode!.parentNode!.insertBefore(redditImgWrap, mountNode!);
 
   ReactDOM.render(<App onYoutube url={window.location.href} />, redComments);
-  ReactDOM.render(<CommentToggle />, redImgWrap);
+  ReactDOM.render(<CommentToggle />, redditImgWrap);
 };

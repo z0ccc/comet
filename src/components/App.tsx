@@ -3,6 +3,8 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import {
+  toggleYoutube,
+  detectTheme,
   getQueries,
   getPostArr,
   getSubreddits,
@@ -19,21 +21,9 @@ import Subreddits from './Subreddits';
 import Post from './Post';
 import Comments from './Comments';
 import SortDropDown from './SortDropDown';
+import RedditImg from './RedditImg';
 
 import '../styles/App.css';
-
-const detectTheme = () => {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    // OS theme setting detected as dark
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
-  chrome.storage.sync.get('theme', ({ theme }) => {
-    // local storage is used to override OS theme settings
-    if (theme === 'dark' || theme === 'light') {
-      document.documentElement.setAttribute('data-theme', theme);
-    }
-  });
-};
 
 interface ComponentProps {
   onYoutube: boolean;
@@ -65,7 +55,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           setMessage('');
         });
       } else {
-        if (onYoutube) toggle();
+        if (onYoutube) toggleYoutube();
         setMessage(
           `No posts found. <a class="submit" target="_blank" href="https://www.reddit.com/submit?url=${url}">Submit it</a>`
         );
@@ -95,13 +85,6 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     }
   }, [sort]);
 
-  const toggle = () => {
-    document.getElementById('redComments')!.style.display = 'none';
-    document.getElementById('comments')!.style.display = 'block';
-    document.getElementById('redImgWrap')!.style.display = 'flex';
-    window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
-  };
-
   return (
     <div className="App">
       <div className="subredditContainer">
@@ -110,16 +93,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           selected={selected}
           setSelected={setSelected}
         />
-        {onYoutube && (
-          <button type="submit" className="toggleButton" onClick={toggle}>
-            <img
-              id="redImg"
-              className="toggleImg"
-              alt="Youtube toggle icon"
-              src={chrome.runtime.getURL('../images/youtube_32.png')}
-            />
-          </button>
-        )}
+        {onYoutube && <RedditImg />}
       </div>
       {post !== null && (
         <>
