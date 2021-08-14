@@ -4,8 +4,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
-import './App.css';
-
 const handleClickOnly = () => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     const value = !clickOnly;

@@ -5,7 +5,6 @@ import * as ReactDOM from 'react-dom';
 
 import App from './App';
 import CommentToggle from './CommentToggle';
-import './popup.css';
 
 document.addEventListener('DOMContentLoaded', () => prepareComments());
 document.addEventListener('yt-navigate-finish', () => prepareComments());

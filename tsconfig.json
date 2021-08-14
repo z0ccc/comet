@@ -18,6 +18,6 @@
     },
     "include": [
         "./src/**/*",
-        "src/custom.d.ts"
+        "src/components/custom.d.ts"
     ]
 }

@@ -26,6 +26,12 @@
   --blockQuote: #acacac;
 }
 
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 #redComments {
   font-family: Verdana, sans-serif;
   color: var(--text);

@@ -20,7 +20,7 @@ import Post from './Post';
 import Comments from './Comments';
 import SortDropDown from './SortDropDown';
 
-import './App.css';
+import '../styles/App.css';
 
 const detectTheme = () => {
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
