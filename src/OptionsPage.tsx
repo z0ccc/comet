@@ -68,7 +68,7 @@ const OptionsPage = () => {
           type="checkbox"
           id="clickOnly"
           name="clickOnly"
-          onChange={handleClickOnly}
+          onClick={handleClickOnly}
           defaultChecked={clickOnlyVal}
         />
         <label htmlFor="clickOnly">
@@ -80,7 +80,7 @@ const OptionsPage = () => {
           type="checkbox"
           id="commentDefault"
           name="commentDefault"
-          onChange={handleCommentDefault}
+          onClick={handleCommentDefault}
           defaultChecked={commentDefaultVal}
         />
         <label htmlFor="commentDefault">Show YouTube comments as default</label>
