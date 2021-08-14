@@ -75,11 +75,13 @@ const App = ({ onYoutube, url }: ComponentProps) => {
 
   useEffect(() => {
     if (!firstRender) {
+      setMessage('loading...');
       setPost(posts[selected]);
       setSort('best');
       setComments([]);
       getCommentArr(posts[selected].permalink).then((commentArr) => {
         setComments(getComments(commentArr));
+        setMessage('');
       });
     }
   }, [selected]);
