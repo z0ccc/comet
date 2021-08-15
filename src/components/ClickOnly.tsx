@@ -1,19 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-
-const handleClickOnly = () => {
-  chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
-    const value = !clickOnly;
-    chrome.storage.sync.set({ clickOnly: value });
-    if (value === true) {
-      chrome.action.setIcon({
-        path: {
-          16: '../images/reddit_16.png',
-        },
-      });
-    }
-  });
-};
+import { handleClickOnly } from './main';
 
 const OptionsPage = () => {
   const [clickOnlyVal, setClickOnly] = useState<boolean>();

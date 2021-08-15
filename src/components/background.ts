@@ -1,22 +1,9 @@
 // This file is ran as a background script
 import {
+  setIcon,
   getQueries,
   getPostArr,
 } from './main';
-
-import {
-  DataType,
-} from './types';
-
-// Changes icon color
-const setIcon = (postArr: DataType[]) => {
-  const icon = postArr.length ? 'images/reddit_16.png' : 'images/grey_16.png';
-  chrome.action.setIcon({
-    path: {
-      16: icon,
-    },
-  });
-};
 
 // Detects if there are posts for current url
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {

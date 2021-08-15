@@ -5,6 +5,30 @@ import {
   CommentListType,
 } from './types';
 
+// Changes icon color
+export const setIcon = (postArr: DataType[]) => {
+  const icon = postArr.length ? '../images/reddit_16.png' : '../images/grey_16.png';
+  chrome.action.setIcon({
+    path: {
+      16: icon,
+    },
+  });
+};
+
+export const handleClickOnly = () => {
+  chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
+    const value = !clickOnly;
+    chrome.storage.sync.set({ clickOnly: value });
+    if (value === true) {
+      chrome.action.setIcon({
+        path: {
+          16: '../images/reddit_16.png',
+        },
+      });
+    }
+  });
+};
+
 export const toggleYoutube = () => {
   document.getElementById('redComments')!.style.display = 'none';
   document.getElementById('comments')!.style.display = 'block';
