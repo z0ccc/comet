@@ -1,29 +1,22 @@
-# Chrome Extension boilerplate created with React Typescript
+# Reddit Wherever
 
-## Getting started
+View the Reddit comments of any YouTube video or web page.
 
-Create a project based on this boilerplate.
+By default YouTube comments will be replaced with the relevant Reddit comments. YouTube comments can still be viewed by clicking the YouTube icon located at the top right of the comments section.
 
-```
-$ npx degit https://github.com/sivertschou/react-typescript-chrome-extension-boilerplate.git#christmas <project-name>
-```
+If the extension icon turns red while browsing it means that the current web page has been submitted to Reddit. Clicking the icon will open a popup where you can view the posts and comments associated with the URL. 
 
-Navigate to the project directory and install the dependencies.
+Options:
+- Dark mode (based on system settings)
+- Run browser popup only when icon is clicked
+- Show YouTube comments as default
 
-```
-$ npm install
-```
+Reddit Wherever contains no ads, collects no data and signup is not required.
 
-To build the extension, and rebuild it when the files are changed, run
+Download from Chrome Web Store:
 
-```
-$ npm start
-```
+https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaacchlnhljbcm
 
-After the project has been built, a directory named `dist` has been created. You have to add this directory to your Chrome browser:
+![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo_images/screenshot-1.png)
 
-1. Open Chrome.
-2. Navigate to `chrome://extensions`.
-3. Enable _Developer mode_.
-4. Click _Load unpacked_.
-5. Select the `dist` directory.
+![Image of extension popup](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo_images/screenshot-2.png)
