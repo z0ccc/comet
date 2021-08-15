@@ -20,3 +20,14 @@ https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaac
 ![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/screenshot-1.png)
 
 ![Image of extension popup](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/screenshot-2.png)
+
+# Dev
+
+Built with React, Typescript and Webpack.
+
+Setup:
+```
+yarn install
+yarn run start
+```
+Then load the dist folder as an unpacked extension in Chrome.
