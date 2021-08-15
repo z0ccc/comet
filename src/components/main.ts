@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
 import {
   SubredditType,
   PostType,
-  CommentType,
   DataType,
-  LoadMoreType,
   CommentListType,
 } from './types';
 
