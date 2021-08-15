@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
@@ -63,6 +62,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     });
   }, []);
 
+  // runs if different post is selected
   useEffect(() => {
     if (!firstRender) {
       setMessage('loading...');
@@ -76,6 +76,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     }
   }, [selected]);
 
+  // runs if different sort type is selected
   useEffect(() => {
     if (!firstRender) {
       setComments([]);

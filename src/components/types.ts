@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export type SubredditType = {
   id: number;
   name: string;

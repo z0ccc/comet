@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import {
   useState, useCallback, Dispatch, SetStateAction, memo
 } from 'react';
 import Parser from 'html-react-parser';
 import {
-  DataType, CommentType, LoadMoreType, CommentListType
+  DataType, CommentListType
 } from './types';
 import { getCommentArr, getComments } from './main';
 

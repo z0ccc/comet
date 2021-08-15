@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 // This file is injected as a content script
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -28,6 +27,7 @@ const loadComments = (mountNode: HTMLElement | undefined) => {
     redComments.remove();
     redditImgWrap!.remove();
   }
+
   redComments = document.createElement('div');
   redComments.setAttribute('id', 'redComments');
   redComments.style.marginTop = '20px';

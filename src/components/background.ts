@@ -18,6 +18,7 @@ const setIcon = (postArr: DataType[]) => {
   });
 };
 
+// Detects if there are posts for current url
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     if (!clickOnly) {
@@ -29,6 +30,7 @@ chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
   });
 });
 
+// Detects if there are posts for current url
 chrome.tabs.onActivated.addListener(() => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     if (!clickOnly) {
