@@ -44,4 +44,5 @@ yarn run start
 
 Then load the dist folder as an unpacked extension in Chrome.
 
-Switch files in the 'firefox' folder and then re-build for firefox version.
+For the firefox version switch files in the 'firefox' folder and then re-build.
+
