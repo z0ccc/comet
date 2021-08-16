@@ -1,12 +1,22 @@
 # Reddit Wherever
 
+<p align="center">
+<a href="https://addons.mozilla.org/addon/ublock-origin/"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/firefox.png" alt="Get uBlock Origin for Firefox"></a> 
+<a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/chrome.png" alt="Get uBlock Origin for Chromium"></a>
+<a href="https://microsoftedge.microsoft.com/addons/detail/odfafepnkmbhccpbejgmiehpchacaeak"><img src="https://user-images.githubusercontent.com/585534/107280673-a5ece780-6a26-11eb-9cc7-9fa9f9f81180.png" alt="Get uBlock Origin for Microsoft Edge"></a>
+<a href="https://addons.opera.com/extensions/details/ublock/"><img src="https://user-images.githubusercontent.com/585534/107280692-ac7b5f00-6a26-11eb-85c7-088926504452.png" alt="Get uBlock Origin for Opera"></a>
+      <br><sub><a href="https://twitter.com/gorhill/status/1033706103782170625">Do <b>not</b> use uBlock Origin along with other similarly-purposed blockers</a>.</sub>
+      <br><sub>See below for <a href="#installation">more installation options.</a></sub>
+</p>
+
 View the Reddit comments of any YouTube video or web page.
 
 By default YouTube comments will be replaced with the relevant Reddit comments. YouTube comments can still be viewed by clicking the YouTube icon located at the top right of the comments section.
 
-If the extension icon turns red while browsing it means that the current web page has been submitted to Reddit. Clicking the icon will open a popup where you can view the posts and comments associated with the URL. 
+If the extension icon turns red while browsing it means that the current web page has been submitted to Reddit. Clicking the icon will open a popup where you can view the posts and comments associated with the URL.
 
 Options:
+
 - Dark mode (based on system settings)
 - Run browser popup only when icon is clicked
 - Show YouTube comments as default
@@ -26,10 +36,12 @@ https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaac
 Built with React, Typescript and Webpack.
 
 Setup:
+
 ```
 yarn install
 yarn run start
 ```
+
 Then load the dist folder as an unpacked extension in Chrome.
 
-Switch files in the 'firefox' folder and then re-build for firefox version. 
+Switch files in the 'firefox' folder and then re-build for firefox version.
