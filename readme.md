@@ -17,10 +17,6 @@ Options:
 
 Reddit Wherever contains no ads, collects no data and signup is not required.
 
-Download from Chrome Web Store:
-
-https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaacchlnhljbcm
-
 ![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/screenshot-1.png)
 
 ![Image of extension popup](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/screenshot-2.png)
