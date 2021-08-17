@@ -40,7 +40,7 @@ For the firefox version switch files in the 'firefox' folder and then re-build.
 
 ### The youtube comments are stuck at ‘loading’.
 
-If you are using the DuckDuckGo Privacy Essentials extension you must add to the settings of the DuckDuckGo extension and add api.reddit.com and youtube.com as unprotected sites.
+If you are using the DuckDuckGo Privacy Essentials extension you must go to the settings of the DuckDuckGo extension and add api.reddit.com and youtube.com as unprotected sites.
  
 If you are not using DuckDuckGo Privacy Essentials extension check if any other extensions are preventing the comments from loading.
  
