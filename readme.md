@@ -45,3 +45,8 @@ If you are using the DuckDuckGo Privacy Essentials extension you must go to the 
 If you are not using DuckDuckGo Privacy Essentials extension check if any other extensions are preventing the comments from loading.
  
 If the issue persists please open an issue.
+
+
+### Dark theme is not loading.
+
+If the default system theme is not automatically being selected (sometimes happens on linux), you can manually select the dark theme in the extension settings.
