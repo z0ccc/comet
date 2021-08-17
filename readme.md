@@ -11,7 +11,7 @@ If the extension icon turns red while browsing it means that the current web pag
 
 Options:
 
-- Dark mode (based on system settings)
+- Dark mode
 - Run browser popup only when icon is clicked
 - Show YouTube comments as default
 
