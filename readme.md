@@ -46,7 +46,9 @@ If you're having problems that aren't addressed or fixed by this section please 
 
 If you are using the DuckDuckGo Privacy Essentials extension you must go to the settings of the DuckDuckGo extension and add api.reddit.com and youtube.com as unprotected sites.
  
-If you are not using DuckDuckGo Privacy Essentials extension check if any other extensions are preventing the comments from loading.
+If you are using uMatrix or uBlock origin advanced mode you need to allow the Reddit 3rd party domain to run on YouTube.
+ 
+If you are not using any of these extensions check if any other extensions are preventing the comments from loading.
 
 <br />
 
