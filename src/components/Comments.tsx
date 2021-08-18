@@ -20,34 +20,6 @@ const Comments = memo(
   ({ comments, setComments, permalink }: ComponentProps) => {
     const [load, setLoad] = useState<string>();
 
-    const loadMore = useCallback(
-      async (link, commentsList, id, children, depth, index) => {
-        setLoad(id);
-        const promisesFetch: Promise<DataType[]>[] = [];
-        for (let i = 0; i < children.length; i++) {
-          promisesFetch.push(getCommentArr(link + children[i]));
-        }
-
-        await Promise.all(promisesFetch).then((value: any) => {
-          const arr: CommentListType[] = getComments(value.flat(Infinity));
-          for (let i = 0; i < arr.length; i++) {
-            const reply: CommentListType = arr[i];
-            if (!isObjectArray(reply)) {
-              reply.depth += depth;
-              commentsList.splice(index + i, 0, reply);
-            }
-          }
-        });
-        setComments(commentsList);
-        setComments((arr) => arr.filter((item) => {
-          if (!isObjectArray(item)) {
-            return item.id !== id;
-          }
-          return null;
-        }));
-      },
-      []
-    );
 
     return (
       <>
