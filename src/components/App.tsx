@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import {
@@ -104,9 +101,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         <>
           <Post post={post} />
           <SortDropDown sort={sort} setSort={setSort} />
-          {comments.map((object) => {
-            return <Comment comment={object} permalink={post.permalink} />;
-          })}
+          {comments.map((object) => <Comment comment={object} permalink={post.permalink} />)}
         </>
       )}
       <div className="message">{Parser(message)}</div>
