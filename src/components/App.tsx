@@ -54,7 +54,6 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         const firstPost: PostType = getPosts(postArr)[0];
         setPost(firstPost);
         getCommentArr(firstPost.permalink).then((commentArr) => {
-          console.log(commentArr);
           setComments(commentArr);
           setMessage('');
         });
@@ -68,18 +67,18 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   }, []);
 
   // runs if different post is selected
-  // useEffect(() => {
-  //   if (!firstRender) {
-  //     setMessage('loading...');
-  //     setPost(posts[selected]);
-  //     setSort('best');
-  //     setComments([]);
-  //     getCommentArr(posts[selected].permalink).then((commentArr) => {
-  //       setComments(getComments(commentArr));
-  //       setMessage('');
-  //     });
-  //   }
-  // }, [selected]);
+  useEffect(() => {
+    if (!firstRender) {
+      setMessage('loading...');
+      setPost(posts[selected]);
+      setSort('best');
+      setComments([]);
+      getCommentArr(posts[selected].permalink).then((commentArr) => {
+        setComments(commentArr);
+        setMessage('');
+      });
+    }
+  }, [selected]);
 
   // runs if different sort type is selected
   // useEffect(() => {
