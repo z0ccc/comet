@@ -21,15 +21,15 @@ import {
 } from './main';
 
 const Comment = ({ comment, permalink }: any) => {
-  const [replies, setReplies] = useState<DataType[]>([]);
+  const [replies, setReplies] = useState<DataType[][]>([]);
 
-  const loadMore = () => {
-    console.log(comment.data.children, permalink);
-    comment.data.children.forEach((id: any) => {
-      getCommentArr(permalink + id).then((commentArr) => {
-        console.log(commentArr);
-        setReplies(commentArr);
-      });
+  const loadMore = async () => {
+    const promisesFetch: Promise<DataType[]>[] = [];
+    for (let i = 0; i < comment.data.children.length; i++) {
+      promisesFetch.push(getCommentArr(permalink + comment.data.children[i]));
+    }
+    await Promise.all(promisesFetch).then((value: any) => {
+      setReplies(value);
     });
   };
 
@@ -49,9 +49,13 @@ const Comment = ({ comment, permalink }: any) => {
             </div>
           ) : (
             <>
-              {replies.map((object) => {
-                return <Comment comment={object} permalink={permalink} />;
-              })}
+              {replies.map((comments) => (
+                <>
+                  {comments.map((object: any) => {
+                    return <Comment comment={object} permalink={permalink} />;
+                  })}
+                </>
+              ))}
             </>
           )}
         </>
