@@ -7,7 +7,11 @@ interface ComponentProps {
 
 const Posts = ({ post }: ComponentProps) => (
   <div className="post">
-    <div className="postScore">{post.score}</div>
+    <div className="postScore">
+      <div className="arrow up" />
+      <div className="postNumber">{post.score}</div>
+      <div className="arrow down" />
+    </div>
     <div className="postInfo">
       <a
         href={`https://reddit.com${post.permalink}`}

@@ -4,7 +4,7 @@
   --border: #cacfd2;
   --text: #212121;
   --blue: #369;
-  --dark-grey: #888;
+  --dark-grey: #c6c6c6;
   --background: transparent;
   --white: #fff;
   --link-blue: #0079d3;
@@ -135,6 +135,28 @@ button {
 
 .postScore {
   margin: 0 8px 0 0;
+}
+
+.arrow {
+  height: 14px;
+  width: 15px;
+  cursor: pointer;
+  margin: auto
+}
+
+.up {
+    background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+    background-position: -106px -1654px;
+    background-repeat: no-repeat;
+}
+
+.down {
+  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+  background-position: -64px -1654px;
+  background-repeat: no-repeat;
+}
+
+.postNumber {
   font-size: 14px;
   font-weight: 600;
   color: var(--dark-grey);
