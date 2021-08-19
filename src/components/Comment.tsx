@@ -1,19 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable arrow-body-style */
 import * as React from 'react';
-import {
-  useState, useEffect
-} from 'react';
+import { useState } from 'react';
 import Parser from 'html-react-parser';
-import {
-  SubredditType, PostType, CommentListType, DataType
-} from './types';
+import { DataType } from './types';
 
 import {
-  getPostArr,
-  getSubreddits,
-  getPosts,
   getCommentArr,
   convertDate,
   decodeHtml,
@@ -22,8 +12,10 @@ import {
 
 const Comment = ({ comment, permalink }: any) => {
   const [replies, setReplies] = useState<DataType[][]>([]);
+  const [loading, setLoading] = useState<boolean>();
 
   const loadMore = async () => {
+    setLoading(true);
     const promisesFetch: Promise<DataType[]>[] = [];
     for (let i = 0; i < comment.data.children.length; i++) {
       promisesFetch.push(getCommentArr(permalink + comment.data.children[i]));
@@ -39,21 +31,25 @@ const Comment = ({ comment, permalink }: any) => {
         <>
           {replies.length === 0 ? (
             <div className="comment">
-              <button
-                className="commentTitle loadMore"
-                type="submit"
-                onClick={loadMore}
-              >
-                {`load more comments (${comment.data.count})`}
-              </button>
+              {loading ? (
+                <div className="commentTitle loadMore">loading...</div>
+              ) : (
+                <button
+                  className="commentTitle loadMore"
+                  type="submit"
+                  onClick={loadMore}
+                >
+                  {`load more comments (${comment.data.count})`}
+                </button>
+              )}
             </div>
           ) : (
             <>
               {replies.map((comments) => (
                 <>
-                  {comments.map((object: any) => {
-                    return <Comment comment={object} permalink={permalink} />;
-                  })}
+                  {comments.map((object: any) => (
+                    <Comment comment={object} permalink={permalink} />
+                  ))}
                 </>
               ))}
             </>
@@ -84,9 +80,9 @@ const Comment = ({ comment, permalink }: any) => {
           </div>
           <div className="child">
             {comment.data.replies &&
-              comment.data.replies.data.children.map((object: any) => {
-                return <Comment comment={object} permalink={permalink} />;
-              })}
+              comment.data.replies.data.children.map((object: any) => (
+                <Comment comment={object} permalink={permalink} />
+              ))}
           </div>
         </div>
       )}
