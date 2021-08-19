@@ -161,6 +161,11 @@ button {
   font-size: 10px;
 }
 
+.collapsed {
+  color: var(--dark-grey) !important;
+  font-style: italic;
+}
+
 .selectedPost {
   background-color: var(--light-grey);
 }

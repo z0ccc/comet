@@ -4,16 +4,13 @@ import Parser from 'html-react-parser';
 import { CommentType } from './types';
 
 import {
-  getCommentArr,
-  convertDate,
-  decodeHtml,
-  formatNumber,
+  getCommentArr, convertDate, decodeHtml, formatNumber
 } from './main';
 
 const Comment = ({ comment, permalink }: any) => {
   const [replies, setReplies] = useState<CommentType[][]>([]);
   const [loading, setLoading] = useState<boolean>();
-  const [collapse, setCollapse] = useState<boolean>();
+  const [collapse, setCollapse] = useState<boolean>(false);
 
   const loadMore = async () => {
     setLoading(true);
@@ -27,7 +24,7 @@ const Comment = ({ comment, permalink }: any) => {
   };
 
   const collapseComment = () => {
-    setCollapse(true);
+    setCollapse(!collapse);
   };
 
   return (
@@ -61,11 +58,35 @@ const Comment = ({ comment, permalink }: any) => {
           )}
         </>
       ) : (
-        <>
+        <div className="comment">
           {collapse ? (
-            <div>j</div>
+            <div className="commentInfo">
+              <div className="infoWrap">
+                <button
+                  className="info"
+                  type="submit"
+                  onClick={collapseComment}
+                >
+                  [+]
+                </button>
+                <a
+                  href={`https://reddit.com/u/${comment.data.author}`}
+                  target="_blank"
+                  className="commentTitle collapsed"
+                  rel="noreferrer"
+                >
+                  {comment.data.author}
+                </a>
+                <div className="info collapsed">
+                  {formatNumber(comment.data.score)} points
+                </div>
+                <div className="info collapsed">
+                  {convertDate(comment.data.created_utc)}
+                </div>
+              </div>
+            </div>
           ) : (
-            <div className="comment">
+            <>
               <div className="commentInfo">
                 <div className="infoWrap">
                   <button
@@ -100,9 +121,9 @@ const Comment = ({ comment, permalink }: any) => {
                     <Comment comment={object} permalink={permalink} />
                   ))}
               </div>
-            </div>
+            </>
           )}
-        </>
+        </div>
       )}
     </>
   );
