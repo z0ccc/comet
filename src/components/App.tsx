@@ -12,13 +12,11 @@ import {
   getSubreddits,
   getPosts,
   getCommentArr,
-  getComments,
 } from './main';
 import {
   SubredditType,
   PostType,
-  CommentListType,
-  DataType
+  CommentType
 } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
@@ -39,7 +37,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
-  const [comments, setComments] = useState<DataType[]>([]);
+  const [comments, setComments] = useState<CommentType[]>([]);
   const [sort, setSort] = useState<string>('');
   const [message, setMessage] = useState<string>('loading...');
 
@@ -81,14 +79,16 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   }, [selected]);
 
   // runs if different sort type is selected
-  // useEffect(() => {
-  //   if (!firstRender) {
-  //     setComments([]);
-  //     getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
-  //       setComments(getComments(commentArr));
-  //     });
-  //   }
-  // }, [sort]);
+  useEffect(() => {
+    if (!firstRender) {
+      setMessage('loading...');
+      setComments([]);
+      getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
+        setComments(commentArr);
+        setMessage('');
+      });
+    }
+  }, [sort]);
 
   return (
     <div className="App">

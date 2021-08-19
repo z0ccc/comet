@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Parser from 'html-react-parser';
-import { DataType } from './types';
+import { CommentType } from './types';
 
 import {
   getCommentArr,
@@ -11,12 +11,12 @@ import {
 } from './main';
 
 const Comment = ({ comment, permalink }: any) => {
-  const [replies, setReplies] = useState<DataType[][]>([]);
+  const [replies, setReplies] = useState<CommentType[][]>([]);
   const [loading, setLoading] = useState<boolean>();
 
   const loadMore = async () => {
     setLoading(true);
-    const promisesFetch: Promise<DataType[]>[] = [];
+    const promisesFetch: Promise<CommentType[]>[] = [];
     for (let i = 0; i < comment.data.children.length; i++) {
       promisesFetch.push(getCommentArr(permalink + comment.data.children[i]));
     }
