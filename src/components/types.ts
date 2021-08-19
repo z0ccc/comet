@@ -23,7 +23,8 @@ export type DataType = {
     author: string;
     subreddit: string;
     num_comments: number;
-    id: number;
+    id: string;
+    parent_id: string;
     children: string[];
     count: number;
     depth: number;
@@ -41,7 +42,8 @@ export type DataType = {
 };
 
 export type CommentType = {
-  id: string | number;
+  id: string;
+  parentID: string;
   kind: string;
   author: string;
   score: string;
@@ -52,6 +54,7 @@ export type CommentType = {
 
 export type LoadMoreType = {
   id: string;
+  parentID: string;
   kind: string;
   children: string[];
   count: number;

@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable arrow-body-style */
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import {
@@ -15,10 +18,11 @@ import {
   SubredditType,
   PostType,
   CommentListType,
+  DataType
 } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
-import Comments from './Comments';
+import Comment from './Comment';
 import SortDropDown from './SortDropDown';
 import RedditImg from './RedditImg';
 
@@ -35,7 +39,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
-  const [comments, setComments] = useState<CommentListType[]>([]);
+  const [comments, setComments] = useState<DataType[]>([]);
   const [sort, setSort] = useState<string>('');
   const [message, setMessage] = useState<string>('loading...');
 
@@ -50,7 +54,8 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         const firstPost: PostType = getPosts(postArr)[0];
         setPost(firstPost);
         getCommentArr(firstPost.permalink).then((commentArr) => {
-          setComments(getComments(commentArr));
+          console.log(commentArr);
+          setComments(commentArr);
           setMessage('');
         });
       } else {
@@ -63,28 +68,28 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   }, []);
 
   // runs if different post is selected
-  useEffect(() => {
-    if (!firstRender) {
-      setMessage('loading...');
-      setPost(posts[selected]);
-      setSort('best');
-      setComments([]);
-      getCommentArr(posts[selected].permalink).then((commentArr) => {
-        setComments(getComments(commentArr));
-        setMessage('');
-      });
-    }
-  }, [selected]);
+  // useEffect(() => {
+  //   if (!firstRender) {
+  //     setMessage('loading...');
+  //     setPost(posts[selected]);
+  //     setSort('best');
+  //     setComments([]);
+  //     getCommentArr(posts[selected].permalink).then((commentArr) => {
+  //       setComments(getComments(commentArr));
+  //       setMessage('');
+  //     });
+  //   }
+  // }, [selected]);
 
   // runs if different sort type is selected
-  useEffect(() => {
-    if (!firstRender) {
-      setComments([]);
-      getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
-        setComments(getComments(commentArr));
-      });
-    }
-  }, [sort]);
+  // useEffect(() => {
+  //   if (!firstRender) {
+  //     setComments([]);
+  //     getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
+  //       setComments(getComments(commentArr));
+  //     });
+  //   }
+  // }, [sort]);
 
   return (
     <div className="App">
@@ -100,11 +105,9 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         <>
           <Post post={post} />
           <SortDropDown sort={sort} setSort={setSort} />
-          <Comments
-            comments={comments}
-            setComments={setComments}
-            permalink={post.permalink}
-          />
+          {comments.map((object) => {
+            return <Comment comment={object} />;
+          })}
         </>
       )}
       <div className="message">{Parser(message)}</div>

@@ -181,6 +181,7 @@ export const getComments = (data: DataType[]): CommentListType[] => {
     if (data[i].kind === 'more') {
       comments.push({
         id: `${data[i].data.children[0]}0`,
+        parentID: data[i].data.parent_id,
         kind: data[i].kind,
         children: data[i].data.children,
         count: data[i].data.count,
@@ -193,6 +194,7 @@ export const getComments = (data: DataType[]): CommentListType[] => {
       );
       comments.push({
         id: data[i].data.id,
+        parentID: data[i].data.parent_id,
         kind: data[i].kind,
         author: data[i].data.author,
         score: formatNumber(data[i].data.score),
@@ -213,17 +215,17 @@ export const getComments = (data: DataType[]): CommentListType[] => {
   return comments.flat(Infinity);
 };
 
-const decodeHtml = (html: string): string => {
+export const decodeHtml = (html: string): string => {
   const txt: HTMLTextAreaElement = document.createElement('textarea');
   txt.innerHTML = html;
   return txt.value;
 };
 
-const formatNumber = (num: number) => (Math.abs(num) > 9999
+export const formatNumber = (num: number) => (Math.abs(num) > 9999
   ? `${(Math.sign(num) * (Math.abs(num) / 1000)).toFixed(0)}k`
   : `${Math.sign(num) * Math.abs(num)}`);
 
-const convertDate = (timestamp: number) => {
+export const convertDate = (timestamp: number) => {
   let diff: number = Date.now() - timestamp * 1000;
 
   if (diff < 1000) {
