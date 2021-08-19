@@ -13,7 +13,7 @@ import {
 const Comment = ({ comment, permalink }: any) => {
   const [replies, setReplies] = useState<CommentType[][]>([]);
   const [loading, setLoading] = useState<boolean>();
-  const [hidden, setHidden] = useState<boolean>();
+  const [collapse, setCollapse] = useState<boolean>();
 
   const loadMore = async () => {
     setLoading(true);
@@ -26,9 +26,9 @@ const Comment = ({ comment, permalink }: any) => {
     });
   };
 
-  const hideComment = () => {
+  const collapseComment = () => {
     console.log('hello');
-    setHidden(true);
+    setCollapse(true);
   };
 
   return (
@@ -63,7 +63,7 @@ const Comment = ({ comment, permalink }: any) => {
         </>
       ) : (
         <>
-          {hidden ? (
+          {collapse ? (
             <div>j</div>
           ) : (
             <div className="comment">
@@ -83,7 +83,13 @@ const Comment = ({ comment, permalink }: any) => {
                   <div className="info">
                     {convertDate(comment.data.created_utc)}
                   </div>
-                  <button className="info" type="submit" onClick={hideComment}>[-]</button>
+                  <button
+                    className="info"
+                    type="submit"
+                    onClick={collapseComment}
+                  >
+                    [-]
+                  </button>
                 </div>
                 <div className="commentBody">
                   {Parser(decodeHtml(comment.data.body_html))}
@@ -91,9 +97,9 @@ const Comment = ({ comment, permalink }: any) => {
               </div>
               <div className="child">
                 {comment.data.replies &&
-              comment.data.replies.data.children.map((object: any) => (
-                <Comment comment={object} permalink={permalink} />
-              ))}
+                  comment.data.replies.data.children.map((object: any) => (
+                    <Comment comment={object} permalink={permalink} />
+                  ))}
               </div>
             </div>
           )}
