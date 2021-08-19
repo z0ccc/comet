@@ -106,7 +106,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           <Post post={post} />
           <SortDropDown sort={sort} setSort={setSort} />
           {comments.map((object) => {
-            return <Comment comment={object} />;
+            return <Comment comment={object} permalink={post.permalink} />;
           })}
         </>
       )}

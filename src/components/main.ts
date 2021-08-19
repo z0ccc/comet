@@ -138,7 +138,7 @@ export const getSubreddits = (data: DataType[]): SubredditType[] => {
   return subreddits;
 };
 
-// Gets and print post info
+// Gets post info
 export const getPosts = (data: DataType[]): PostType[] => {
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {

@@ -3,24 +3,58 @@
 /* eslint-disable arrow-body-style */
 import * as React from 'react';
 import {
-  useState, useCallback, Dispatch, SetStateAction, memo
+  useState, useEffect
 } from 'react';
 import Parser from 'html-react-parser';
 import {
-  DataType, CommentListType
+  SubredditType, PostType, CommentListType, DataType
 } from './types';
 
-import { convertDate, decodeHtml, formatNumber } from './main';
+import {
+  getPostArr,
+  getSubreddits,
+  getPosts,
+  getCommentArr,
+  convertDate,
+  decodeHtml,
+  formatNumber,
+} from './main';
 
-const Comment = ({ comment }: any) => {
+const Comment = ({ comment, permalink }: any) => {
+  const [replies, setReplies] = useState<DataType[]>([]);
+
+  const loadMore = () => {
+    console.log(comment.data.children, permalink);
+    comment.data.children.forEach((id: any) => {
+      getCommentArr(permalink + id).then((commentArr) => {
+        console.log(commentArr);
+        setReplies(commentArr);
+      });
+    });
+  };
+
   return (
     <>
       {comment.kind === 'more' ? (
-        <div className="comment">
-          <button className="commentTitle loadMore" type="submit">
-            {`load more comments (${comment.data.count})`}
-          </button>
-        </div>
+        <>
+          {replies.length === 0 ? (
+            <div className="comment">
+              <button
+                className="commentTitle loadMore"
+                type="submit"
+                onClick={loadMore}
+              >
+                {`load more comments (${comment.data.count})`}
+              </button>
+            </div>
+          ) : (
+            <>
+              {replies.map((object) => {
+                return <Comment comment={object} permalink={permalink} />;
+              })}
+            </>
+          )}
+        </>
       ) : (
         <div className="comment">
           <div className="commentInfo">
@@ -33,8 +67,12 @@ const Comment = ({ comment }: any) => {
               >
                 {comment.data.author}
               </a>
-              <div className="info">{formatNumber(comment.data.score)} points</div>
-              <div className="info">{convertDate(comment.data.created_utc)}</div>
+              <div className="info">
+                {formatNumber(comment.data.score)} points
+              </div>
+              <div className="info">
+                {convertDate(comment.data.created_utc)}
+              </div>
             </div>
             <div className="commentBody">
               {Parser(decodeHtml(comment.data.body_html))}
@@ -42,9 +80,9 @@ const Comment = ({ comment }: any) => {
           </div>
           <div className="child">
             {comment.data.replies &&
-            comment.data.replies.data.children.map((object: any) => {
-              return <Comment comment={object} />;
-            })}
+              comment.data.replies.data.children.map((object: any) => {
+                return <Comment comment={object} permalink={permalink} />;
+              })}
           </div>
         </div>
       )}
