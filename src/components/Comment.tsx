@@ -32,11 +32,12 @@ const Comment = ({ comment }: any) => {
           {Parser(decodeHtml(comment.data.body_html))}
         </div>
       </div>
-      {comment.data.replies && (
-        comment.data.replies.data.children.map((object: any) => {
-          return <Comment comment={object} />;
-        })
-      )}
+      <div className="child">
+        {comment.data.replies &&
+          comment.data.replies.data.children.map((object: any) => {
+            return <Comment comment={object} />;
+          })}
+      </div>
     </div>
   );
 };

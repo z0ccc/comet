@@ -167,8 +167,9 @@ button {
   background-color: var(--light-grey);
 }
 
-.comment {
-  display: flex;
+.child {
+  padding: 0 0 0 12px;
+  border-left: 1px solid var(--border);
 }
 
 .commentLine {
