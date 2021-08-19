@@ -26,14 +26,8 @@
   --blockQuote: #acacac;
 }
 
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 #redComments {
-  font-family: Verdana, sans-serif;
+  font-family: verdana, sans-serif;
   color: var(--text);
   font-size: 25px;
   line-height: 22px;
@@ -48,6 +42,8 @@ body {
 button {
   border: none;
   background: transparent;
+  font-family: verdana, sans-serif;
+  cursor: pointer;
 }
 
 .toggleButton {
@@ -111,7 +107,7 @@ button {
   border: solid 1px var(--border);
   border-radius: 2px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   background-color: var(--white);
   color: var(--text);
 }
@@ -161,6 +157,8 @@ button {
 
 .info {
   color: var(--dark-grey);
+  padding: 0;
+  font-size: 10px;
 }
 
 .selectedPost {
@@ -217,10 +215,6 @@ button {
   font-family: Verdana, sans-serif;
 }
 
-.info {
-  color: var(--dark-grey);
-}
-
 .md a {
   color: var(--link-blue);
   text-decoration: none;
@@ -243,6 +237,7 @@ select {
   color: var(--text);
   margin: 0 0 6px 0;
   font-size: 12px;
+  font-family: verdana, sans-serif;
 }
 
 p {

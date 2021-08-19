@@ -27,7 +27,6 @@ const Comment = ({ comment, permalink }: any) => {
   };
 
   const collapseComment = () => {
-    console.log('hello');
     setCollapse(true);
   };
 
@@ -69,6 +68,13 @@ const Comment = ({ comment, permalink }: any) => {
             <div className="comment">
               <div className="commentInfo">
                 <div className="infoWrap">
+                  <button
+                    className="info"
+                    type="submit"
+                    onClick={collapseComment}
+                  >
+                    [–]
+                  </button>
                   <a
                     href={`https://reddit.com/u/${comment.data.author}`}
                     target="_blank"
@@ -83,13 +89,6 @@ const Comment = ({ comment, permalink }: any) => {
                   <div className="info">
                     {convertDate(comment.data.created_utc)}
                   </div>
-                  <button
-                    className="info"
-                    type="submit"
-                    onClick={collapseComment}
-                  >
-                    [-]
-                  </button>
                 </div>
                 <div className="commentBody">
                   {Parser(decodeHtml(comment.data.body_html))}
