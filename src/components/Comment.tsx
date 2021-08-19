@@ -14,31 +14,41 @@ import { convertDate, decodeHtml, formatNumber } from './main';
 
 const Comment = ({ comment }: any) => {
   return (
-    <div className="comment">
-      <div className="commentInfo">
-        <div className="infoWrap">
-          <a
-            href={`https://reddit.com/u/${comment.data.author}`}
-            target="_blank"
-            className="commentTitle"
-            rel="noreferrer"
-          >
-            {comment.data.author}
-          </a>
-          <div className="info">{formatNumber(comment.data.score)} points</div>
-          <div className="info">{convertDate(comment.data.created_utc)}</div>
+    <>
+      {comment.kind === 'more' ? (
+        <div className="comment">
+          <button className="commentTitle loadMore" type="submit">
+            {`load more comments (${comment.data.count})`}
+          </button>
         </div>
-        <div className="commentBody">
-          {Parser(decodeHtml(comment.data.body_html))}
+      ) : (
+        <div className="comment">
+          <div className="commentInfo">
+            <div className="infoWrap">
+              <a
+                href={`https://reddit.com/u/${comment.data.author}`}
+                target="_blank"
+                className="commentTitle"
+                rel="noreferrer"
+              >
+                {comment.data.author}
+              </a>
+              <div className="info">{formatNumber(comment.data.score)} points</div>
+              <div className="info">{convertDate(comment.data.created_utc)}</div>
+            </div>
+            <div className="commentBody">
+              {Parser(decodeHtml(comment.data.body_html))}
+            </div>
+          </div>
+          <div className="child">
+            {comment.data.replies &&
+            comment.data.replies.data.children.map((object: any) => {
+              return <Comment comment={object} />;
+            })}
+          </div>
         </div>
-      </div>
-      <div className="child">
-        {comment.data.replies &&
-          comment.data.replies.data.children.map((object: any) => {
-            return <Comment comment={object} />;
-          })}
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
