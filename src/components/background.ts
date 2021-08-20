@@ -31,8 +31,7 @@ chrome.tabs.onActivated.addListener(() => {
   });
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  sendResponse({ confirm: true });
+chrome.runtime.onMessage.addListener((request) => {
   sendVote(request.id);
 });
 

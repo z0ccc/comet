@@ -155,9 +155,21 @@ button {
     background-repeat: no-repeat;
 }
 
+.upmod {
+  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+  background-position: 0px -1676px;
+  background-repeat: no-repeat;
+}
+
 .down {
   background-image: url(../sprite-reddit.5kxTB7FXse0.png);
   background-position: -64px -1654px;
+  background-repeat: no-repeat;
+}
+
+.downmod {
+  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+  background-position: -85px -1654px;
   background-repeat: no-repeat;
 }
 
