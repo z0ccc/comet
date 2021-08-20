@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useState } from 'react';
 import Parser from 'html-react-parser';
@@ -10,6 +11,7 @@ import {
 const Comment = ({ comment, permalink }: any) => {
   const [replies, setReplies] = useState<CommentType[][]>([]);
   const [loading, setLoading] = useState<boolean>();
+  const [vote, setVote] = useState<number>(0);
   const [collapse, setCollapse] = useState<boolean>(false);
 
   const loadMore = async () => {
@@ -61,7 +63,7 @@ const Comment = ({ comment, permalink }: any) => {
         <div className="comment">
           {collapse ? (
             <div className="commentInfo">
-              <div className="infoWrap">
+              <div className="infoWrap collapsedMargin">
                 <button
                   className="info"
                   type="button"
@@ -88,31 +90,51 @@ const Comment = ({ comment, permalink }: any) => {
           ) : (
             <>
               <div className="commentInfo">
-                <div className="infoWrap">
+                <div className="postScore">
                   <button
-                    className="info"
+                    className={`arrow arrowMargin ${
+                      vote === 1 ? 'upmod' : 'up'
+                    }`}
                     type="button"
-                    onClick={collapseComment}
-                  >
-                    [–]
-                  </button>
-                  <a
-                    href={`https://reddit.com/u/${comment.data.author}`}
-                    target="_blank"
-                    className="commentTitle"
-                    rel="noreferrer"
-                  >
-                    {comment.data.author}
-                  </a>
-                  <div className="info">
-                    {formatNumber(comment.data.score)} points
-                  </div>
-                  <div className="info">
-                    {convertDate(comment.data.created_utc)}
-                  </div>
+                    aria-label="Upvote"
+                    // onClick={() => handleVote(1)}
+                  />
+                  <button
+                    className={`arrow arrowMargin ${
+                      vote === -1 ? 'downmod' : 'down'
+                    }`}
+                    type="button"
+                    aria-label="Downvote"
+                    // onClick={() => handleVote(-1)}
+                  />
                 </div>
-                <div className="commentBody">
-                  {Parser(decodeHtml(comment.data.body_html))}
+                <div>
+                  <div className="infoWrap">
+                    <button
+                      className="info"
+                      type="button"
+                      onClick={collapseComment}
+                    >
+                      [–]
+                    </button>
+                    <a
+                      href={`https://reddit.com/u/${comment.data.author}`}
+                      target="_blank"
+                      className="commentTitle"
+                      rel="noreferrer"
+                    >
+                      {comment.data.author}
+                    </a>
+                    <div className="info">
+                      {formatNumber(comment.data.score)} points
+                    </div>
+                    <div className="info">
+                      {convertDate(comment.data.created_utc)}
+                    </div>
+                  </div>
+                  <div className="commentBody">
+                    {Parser(decodeHtml(comment.data.body_html))}
+                  </div>
                 </div>
               </div>
               <div className="child">

@@ -1,7 +1,7 @@
 :root {
   --scrollbar: #ccc;
   --light-grey: #e9e9e9;
-  --border: #cacfd2;
+  --border: #DDF;
   --text: #212121;
   --blue: #369;
   --dark-grey: #888;
@@ -151,10 +151,14 @@ button {
   margin: auto;
 }
 
+.arrowMargin {
+  margin: 2px 0px 0px 0px;
+}
+
 .up {
-    background-image: url(../sprite-reddit.5kxTB7FXse0.png);
-    background-position: -106px -1654px;
-    background-repeat: no-repeat;
+  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+  background-position: -106px -1654px;
+  background-repeat: no-repeat;
 }
 
 .upmod {
@@ -215,30 +219,31 @@ button {
   font-style: italic;
 }
 
+.collapsedMargin {
+  margin: 0 0 0 23px !important;
+}
+
 .selectedPost {
   background-color: var(--light-grey);
 }
 
 .child {
+  margin: 0 0 0 15px;
   padding: 0 0 0 12px;
-  border-left: 1px solid var(--border);
-}
-
-.commentLine {
-  opacity: 0.6;
-  height: auto;
-  padding: 0 0 0px 12px;
-  border-left: 1px solid var(--border);
+  border-left: 1px dotted var(--border);
 }
 
 .commentInfo {
-  margin: 6px 0;
+  margin: 10px 0;
+  display: flex;
 }
 
 .infoWrap {
   display: flex;
   align-items: center;
   font-size: 10px;
+  line-height: normal;
+  margin: 0 0 3px 0;
 }
 
 .infoWrap > *:not(:last-child) {
