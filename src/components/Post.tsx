@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 import * as React from 'react';
 import { PostType } from './types';
 
@@ -5,8 +8,10 @@ interface ComponentProps {
   post: PostType;
 }
 
-const handleVote = () => {
-  console.log('hello');
+const handleVote = (id: string) => {
+  chrome.runtime.sendMessage({ id }, (response) => {
+    console.log(response.confirm);
+  });
 };
 
 const Posts = ({ post }: ComponentProps) => (
@@ -16,7 +21,7 @@ const Posts = ({ post }: ComponentProps) => (
         className="arrow up"
         type="button"
         aria-label="Upvote"
-        onClick={handleVote}
+        onClick={() => handleVote(post.id)}
       />
       <div className="postNumber">{post.score}</div>
       <div className="arrow down" />

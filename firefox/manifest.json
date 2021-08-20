@@ -35,6 +35,7 @@
     "page": "options.html",
     "open_in_tab": false
   },
+  "host_permissions": ["*://*.reddit.com/*"],
   "browser_specific_settings": {
     "gecko": {
       "id": "redditWherever@example.com"

@@ -142,7 +142,7 @@ export const getPosts = (data: CommentType[]): PostType[] => {
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
     posts.push({
-      id: i,
+      id: data[i].data.id,
       score: formatNumber(data[i].data.score),
       title: decodeHtml(data[i].data.title),
       permalink: data[i].data.permalink,

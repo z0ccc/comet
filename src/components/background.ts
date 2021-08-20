@@ -30,3 +30,32 @@ chrome.tabs.onActivated.addListener(() => {
     }
   });
 });
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  sendResponse({ confirm: true });
+  sendVote(request.id);
+});
+
+const sendVote = async (postID: string) => {
+  const modhash = await getModhash();
+  const data = {
+    dir: 1,
+    id: `t3_${postID}`,
+    rank: 2,
+    uh: modhash,
+  };
+  const formData = new FormData();
+  if (data) {
+    Object.keys(data).forEach((key: any) =>
+      formData.append(key, data[key as keyof typeof data]));
+  }
+  fetch('https://api.reddit.com/api/vote', {
+    method: 'POST',
+    body: formData,
+  });
+};
+
+const getModhash = () =>
+  fetch('https://api.reddit.com/api/me.json')
+    .then((response) => response.json())
+    .then((json) => json.data.modhash);

@@ -6,7 +6,7 @@ export type SubredditType = {
 };
 
 export type PostType = {
-  id: number;
+  id: string;
   score: string;
   title: string;
   permalink: string;
