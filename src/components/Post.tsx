@@ -22,13 +22,11 @@ const Posts = ({ post }: ComponentProps) => {
 
   const handleVote = (voteDir: number) => {
     let dir: number = voteDir;
-    console.log(dir, vote);
     if (
       (dir === 1 && vote === 1) || (dir === -1 && vote === -1)
     ) {
       dir = 0;
     }
-    console.log(dir);
 
     chrome.runtime.sendMessage({ id: post.id, dir });
     setVote(dir);
@@ -43,7 +41,9 @@ const Posts = ({ post }: ComponentProps) => {
           aria-label="Upvote"
           onClick={() => handleVote(1)}
         />
-        <div className="postNumber">{post.score}</div>
+        <div className={`postNumber ${vote === 1 ? 'orange' : (vote === -1 && 'purple')}`}>
+          {post.score}
+        </div>
         <button
           className={`arrow ${vote === -1 ? 'downmod' : 'down'}`}
           type="button"

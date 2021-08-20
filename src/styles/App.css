@@ -10,6 +10,8 @@
   --white: #fff;
   --link-blue: #0079d3;
   --blockQuote: #4f4f4f;
+  --orange: #FF8B60;
+  --purple: #9494FF;
   scrollbar-color: var(--scrollbar) transparent !important;
   scrollbar-width: thin !important;
 }
@@ -177,6 +179,14 @@ button {
   font-size: 14px;
   font-weight: 600;
   color: var(--bold-grey);
+}
+
+.orange {
+  color: var(--orange);
+}
+
+.purple {
+  color: var(--purple);
 }
 
 .infoPostWrap {
