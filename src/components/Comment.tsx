@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import { CommentType } from './types';
 
@@ -13,6 +13,23 @@ const Comment = ({ comment, permalink }: any) => {
   const [loading, setLoading] = useState<boolean>();
   const [vote, setVote] = useState<number>(0);
   const [collapse, setCollapse] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (comment.data.likes === true) {
+      setVote(1);
+    } else if (comment.data.likes === false) {
+      setVote(-1);
+    }
+  }, []);
+
+  const handleVote = (voteDir: number) => {
+    let dir: number = voteDir;
+    if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
+      dir = 0;
+    }
+    chrome.runtime.sendMessage({ id: comment.data.name, dir });
+    setVote(dir);
+  };
 
   const loadMore = async () => {
     setLoading(true);
@@ -97,7 +114,7 @@ const Comment = ({ comment, permalink }: any) => {
                     }`}
                     type="button"
                     aria-label="Upvote"
-                    // onClick={() => handleVote(1)}
+                    onClick={() => handleVote(1)}
                   />
                   <button
                     className={`arrow arrowMargin ${
@@ -105,7 +122,7 @@ const Comment = ({ comment, permalink }: any) => {
                     }`}
                     type="button"
                     aria-label="Downvote"
-                    // onClick={() => handleVote(-1)}
+                    onClick={() => handleVote(-1)}
                   />
                 </div>
                 <div>

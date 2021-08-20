@@ -46,7 +46,7 @@ const sendVote = async (id: string, dir: number) => {
   const modhash = await getModhash();
   const data = {
     dir,
-    id: `t3_${id}`,
+    id,
     rank: 2,
     uh: modhash,
   };

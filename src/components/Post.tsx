@@ -28,7 +28,7 @@ const Posts = ({ post }: ComponentProps) => {
       dir = 0;
     }
 
-    chrome.runtime.sendMessage({ id: post.id, dir });
+    chrome.runtime.sendMessage({ id: post.name, dir });
     setVote(dir);
   };
 

@@ -7,6 +7,7 @@ export type SubredditType = {
 
 export type PostType = {
   id: string;
+  name: string;
   score: string;
   title: string;
   permalink: string;
@@ -31,6 +32,7 @@ export type CommentType = {
     depth: number;
     body_html: string;
     likes: boolean;
+    name: string;
     replies: {
       kind: string;
       data: {
