@@ -13,7 +13,6 @@ const Posts = ({ post }: ComponentProps) => {
   const [vote, setVote] = useState<number>(0);
 
   useEffect(() => {
-    console.log(post.likes, post.permalink);
     if (post.likes === true) {
       setVote(1);
     } else if (post.likes === false) {
@@ -29,6 +28,8 @@ const Posts = ({ post }: ComponentProps) => {
     ) {
       dir = 0;
     }
+    console.log(dir);
+
     chrome.runtime.sendMessage({ id: post.id, dir });
     setVote(dir);
   };

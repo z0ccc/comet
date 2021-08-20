@@ -42,7 +42,6 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     setfirstRender(false);
     const queries: string[] = getQueries(url);
     chrome.runtime.sendMessage({ queries }, (response) => {
-      console.log(response.postArr);
       if (response.postArr.length !== 0) {
         setSubreddits(getSubreddits(response.postArr));
         setPosts(getPosts(response.postArr));

@@ -32,12 +32,12 @@ chrome.tabs.onActivated.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.id && request.dir) {
-    sendVote(request.id, request.dir);
-  } else if (request.queries) {
+  if (request.queries) {
     getPostArr(request.queries).then((postArr) => {
       sendResponse({ postArr });
     });
+  } else if (request.id) {
+    sendVote(request.id, request.dir);
   }
   return true;
 });

@@ -139,7 +139,6 @@ export const getSubreddits = (data: CommentType[]): SubredditType[] => {
 
 // Gets post info
 export const getPosts = (data: CommentType[]): PostType[] => {
-  console.log(data);
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
     posts.push({
