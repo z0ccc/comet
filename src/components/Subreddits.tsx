@@ -23,7 +23,7 @@ const SubredditList = ({ subreddits, selected, setSelected }: ComponentProps) =>
         if (selected === subreddit.id) selectedMatch = true;
         return (
           <button
-            type="submit"
+            type="button"
             className={`${selectedMatch ? 'selectedPost' : ''} subreddit`}
             onClick={() => selectPost(subreddit.id)}
           >

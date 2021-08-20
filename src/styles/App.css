@@ -4,7 +4,8 @@
   --border: #cacfd2;
   --text: #212121;
   --blue: #369;
-  --dark-grey: #c6c6c6;
+  --dark-grey: #888;
+  --bold-grey: #c6c6c6;
   --background: transparent;
   --white: #fff;
   --link-blue: #0079d3;
@@ -40,10 +41,14 @@
 }
 
 button {
-  border: none;
-  background: transparent;
-  font-family: verdana, sans-serif;
-  cursor: pointer;
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  display: block;
 }
 
 .toggleButton {
@@ -102,7 +107,7 @@ button {
 }
 
 .subreddit {
-  padding: 6px;
+  padding: 4px;
   margin: 0 4px 0 0;
   border: solid 1px var(--border);
   border-radius: 2px;
@@ -141,7 +146,7 @@ button {
   height: 14px;
   width: 15px;
   cursor: pointer;
-  margin: auto
+  margin: auto;
 }
 
 .up {
@@ -159,7 +164,7 @@ button {
 .postNumber {
   font-size: 14px;
   font-weight: 600;
-  color: var(--dark-grey);
+  color: var(--bold-grey);
 }
 
 .infoPostWrap {

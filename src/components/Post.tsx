@@ -5,10 +5,19 @@ interface ComponentProps {
   post: PostType;
 }
 
+const handleVote = () => {
+  console.log('hello');
+};
+
 const Posts = ({ post }: ComponentProps) => (
   <div className="post">
     <div className="postScore">
-      <div className="arrow up" />
+      <button
+        className="arrow up"
+        type="button"
+        aria-label="Upvote"
+        onClick={handleVote}
+      />
       <div className="postNumber">{post.score}</div>
       <div className="arrow down" />
     </div>

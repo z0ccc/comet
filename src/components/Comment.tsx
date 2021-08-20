@@ -38,7 +38,7 @@ const Comment = ({ comment, permalink }: any) => {
               ) : (
                 <button
                   className="commentTitle loadMore"
-                  type="submit"
+                  type="button"
                   onClick={loadMore}
                 >
                   {`load more comments (${comment.data.count})`}
@@ -64,7 +64,7 @@ const Comment = ({ comment, permalink }: any) => {
               <div className="infoWrap">
                 <button
                   className="info"
-                  type="submit"
+                  type="button"
                   onClick={collapseComment}
                 >
                   [+]
@@ -91,7 +91,7 @@ const Comment = ({ comment, permalink }: any) => {
                 <div className="infoWrap">
                   <button
                     className="info"
-                    type="submit"
+                    type="button"
                     onClick={collapseComment}
                   >
                     [–]
