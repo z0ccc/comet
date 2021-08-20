@@ -5,7 +5,6 @@ import {
   toggleYoutube,
   detectTheme,
   getQueries,
-  getPostArr,
   getSubreddits,
   getPosts,
   getCommentArr,
@@ -42,11 +41,12 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     detectTheme();
     setfirstRender(false);
     const queries: string[] = getQueries(url);
-    getPostArr(queries).then((postArr) => {
-      if (postArr.length !== 0) {
-        setSubreddits(getSubreddits(postArr));
-        setPosts(getPosts(postArr));
-        const firstPost: PostType = getPosts(postArr)[0];
+    chrome.runtime.sendMessage({ queries }, (response) => {
+      console.log(response.postArr);
+      if (response.postArr.length !== 0) {
+        setSubreddits(getSubreddits(response.postArr));
+        setPosts(getPosts(response.postArr));
+        const firstPost: PostType = getPosts(response.postArr)[0];
         setPost(firstPost);
         getCommentArr(firstPost.permalink).then((commentArr) => {
           setComments(commentArr);

@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PostType } from './types';
 
 interface ComponentProps {
@@ -10,24 +10,45 @@ interface ComponentProps {
 }
 
 const Posts = ({ post }: ComponentProps) => {
-  const [upvote, setUpvote] = useState<string>('up');
+  const [vote, setVote] = useState<number>(0);
 
-  const handleVote = (id: string) => {
-    chrome.runtime.sendMessage({ id });
-    setUpvote('upmod');
+  useEffect(() => {
+    console.log(post.likes, post.permalink);
+    if (post.likes === true) {
+      setVote(1);
+    } else if (post.likes === false) {
+      setVote(-1);
+    }
+  }, []);
+
+  const handleVote = (voteDir: number) => {
+    let dir: number = voteDir;
+    console.log(dir, vote);
+    if (
+      (dir === 1 && vote === 1) || (dir === -1 && vote === -1)
+    ) {
+      dir = 0;
+    }
+    chrome.runtime.sendMessage({ id: post.id, dir });
+    setVote(dir);
   };
 
   return (
     <div className="post">
       <div className="postScore">
         <button
-          className={`arrow ${upvote}`}
+          className={`arrow ${vote === 1 ? 'upmod' : 'up'}`}
           type="button"
           aria-label="Upvote"
-          onClick={() => handleVote(post.id)}
+          onClick={() => handleVote(1)}
         />
         <div className="postNumber">{post.score}</div>
-        <div className="arrow down" />
+        <button
+          className={`arrow ${vote === -1 ? 'downmod' : 'down'}`}
+          type="button"
+          aria-label="Downvote"
+          onClick={() => handleVote(-1)}
+        />
       </div>
       <div className="postInfo">
         <a

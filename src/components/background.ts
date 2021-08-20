@@ -31,15 +31,22 @@ chrome.tabs.onActivated.addListener(() => {
   });
 });
 
-chrome.runtime.onMessage.addListener((request) => {
-  sendVote(request.id);
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.id && request.dir) {
+    sendVote(request.id, request.dir);
+  } else if (request.queries) {
+    getPostArr(request.queries).then((postArr) => {
+      sendResponse({ postArr });
+    });
+  }
+  return true;
 });
 
-const sendVote = async (postID: string) => {
+const sendVote = async (id: string, dir: number) => {
   const modhash = await getModhash();
   const data = {
-    dir: 1,
-    id: `t3_${postID}`,
+    dir,
+    id: `t3_${id}`,
     rank: 2,
     uh: modhash,
   };

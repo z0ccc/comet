@@ -12,6 +12,7 @@ export type PostType = {
   permalink: string;
   date: string;
   author: string;
+  likes: boolean;
 };
 
 export type CommentType = {
@@ -29,6 +30,7 @@ export type CommentType = {
     count: number;
     depth: number;
     body_html: string;
+    likes: boolean;
     replies: {
       kind: string;
       data: {
