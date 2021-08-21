@@ -1,9 +1,8 @@
 // This file is ran as a background script
 import {
-  setIcon,
-  getQueries,
-  getPostArr,
+  setIcon, getQueries, getPostArr, getCommentArr
 } from './main';
+import { CommentType } from './types';
 
 // Detects if there are posts for current url
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
@@ -35,6 +34,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.queries) {
     getPostArr(request.queries).then((postArr) => {
       sendResponse({ postArr });
+    });
+  } else if (request.children) {
+    // console.log(request.permalink, request.children);
+    const promisesFetch: Promise<CommentType[]>[] = [];
+    for (let i = 0; i < request.children.length; i++) {
+      promisesFetch.push(
+        getCommentArr(request.permalink + request.children[i])
+      );
+    }
+    Promise.all(promisesFetch).then((value: any) => {
+      console.log(value);
+      sendResponse({ value });
+    });
+  } else if (request.permalink) {
+    getCommentArr(request.permalink).then((commentArr) => {
+      sendResponse({ commentArr });
     });
   } else if (request.id) {
     sendVote(request.id, request.dir);

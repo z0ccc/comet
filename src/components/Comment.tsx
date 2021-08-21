@@ -33,12 +33,8 @@ const Comment = ({ comment, permalink }: any) => {
 
   const loadMore = async () => {
     setLoading(true);
-    const promisesFetch: Promise<CommentType[]>[] = [];
-    for (let i = 0; i < comment.data.children.length; i++) {
-      promisesFetch.push(getCommentArr(permalink + comment.data.children[i]));
-    }
-    await Promise.all(promisesFetch).then((value: any) => {
-      setReplies(value);
+    chrome.runtime.sendMessage({ permalink, children: comment.data.children }, async (res) => {
+      setReplies(res.value);
     });
   };
 

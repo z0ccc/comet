@@ -47,8 +47,8 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         setPosts(getPosts(response.postArr));
         const firstPost: PostType = getPosts(response.postArr)[0];
         setPost(firstPost);
-        getCommentArr(firstPost.permalink).then((commentArr) => {
-          setComments(commentArr);
+        chrome.runtime.sendMessage({ permalink: firstPost.permalink }, (res) => {
+          setComments(res.commentArr);
           setMessage('');
         });
       } else {
