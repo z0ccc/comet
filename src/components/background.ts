@@ -43,8 +43,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         getCommentArr(request.permalink + request.children[i])
       );
     }
-    Promise.all(promisesFetch).then((value: any) => {
-      console.log(value);
+    Promise.all(promisesFetch).then((value) => {
       sendResponse({ value });
     });
   } else if (request.permalink) {
@@ -57,6 +56,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true;
 });
 
+// sends vote to Reddit api
 const sendVote = async (id: string, dir: number) => {
   const modhash = await getModhash();
   const data = {
@@ -67,7 +67,7 @@ const sendVote = async (id: string, dir: number) => {
   };
   const formData = new FormData();
   if (data) {
-    Object.keys(data).forEach((key: any) =>
+    Object.keys(data).forEach((key) =>
       formData.append(key, data[key as keyof typeof data]));
   }
   fetch('https://api.reddit.com/api/vote', {

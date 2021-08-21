@@ -1,14 +1,17 @@
-/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import { CommentType } from './types';
-
 import {
-  getCommentArr, convertDate, decodeHtml, formatNumber
+  convertDate, decodeHtml, formatNumber
 } from './main';
 
-const Comment = ({ comment, permalink }: any) => {
+interface ComponentProps {
+  comment: CommentType;
+  permalink: string;
+}
+
+const Comment = ({ comment, permalink }: ComponentProps) => {
   const [replies, setReplies] = useState<CommentType[][]>([]);
   const [loading, setLoading] = useState<boolean>();
   const [vote, setVote] = useState<number>(0);
@@ -33,9 +36,12 @@ const Comment = ({ comment, permalink }: any) => {
 
   const loadMore = async () => {
     setLoading(true);
-    chrome.runtime.sendMessage({ permalink, children: comment.data.children }, async (res) => {
-      setReplies(res.value);
-    });
+    chrome.runtime.sendMessage(
+      { permalink, children: comment.data.children },
+      async (res) => {
+        setReplies(res.value);
+      }
+    );
   };
 
   const collapseComment = () => {
@@ -64,7 +70,7 @@ const Comment = ({ comment, permalink }: any) => {
             <>
               {replies.map((comments) => (
                 <>
-                  {comments.map((object: any) => (
+                  {comments.map((object) => (
                     <Comment comment={object} permalink={permalink} />
                   ))}
                 </>
@@ -152,9 +158,11 @@ const Comment = ({ comment, permalink }: any) => {
               </div>
               <div className="child">
                 {comment.data.replies &&
-                  comment.data.replies.data.children.map((object: any) => (
-                    <Comment comment={object} permalink={permalink} />
-                  ))}
+                  comment.data.replies.data.children.map(
+                    (object: CommentType) => (
+                      <Comment comment={object} permalink={permalink} />
+                    )
+                  )}
               </div>
             </>
           )}

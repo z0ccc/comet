@@ -22,9 +22,7 @@ const Posts = ({ post }: ComponentProps) => {
 
   const handleVote = (voteDir: number) => {
     let dir: number = voteDir;
-    if (
-      (dir === 1 && vote === 1) || (dir === -1 && vote === -1)
-    ) {
+    if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
       dir = 0;
     }
 
