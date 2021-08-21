@@ -4,6 +4,20 @@ import {
   CommentType,
 } from './types';
 
+export const getVote = (likes: boolean) => {
+  if (likes === true) return 1;
+  if (likes === false) return -1;
+  return 0;
+};
+
+export const getDir = (voteDir: number, vote: number) => {
+  let dir: number = voteDir;
+  if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
+    dir = 0;
+  }
+  return dir;
+};
+
 // Changes icon color
 export const setIcon = (postArr: CommentType[]) => {
   const icon = postArr.length ? '../images/reddit_16.png' : '../images/grey_16.png';

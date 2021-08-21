@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import { CommentType } from './types';
 import {
-  convertDate, decodeHtml, formatNumber
+  getVote, getDir, convertDate, decodeHtml, formatNumber
 } from './main';
 
 interface ComponentProps {
@@ -18,18 +18,11 @@ const Comment = ({ comment, permalink }: ComponentProps) => {
   const [collapse, setCollapse] = useState<boolean>(false);
 
   useEffect(() => {
-    if (comment.data.likes === true) {
-      setVote(1);
-    } else if (comment.data.likes === false) {
-      setVote(-1);
-    }
+    setVote(getVote(comment.data.likes));
   }, []);
 
   const handleVote = (voteDir: number) => {
-    let dir: number = voteDir;
-    if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
-      dir = 0;
-    }
+    const dir: number = getDir(voteDir, vote);
     chrome.runtime.sendMessage({ id: comment.data.name, dir });
     setVote(dir);
   };

@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { PostType } from './types';
+import { getVote, getDir } from './main';
 
 interface ComponentProps {
   post: PostType;
@@ -13,19 +14,11 @@ const Posts = ({ post }: ComponentProps) => {
   const [vote, setVote] = useState<number>(0);
 
   useEffect(() => {
-    if (post.likes === true) {
-      setVote(1);
-    } else if (post.likes === false) {
-      setVote(-1);
-    }
+    setVote(getVote(post.likes));
   }, []);
 
   const handleVote = (voteDir: number) => {
-    let dir: number = voteDir;
-    if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
-      dir = 0;
-    }
-
+    const dir: number = getDir(voteDir, vote);
     chrome.runtime.sendMessage({ id: post.name, dir });
     setVote(dir);
   };
