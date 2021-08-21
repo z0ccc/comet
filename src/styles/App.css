@@ -184,6 +184,7 @@ button {
   font-size: 14px;
   font-weight: 600;
   color: var(--bold-grey);
+  text-align: center;
 }
 
 .orange {
