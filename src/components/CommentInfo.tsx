@@ -6,6 +6,7 @@ import {
   getVote, getDir, convertDate, decodeHtml, formatNumber
 } from './main';
 import Comment from './Comment';
+import CollapsedComment from './CollapsedComment';
 
 interface ComponentProps {
   comment: CommentType;
@@ -26,34 +27,14 @@ const CommentInfo = ({ comment, permalink }: ComponentProps) => {
     setVote(dir);
   };
 
-  const collapseComment = () => {
-    setCollapse(!collapse);
-  };
+  // useEffect(() => {
+  //   console.log(collapse);
+  // }, [collapse]);
 
   return (
     <div className="comment">
       {collapse ? (
-        <div className="commentInfo">
-          <div className="infoWrap collapsedMargin">
-            <button className="info" type="button" onClick={collapseComment}>
-              [+]
-            </button>
-            <a
-              href={`https://reddit.com/u/${comment.data.author}`}
-              target="_blank"
-              className="commentTitle collapsed"
-              rel="noreferrer"
-            >
-              {comment.data.author}
-            </a>
-            <div className="info collapsed">
-              {formatNumber(comment.data.score)} points
-            </div>
-            <div className="info collapsed">
-              {convertDate(comment.data.created_utc)}
-            </div>
-          </div>
-        </div>
+        <CollapsedComment comment={comment} setCollapse={setCollapse} />
       ) : (
         <>
           <div className="commentInfo">
@@ -78,7 +59,7 @@ const CommentInfo = ({ comment, permalink }: ComponentProps) => {
                 <button
                   className="info"
                   type="button"
-                  onClick={collapseComment}
+                  onClick={() => setCollapse(!collapse)}
                 >
                   [–]
                 </button>
