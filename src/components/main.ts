@@ -1,8 +1,4 @@
-import {
-  SubredditType,
-  PostType,
-  CommentType,
-} from './types';
+import { SubredditType, PostType, CommentType } from './types';
 
 export const getVote = (likes: boolean) => {
   if (likes === true) return 1;
@@ -20,7 +16,9 @@ export const getDir = (voteDir: number, vote: number) => {
 
 // Changes icon color
 export const setIcon = (postArr: CommentType[]) => {
-  const icon = postArr.length ? '../images/reddit_16.png' : '../images/grey_16.png';
+  const icon = postArr.length
+    ? '../images/reddit_16.png'
+    : '../images/grey_16.png';
   chrome.action.setIcon({
     path: {
       16: icon,
@@ -170,7 +168,9 @@ export const getPosts = (data: CommentType[]): PostType[] => {
 };
 
 // Gets list of comments from post
-export const getCommentArr = async (permalink: string): Promise<CommentType[]> => {
+export const getCommentArr = async (
+  permalink: string
+): Promise<CommentType[]> => {
   let commentArr: CommentType[] = [];
   await fetch(`https://api.reddit.com${permalink}`)
     .then((response) => response.json())
@@ -194,9 +194,10 @@ export const decodeHtml = (html: string): string => {
   return txt.value;
 };
 
-export const formatNumber = (num: number) => (Math.abs(num) > 9999
-  ? `${(Math.sign(num) * (Math.abs(num) / 1000)).toFixed(0)}k`
-  : `${Math.sign(num) * Math.abs(num)}`);
+export const formatNumber = (num: number) =>
+  Math.abs(num) > 9999
+    ? `${(Math.sign(num) * (Math.abs(num) / 1000)).toFixed(0)}k`
+    : `${Math.sign(num) * Math.abs(num)}`;
 
 export const convertDate = (timestamp: number) => {
   let diff: number = Date.now() - timestamp * 1000;

@@ -9,11 +9,7 @@ import {
   getPosts,
   getCommentArr,
 } from './main';
-import {
-  SubredditType,
-  PostType,
-  CommentType
-} from './types';
+import { SubredditType, PostType, CommentType } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
 import Comment from './Comment';
@@ -47,10 +43,13 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         setPosts(getPosts(response.postArr));
         const firstPost: PostType = getPosts(response.postArr)[0];
         setPost(firstPost);
-        chrome.runtime.sendMessage({ permalink: firstPost.permalink }, (res) => {
-          setComments(res.commentArr);
-          setMessage('');
-        });
+        chrome.runtime.sendMessage(
+          { permalink: firstPost.permalink },
+          (res) => {
+            setComments(res.commentArr);
+            setMessage('');
+          }
+        );
       } else {
         if (onYoutube) toggleYoutube();
         setMessage(
@@ -100,7 +99,9 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         <>
           <Post post={post} />
           <SortDropDown sort={sort} setSort={setSort} />
-          {comments.map((object) => <Comment comment={object} permalink={post.permalink} />)}
+          {comments.map((object) => (
+            <Comment comment={object} permalink={post.permalink} />
+          ))}
         </>
       )}
       <div className="message">{Parser(message)}</div>

@@ -25,6 +25,7 @@ module.exports = {
     'react/jsx-curly-newline': 'off',
     'object-curly-newline': 'off',
     'function-paren-newline': 'off',
+    'no-confusing-arrow': 'off',
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.jsx', '.js', '.tsx', '.ts'] },
