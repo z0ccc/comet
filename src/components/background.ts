@@ -1,7 +1,5 @@
 // This file is ran as a background script
-import {
-  setIcon, getQueries, getPostArr, getCommentArr
-} from './main';
+import { setIcon, getQueries, getPostArr, getCommentArr } from './main';
 import { CommentType } from './types';
 
 // Detects if there are posts for current url
@@ -36,7 +34,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse({ postArr });
     });
   } else if (request.children) {
-    // console.log(request.permalink, request.children);
     const promisesFetch: Promise<CommentType[]>[] = [];
     for (let i = 0; i < request.children.length; i++) {
       promisesFetch.push(
@@ -68,7 +65,8 @@ const sendVote = async (id: string, dir: number) => {
   const formData = new FormData();
   if (data) {
     Object.keys(data).forEach((key) =>
-      formData.append(key, data[key as keyof typeof data]));
+      formData.append(key, data[key as keyof typeof data])
+    );
   }
   fetch('https://api.reddit.com/api/vote', {
     method: 'POST',

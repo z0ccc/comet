@@ -5,6 +5,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { PostType } from './types';
 import { getVote, getDir } from './main';
+import PostInfo from './PostInfo';
 
 interface ComponentProps {
   post: PostType;
@@ -32,7 +33,11 @@ const Posts = ({ post }: ComponentProps) => {
           aria-label="Upvote"
           onClick={() => handleVote(1)}
         />
-        <div className={`postNumber ${vote === 1 ? 'orange' : (vote === -1 && 'purple')}`}>
+        <div
+          className={`postNumber ${
+            vote === 1 ? 'orange' : vote === -1 && 'purple'
+          }`}
+        >
           {post.score}
         </div>
         <button
@@ -42,29 +47,7 @@ const Posts = ({ post }: ComponentProps) => {
           onClick={() => handleVote(-1)}
         />
       </div>
-      <div className="postInfo">
-        <a
-          href={`https://reddit.com${post.permalink}`}
-          target="_blank"
-          className="postTitle"
-          rel="noreferrer"
-        >
-          {post.title}
-        </a>
-        <div className="infoPostWrap">
-          <div className="info">
-            {post.date} by{' '}
-            <a
-              className="postAuthor"
-              href={`https://reddit.com/u/${post.author}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {post.author}
-            </a>
-          </div>
-        </div>
-      </div>
+      <PostInfo post={post} />
     </div>
   );
 };
