@@ -23,6 +23,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'implicit-arrow-linebreak': 'off',
     'react/jsx-curly-newline': 'off',
+    'object-curly-newline': 'off',
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.jsx', '.js', '.tsx', '.ts'] },
