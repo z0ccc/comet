@@ -1,0 +1,46 @@
+// import * as React from 'react';
+// import { useCallback, Dispatch, SetStateAction } from 'react';
+// import { CommentType } from './types';
+// import {
+//   convertDate, formatNumber
+// } from './main';
+
+// interface ComponentProps {
+//   comment: CommentType;
+//   setCollapse: Dispatch<SetStateAction<boolean>>;
+// }
+
+// const CollapsedComment = ({ comment, setCollapse }: ComponentProps) => {
+//   const collapseComment = useCallback((e) => {
+//     setCollapse(!collapse);
+//   },
+//   [setCollapse]);
+
+//   return (
+//     <>
+//       <div className="commentInfo">
+//         <div className="infoWrap collapsedMargin">
+//           <button className="info" type="button" onClick={collapseComment}>
+//             [+]
+//           </button>
+//           <a
+//             href={`https://reddit.com/u/${comment.data.author}`}
+//             target="_blank"
+//             className="commentTitle collapsed"
+//             rel="noreferrer"
+//           >
+//             {comment.data.author}
+//           </a>
+//           <div className="info collapsed">
+//             {formatNumber(comment.data.score)} points
+//           </div>
+//           <div className="info collapsed">
+//             {convertDate(comment.data.created_utc)}
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default CollapsedComment;

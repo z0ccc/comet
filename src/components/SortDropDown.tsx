@@ -6,10 +6,7 @@ interface ComponentProps {
   setSort: Dispatch<SetStateAction<string>>;
 }
 
-const SortDropDown = ({
-  sort,
-  setSort,
-}: ComponentProps) => {
+const SortDropDown = ({ sort, setSort }: ComponentProps) => {
   const sortComments = useCallback((e) => {
     setSort(e.target.value);
   },
