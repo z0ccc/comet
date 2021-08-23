@@ -1,7 +1,7 @@
 {
   "name": "Reddit Wherever",
-  "description": "View the Reddit comments of any YouTube video or web page.",
-  "version": "2.0.1",
+  "description": "View the Reddit comments of any YouTube video or webpage.",
+  "version": "2.1.0",
   "manifest_version": 2,
   "background": {
     "scripts": ["background.js"],
@@ -35,7 +35,6 @@
     "page": "options.html",
     "open_in_tab": false
   },
-  "host_permissions": ["*://*.reddit.com/*"],
   "browser_specific_settings": {
     "gecko": {
       "id": "redditWherever@example.com"

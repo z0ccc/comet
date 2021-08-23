@@ -1,4 +1,18 @@
-import { SubredditType, DataType, CommentListType } from './types';
+import { SubredditType, DataType } from './types';
+
+export const getVote = (likes: boolean) => {
+  if (likes === true) return 1;
+  if (likes === false) return -1;
+  return 0;
+};
+
+export const getDir = (voteDir: number, vote: number) => {
+  let dir: number = voteDir;
+  if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
+    dir = 0;
+  }
+  return dir;
+};
 
 // Changes icon color
 export const setIcon = (postArr: DataType[]) => {
@@ -12,6 +26,7 @@ export const setIcon = (postArr: DataType[]) => {
   });
 };
 
+// Only check for posts when icon is clicked
 export const handleClickOnly = () => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     const value = !clickOnly;
@@ -26,6 +41,7 @@ export const handleClickOnly = () => {
   });
 };
 
+// Switch to youtube comments
 export const toggleYoutube = () => {
   document.getElementById('redComments')!.style.display = 'none';
   document.getElementById('comments')!.style.display = 'block';
@@ -33,6 +49,7 @@ export const toggleYoutube = () => {
   window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
 };
 
+// Detects system/ setting theme
 export const detectTheme = () => {
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     // OS theme setting detected as dark
