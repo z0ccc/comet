@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
-import {
-  toggleYoutube,
-  detectTheme,
-  getQueries,
-  getSubreddits,
-  getCommentArr,
-} from './main';
+import { toggleYoutube, detectTheme, getQueries, getSubreddits } from './main';
 import { SubredditType, DataType } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
@@ -65,10 +59,6 @@ const App = ({ onYoutube, url }: ComponentProps) => {
       setPost(posts[selected]);
       setSort('best');
       setComments([]);
-      getCommentArr(posts[selected].data.permalink).then((commentArr) => {
-        setComments(commentArr);
-        setMessage('');
-      });
     }
   }, [selected]);
 
@@ -77,9 +67,10 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     if (!firstRender) {
       setMessage('loading...');
       setComments([]);
-      getCommentArr(`${post!.data.permalink}?sort=${sort}`).then(
-        (commentArr) => {
-          setComments(commentArr);
+      chrome.runtime.sendMessage(
+        { permalink: `${post!.data.permalink}?sort=${sort}` },
+        (res) => {
+          setComments(res.commentArr);
           setMessage('');
         }
       );
