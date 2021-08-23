@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { PostType } from './types';
-import { getVote, getDir } from './main';
+import { DataType } from './types';
+import { getVote, getDir, formatNumber } from './main';
 
 interface ComponentProps {
-  post: PostType;
+  post: DataType;
 }
 
 const Posts = ({ post }: ComponentProps) => {
   const [vote, setVote] = useState<number>(0);
 
   useEffect(() => {
-    setVote(getVote(post.likes));
+    setVote(getVote(post.data.likes));
   }, [post]);
 
   const handleVote = (voteDir: number) => {
     const dir: number = getDir(voteDir, vote);
-    chrome.runtime.sendMessage({ id: post.name, dir });
+    chrome.runtime.sendMessage({ id: post.data.name, dir });
     setVote(dir);
   };
 
@@ -33,7 +33,7 @@ const Posts = ({ post }: ComponentProps) => {
           vote === 1 ? 'orange' : vote === -1 && 'purple'
         }`}
       >
-        {post.score}
+        {formatNumber(post.data.score)}
       </div>
       <button
         className={`arrow ${vote === -1 ? 'downmod' : 'down'}`}

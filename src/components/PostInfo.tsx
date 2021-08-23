@@ -1,30 +1,31 @@
 import * as React from 'react';
-import { PostType } from './types';
+import { DataType } from './types';
+import { convertDate, decodeHtml } from './main';
 
 interface ComponentProps {
-  post: PostType;
+  post: DataType;
 }
 
 const Posts = ({ post }: ComponentProps) => (
   <div className="postInfo">
     <a
-      href={`https://reddit.com${post.permalink}`}
+      href={`https://reddit.com${post.data.permalink}`}
       target="_blank"
       className="postTitle"
       rel="noreferrer"
     >
-      {post.title}
+      {decodeHtml(post.data.title)}
     </a>
     <div className="infoPostWrap">
       <div className="info">
-        {post.date} by{' '}
+        {convertDate(post.data.created_utc)} by{' '}
         <a
           className="postAuthor"
-          href={`https://reddit.com/u/${post.author}`}
+          href={`https://reddit.com/u/${post.data.author}`}
           target="_blank"
           rel="noreferrer"
         >
-          {post.author}
+          {post.data.author}
         </a>
       </div>
     </div>

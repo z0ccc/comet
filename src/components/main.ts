@@ -1,4 +1,4 @@
-import { SubredditType, PostType, DataType } from './types';
+import { SubredditType, DataType } from './types';
 
 export const getVote = (likes: boolean) => {
   if (likes === true) return 1;
@@ -150,24 +150,6 @@ export const getSubreddits = (data: DataType[]): SubredditType[] => {
     });
   }
   return subreddits;
-};
-
-// Gets post info
-export const getPosts = (data: DataType[]): PostType[] => {
-  const posts: PostType[] = [];
-  for (let i = 0; i < data.length; i++) {
-    posts.push({
-      id: data[i].data.id,
-      name: data[i].data.name,
-      score: formatNumber(data[i].data.score),
-      title: decodeHtml(data[i].data.title),
-      permalink: data[i].data.permalink,
-      date: convertDate(data[i].data.created_utc),
-      author: data[i].data.author,
-      likes: data[i].data.likes,
-    });
-  }
-  return posts;
 };
 
 // Gets list of comments from post

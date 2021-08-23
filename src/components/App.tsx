@@ -6,10 +6,9 @@ import {
   detectTheme,
   getQueries,
   getSubreddits,
-  getPosts,
   getCommentArr,
 } from './main';
-import { SubredditType, PostType, DataType } from './types';
+import { SubredditType, DataType } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
 import Comment from './Comment';
@@ -27,8 +26,8 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   const [firstRender, setfirstRender] = useState<boolean>(true);
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
-  const [posts, setPosts] = useState<PostType[]>([]);
-  const [post, setPost] = useState<PostType | null>(null);
+  const [posts, setPosts] = useState<DataType[]>([]);
+  const [post, setPost] = useState<DataType | null>(null);
   const [comments, setComments] = useState<DataType[]>([]);
   const [sort, setSort] = useState<string>('');
   const [message, setMessage] = useState<string>('loading...');
@@ -40,11 +39,11 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     chrome.runtime.sendMessage({ queries }, (response) => {
       if (response.postArr.length !== 0) {
         setSubreddits(getSubreddits(response.postArr));
-        setPosts(getPosts(response.postArr));
-        const firstPost: PostType = getPosts(response.postArr)[0];
+        setPosts(response.postArr);
+        const firstPost: DataType = response.postArr[0];
         setPost(firstPost);
         chrome.runtime.sendMessage(
-          { permalink: firstPost.permalink },
+          { permalink: firstPost.data.permalink },
           (res) => {
             setComments(res.commentArr);
             setMessage('');
@@ -66,7 +65,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
       setPost(posts[selected]);
       setSort('best');
       setComments([]);
-      getCommentArr(posts[selected].permalink).then((commentArr) => {
+      getCommentArr(posts[selected].data.permalink).then((commentArr) => {
         setComments(commentArr);
         setMessage('');
       });
@@ -78,10 +77,12 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     if (!firstRender) {
       setMessage('loading...');
       setComments([]);
-      getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
-        setComments(commentArr);
-        setMessage('');
-      });
+      getCommentArr(`${post!.data.permalink}?sort=${sort}`).then(
+        (commentArr) => {
+          setComments(commentArr);
+          setMessage('');
+        }
+      );
     }
   }, [sort]);
 
@@ -100,7 +101,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
           <Post post={post} />
           <SortDropDown sort={sort} setSort={setSort} />
           {comments.map((object) => (
-            <Comment comment={object} permalink={post.permalink} />
+            <Comment comment={object} permalink={post.data.permalink} />
           ))}
         </>
       )}

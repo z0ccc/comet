@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { PostType } from './types';
+import { DataType } from './types';
 import PostInfo from './PostInfo';
 import PostScore from './PostScore';
 
 interface ComponentProps {
-  post: PostType;
+  post: DataType;
 }
 
 const Posts = ({ post }: ComponentProps) => (
