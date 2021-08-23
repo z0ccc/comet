@@ -59,6 +59,13 @@ const App = ({ onYoutube, url }: ComponentProps) => {
       setPost(posts[selected]);
       setSort('best');
       setComments([]);
+      chrome.runtime.sendMessage(
+        { permalink: posts[selected].data.permalink },
+        (res) => {
+          setComments(res.commentArr);
+          setMessage('');
+        }
+      );
     }
   }, [selected]);
 
