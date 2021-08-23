@@ -16,7 +16,7 @@ export type PostType = {
   likes: boolean;
 };
 
-export type CommentType = {
+export type DataType = {
   data: {
     score: number;
     title: string;
@@ -36,7 +36,7 @@ export type CommentType = {
     replies: {
       kind: string;
       data: {
-        children: CommentType[];
+        children: DataType[];
       };
     };
   };

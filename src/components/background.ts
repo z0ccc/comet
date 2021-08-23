@@ -1,6 +1,6 @@
 // This file is ran as a background script
 import { setIcon, getQueries, getPostArr, getCommentArr } from './main';
-import { CommentType } from './types';
+import { DataType } from './types';
 
 // Detects if there are posts for current url
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
@@ -28,13 +28,14 @@ chrome.tabs.onActivated.addListener(() => {
   });
 });
 
+// Listen for messages from content scripts
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.queries) {
     getPostArr(request.queries).then((postArr) => {
       sendResponse({ postArr });
     });
   } else if (request.children) {
-    const promisesFetch: Promise<CommentType[]>[] = [];
+    const promisesFetch: Promise<DataType[]>[] = [];
     for (let i = 0; i < request.children.length; i++) {
       promisesFetch.push(
         getCommentArr(request.permalink + request.children[i])

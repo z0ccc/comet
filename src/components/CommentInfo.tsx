@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { CommentType } from './types';
+import { DataType } from './types';
 import CollapsedComment from './CollapsedComment';
 import FullComment from './FullComment';
 
 interface ComponentProps {
-  comment: CommentType;
+  comment: DataType;
   permalink: string;
 }
 

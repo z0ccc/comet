@@ -11,7 +11,6 @@ const Posts = ({ post }: ComponentProps) => {
   const [vote, setVote] = useState<number>(0);
 
   useEffect(() => {
-    console.log(post.likes);
     setVote(getVote(post.likes));
   }, [post]);
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { CommentType } from './types';
+import { DataType } from './types';
 import { convertDate, formatNumber } from './main';
 
 interface ComponentProps {
-  comment: CommentType;
+  comment: DataType;
   setCollapse: Dispatch<SetStateAction<boolean>>;
 }
 

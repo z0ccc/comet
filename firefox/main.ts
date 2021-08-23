@@ -1,9 +1,7 @@
-import {
-  SubredditType, PostType, CommentType, CommentListType
-} from './types';
+import { SubredditType, PostType, DataType, CommentListType } from './types';
 
 // Changes icon color
-export const setIcon = (postArr: CommentType[]) => {
+export const setIcon = (postArr: DataType[]) => {
   const icon = postArr.length
     ? '../images/reddit_16.png'
     : '../images/grey_16.png';
@@ -88,10 +86,10 @@ export const getQueries = (url: string): string[] => {
 };
 
 // Gets list of matching reddit posts
-export const getPostArr = async (queries: string[]): Promise<CommentType[]> => {
+export const getPostArr = async (queries: string[]): Promise<DataType[]> => {
   const promisesFetch: Promise<Response>[] = [];
   const promisesJson: Promise<Response>[] = [];
-  let postArr: CommentType[] = [];
+  let postArr: DataType[] = [];
 
   for (let i = 0; i < queries.length; i++) {
     promisesFetch.push(fetch(queries[i]));
@@ -112,7 +110,7 @@ export const getPostArr = async (queries: string[]): Promise<CommentType[]> => {
       }
       postArr = [
         ...new Map(
-          postArr.map((item: CommentType) => [item.data.id, item])
+          postArr.map((item: DataType) => [item.data.id, item])
         ).values(),
       ];
       postArr = postArr.sort(compare);
@@ -121,11 +119,11 @@ export const getPostArr = async (queries: string[]): Promise<CommentType[]> => {
   return postArr;
 };
 
-const compare = (a: CommentType, b: CommentType): number =>
+const compare = (a: DataType, b: DataType): number =>
   b.data.num_comments - a.data.num_comments;
 
 // Gets and prints list of subreddits
-export const getSubreddits = (data: CommentType[]): SubredditType[] => {
+export const getSubreddits = (data: DataType[]): SubredditType[] => {
   const subreddits: SubredditType[] = [];
   for (let i = 0; i < data.length; i++) {
     subreddits.push({
@@ -138,7 +136,7 @@ export const getSubreddits = (data: CommentType[]): SubredditType[] => {
 };
 
 // Gets and print post info
-export const getPosts = (data: CommentType[]): PostType[] => {
+export const getPosts = (data: DataType[]): PostType[] => {
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
     posts.push({
@@ -154,8 +152,8 @@ export const getPosts = (data: CommentType[]): PostType[] => {
 };
 
 // Gets list of comments from post
-export const getCommentArr = async (permalink: string): Promise<CommentType[]> => {
-  let commentArr: CommentType[] = [];
+export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
+  let commentArr: DataType[] = [];
   await fetch(`https://api.reddit.com${permalink}`)
     .then((response) => response.json())
     .then((json) => {
@@ -173,7 +171,7 @@ export const getCommentArr = async (permalink: string): Promise<CommentType[]> =
 };
 
 // Gets and print post info
-export const getComments = (data: CommentType[]): CommentListType[] => {
+export const getComments = (data: DataType[]): CommentListType[] => {
   const comments: CommentListType[] = [];
 
   for (let i = 0; i < data.length; i++) {
@@ -219,9 +217,9 @@ const decodeHtml = (html: string): string => {
 };
 
 const formatNumber = (num: number) =>
-  (Math.abs(num) > 9999
+  Math.abs(num) > 9999
     ? `${(Math.sign(num) * (Math.abs(num) / 1000)).toFixed(0)}k`
-    : `${Math.sign(num) * Math.abs(num)}`);
+    : `${Math.sign(num) * Math.abs(num)}`;
 
 const convertDate = (timestamp: number) => {
   let diff: number = Date.now() - timestamp * 1000;

@@ -1,4 +1,4 @@
-import { SubredditType, PostType, CommentType } from './types';
+import { SubredditType, PostType, DataType } from './types';
 
 export const getVote = (likes: boolean) => {
   if (likes === true) return 1;
@@ -15,7 +15,7 @@ export const getDir = (voteDir: number, vote: number) => {
 };
 
 // Changes icon color
-export const setIcon = (postArr: CommentType[]) => {
+export const setIcon = (postArr: DataType[]) => {
   const icon = postArr.length
     ? '../images/reddit_16.png'
     : '../images/grey_16.png';
@@ -26,6 +26,7 @@ export const setIcon = (postArr: CommentType[]) => {
   });
 };
 
+// Only check for posts when icon is clicked
 export const handleClickOnly = () => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     const value = !clickOnly;
@@ -40,6 +41,7 @@ export const handleClickOnly = () => {
   });
 };
 
+// Switch to youtube comments
 export const toggleYoutube = () => {
   document.getElementById('redComments')!.style.display = 'none';
   document.getElementById('comments')!.style.display = 'block';
@@ -47,6 +49,7 @@ export const toggleYoutube = () => {
   window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
 };
 
+// Detects system/ setting theme
 export const detectTheme = () => {
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     // OS theme setting detected as dark
@@ -100,10 +103,10 @@ export const getQueries = (url: string): string[] => {
 };
 
 // Gets list of matching reddit posts
-export const getPostArr = async (queries: string[]): Promise<CommentType[]> => {
+export const getPostArr = async (queries: string[]): Promise<DataType[]> => {
   const promisesFetch: Promise<Response>[] = [];
   const promisesJson: Promise<Response>[] = [];
-  let postArr: CommentType[] = [];
+  let postArr: DataType[] = [];
 
   for (let i = 0; i < queries.length; i++) {
     promisesFetch.push(fetch(queries[i]));
@@ -124,7 +127,7 @@ export const getPostArr = async (queries: string[]): Promise<CommentType[]> => {
       }
       postArr = [
         ...new Map(
-          postArr.map((item: CommentType) => [item.data.id, item])
+          postArr.map((item: DataType) => [item.data.id, item])
         ).values(),
       ];
       postArr = postArr.sort(compare);
@@ -133,11 +136,11 @@ export const getPostArr = async (queries: string[]): Promise<CommentType[]> => {
   return postArr;
 };
 
-const compare = (a: CommentType, b: CommentType): number =>
+const compare = (a: DataType, b: DataType): number =>
   b.data.num_comments - a.data.num_comments;
 
 // Gets and prints list of subreddits
-export const getSubreddits = (data: CommentType[]): SubredditType[] => {
+export const getSubreddits = (data: DataType[]): SubredditType[] => {
   const subreddits: SubredditType[] = [];
   for (let i = 0; i < data.length; i++) {
     subreddits.push({
@@ -150,7 +153,7 @@ export const getSubreddits = (data: CommentType[]): SubredditType[] => {
 };
 
 // Gets post info
-export const getPosts = (data: CommentType[]): PostType[] => {
+export const getPosts = (data: DataType[]): PostType[] => {
   const posts: PostType[] = [];
   for (let i = 0; i < data.length; i++) {
     posts.push({
@@ -168,10 +171,8 @@ export const getPosts = (data: CommentType[]): PostType[] => {
 };
 
 // Gets list of comments from post
-export const getCommentArr = async (
-  permalink: string
-): Promise<CommentType[]> => {
-  let commentArr: CommentType[] = [];
+export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
+  let commentArr: DataType[] = [];
   await fetch(`https://api.reddit.com${permalink}`)
     .then((response) => response.json())
     .then((json) => {

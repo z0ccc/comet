@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { CommentType } from './types';
+import { DataType } from './types';
 import Comment from './Comment';
 
 interface ComponentProps {
-  comment: CommentType;
+  comment: DataType;
   permalink: string;
 }
 
 const LoadMore = ({ comment, permalink }: ComponentProps) => {
-  const [replies, setReplies] = useState<CommentType[][]>([]);
+  const [replies, setReplies] = useState<DataType[][]>([]);
   const [loading, setLoading] = useState<boolean>();
 
   const loadMore = async () => {

@@ -9,7 +9,7 @@ import {
   getPosts,
   getCommentArr,
 } from './main';
-import { SubredditType, PostType, CommentType } from './types';
+import { SubredditType, PostType, DataType } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
 import Comment from './Comment';
@@ -29,7 +29,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [post, setPost] = useState<PostType | null>(null);
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const [comments, setComments] = useState<DataType[]>([]);
   const [sort, setSort] = useState<string>('');
   const [message, setMessage] = useState<string>('loading...');
 

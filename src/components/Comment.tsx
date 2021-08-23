@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { CommentType } from './types';
+import { DataType } from './types';
 import LoadMore from './LoadMore';
 import CommentInfo from './CommentInfo';
 
 interface ComponentProps {
-  comment: CommentType;
+  comment: DataType;
   permalink: string;
 }
 

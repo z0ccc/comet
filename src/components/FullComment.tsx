@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import Parser from 'html-react-parser';
-import { CommentType } from './types';
+import { DataType } from './types';
 import { getVote, getDir, convertDate, decodeHtml, formatNumber } from './main';
 import Comment from './Comment';
 
 interface ComponentProps {
-  comment: CommentType;
+  comment: DataType;
   permalink: string;
   setCollapse: Dispatch<SetStateAction<boolean>>;
 }
@@ -70,7 +70,7 @@ const FullComment = ({ comment, permalink, setCollapse }: ComponentProps) => {
       </div>
       <div className="child">
         {comment.data.replies &&
-          comment.data.replies.data.children.map((object: CommentType) => (
+          comment.data.replies.data.children.map((object: DataType) => (
             <Comment comment={object} permalink={permalink} />
           ))}
       </div>
