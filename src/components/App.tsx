@@ -5,20 +5,13 @@ import {
   toggleYoutube,
   detectTheme,
   getQueries,
-  getPostArr,
   getSubreddits,
-  getPosts,
   getCommentArr,
-  getComments,
 } from './main';
-import {
-  SubredditType,
-  PostType,
-  CommentListType,
-} from './types';
+import { SubredditType, DataType } from './types';
 import Subreddits from './Subreddits';
 import Post from './Post';
-import Comments from './Comments';
+import Comment from './Comment';
 import SortDropDown from './SortDropDown';
 import RedditImg from './RedditImg';
 
@@ -33,9 +26,9 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   const [firstRender, setfirstRender] = useState<boolean>(true);
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
-  const [posts, setPosts] = useState<PostType[]>([]);
-  const [post, setPost] = useState<PostType | null>(null);
-  const [comments, setComments] = useState<CommentListType[]>([]);
+  const [posts, setPosts] = useState<DataType[]>([]);
+  const [post, setPost] = useState<DataType | null>(null);
+  const [comments, setComments] = useState<DataType[]>([]);
   const [sort, setSort] = useState<string>('');
   const [message, setMessage] = useState<string>('loading...');
 
@@ -43,16 +36,19 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     detectTheme();
     setfirstRender(false);
     const queries: string[] = getQueries(url);
-    getPostArr(queries).then((postArr) => {
-      if (postArr.length !== 0) {
-        setSubreddits(getSubreddits(postArr));
-        setPosts(getPosts(postArr));
-        const firstPost: PostType = getPosts(postArr)[0];
+    chrome.runtime.sendMessage({ queries }, (response) => {
+      if (response.postArr.length !== 0) {
+        setSubreddits(getSubreddits(response.postArr));
+        setPosts(response.postArr);
+        const firstPost: DataType = response.postArr[0];
         setPost(firstPost);
-        getCommentArr(firstPost.permalink).then((commentArr) => {
-          setComments(getComments(commentArr));
-          setMessage('');
-        });
+        chrome.runtime.sendMessage(
+          { permalink: firstPost.data.permalink },
+          (res) => {
+            setComments(res.commentArr);
+            setMessage('');
+          }
+        );
       } else {
         if (onYoutube) toggleYoutube();
         setMessage(
@@ -69,8 +65,8 @@ const App = ({ onYoutube, url }: ComponentProps) => {
       setPost(posts[selected]);
       setSort('best');
       setComments([]);
-      getCommentArr(posts[selected].permalink).then((commentArr) => {
-        setComments(getComments(commentArr));
+      getCommentArr(posts[selected].data.permalink).then((commentArr) => {
+        setComments(commentArr);
         setMessage('');
       });
     }
@@ -79,10 +75,14 @@ const App = ({ onYoutube, url }: ComponentProps) => {
   // runs if different sort type is selected
   useEffect(() => {
     if (!firstRender) {
+      setMessage('loading...');
       setComments([]);
-      getCommentArr(`${post!.permalink}?sort=${sort}`).then((commentArr) => {
-        setComments(getComments(commentArr));
-      });
+      getCommentArr(`${post!.data.permalink}?sort=${sort}`).then(
+        (commentArr) => {
+          setComments(commentArr);
+          setMessage('');
+        }
+      );
     }
   }, [sort]);
 
@@ -100,11 +100,9 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         <>
           <Post post={post} />
           <SortDropDown sort={sort} setSort={setSort} />
-          <Comments
-            comments={comments}
-            setComments={setComments}
-            permalink={post.permalink}
-          />
+          {comments.map((object) => (
+            <Comment comment={object} permalink={post.data.permalink} />
+          ))}
         </>
       )}
       <div className="message">{Parser(message)}</div>

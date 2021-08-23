@@ -7,7 +7,7 @@ const toggleReddit = () => {
 };
 
 const ToggleReddit = () => (
-  <button type="submit" className="toggleButton" onClick={toggleReddit}>
+  <button type="button" className="toggleButton" onClick={toggleReddit}>
     <img
       id="redditImg"
       className="toggleImg"

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { toggleYoutube } from './main';
 
 const RedditImg = () => (
-  <button type="submit" className="toggleButton" onClick={toggleYoutube}>
+  <button type="button" className="toggleButton" onClick={toggleYoutube}>
     <img
       id="redditImg"
       className="toggleImg"

@@ -1,6 +1,18 @@
-import {
-  SubredditType, PostType, DataType, CommentListType
-} from './types';
+import { SubredditType, DataType } from './types';
+
+export const getVote = (likes: boolean) => {
+  if (likes === true) return 1;
+  if (likes === false) return -1;
+  return 0;
+};
+
+export const getDir = (voteDir: number, vote: number) => {
+  let dir: number = voteDir;
+  if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
+    dir = 0;
+  }
+  return dir;
+};
 
 // Changes icon color
 export const setIcon = (postArr: DataType[]) => {
@@ -14,6 +26,7 @@ export const setIcon = (postArr: DataType[]) => {
   });
 };
 
+// Only check for posts when icon is clicked
 export const handleClickOnly = () => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     const value = !clickOnly;
@@ -28,6 +41,7 @@ export const handleClickOnly = () => {
   });
 };
 
+// Switch to youtube comments
 export const toggleYoutube = () => {
   document.getElementById('redComments')!.style.display = 'none';
   document.getElementById('comments')!.style.display = 'block';
@@ -35,6 +49,7 @@ export const toggleYoutube = () => {
   window.scrollBy(0, 1); // youtube comments won't load unless movement is detected
 };
 
+// Detects system/ setting theme
 export const detectTheme = () => {
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     // OS theme setting detected as dark
@@ -137,22 +152,6 @@ export const getSubreddits = (data: DataType[]): SubredditType[] => {
   return subreddits;
 };
 
-// Gets and print post info
-export const getPosts = (data: DataType[]): PostType[] => {
-  const posts: PostType[] = [];
-  for (let i = 0; i < data.length; i++) {
-    posts.push({
-      id: i,
-      score: formatNumber(data[i].data.score),
-      title: decodeHtml(data[i].data.title),
-      permalink: data[i].data.permalink,
-      date: convertDate(data[i].data.created_utc),
-      author: data[i].data.author,
-    });
-  }
-  return posts;
-};
-
 // Gets list of comments from post
 export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
   let commentArr: DataType[] = [];
@@ -172,58 +171,18 @@ export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
   return commentArr;
 };
 
-// Gets and print post info
-export const getComments = (data: DataType[]): CommentListType[] => {
-  const comments: CommentListType[] = [];
-
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].kind === 'more') {
-      comments.push({
-        id: `${data[i].data.children[0]}0`,
-        kind: data[i].kind,
-        children: data[i].data.children,
-        count: data[i].data.count,
-        depth: data[i].data.depth,
-      });
-    } else {
-      const bodyHTML: string = decodeHtml(data[i].data.body_html).replace(
-        '<a href=',
-        '<a target="_blank" href='
-      );
-      comments.push({
-        id: data[i].data.id,
-        kind: data[i].kind,
-        author: data[i].data.author,
-        score: formatNumber(data[i].data.score),
-        date: convertDate(data[i].data.created_utc),
-        bodyHTML,
-        depth: data[i].data.depth,
-      });
-      if (
-        data[i].kind === 't1' &&
-        data[i].data.replies &&
-        data[i].data.replies.kind === 'Listing' &&
-        data[i].data.replies.data.children
-      ) {
-        comments.push(getComments(data[i].data.replies.data.children));
-      }
-    }
-  }
-  return comments.flat(Infinity);
-};
-
-const decodeHtml = (html: string): string => {
+export const decodeHtml = (html: string): string => {
   const txt: HTMLTextAreaElement = document.createElement('textarea');
   txt.innerHTML = html;
   return txt.value;
 };
 
-const formatNumber = (num: number) =>
-  (Math.abs(num) > 9999
+export const formatNumber = (num: number) =>
+  Math.abs(num) > 9999
     ? `${(Math.sign(num) * (Math.abs(num) / 1000)).toFixed(0)}k`
-    : `${Math.sign(num) * Math.abs(num)}`);
+    : `${Math.sign(num) * Math.abs(num)}`;
 
-const convertDate = (timestamp: number) => {
+export const convertDate = (timestamp: number) => {
   let diff: number = Date.now() - timestamp * 1000;
 
   if (diff < 1000) {

@@ -1,7 +1,7 @@
 {
   "name": "Reddit Wherever",
-  "description": "View the Reddit comments of any YouTube Video or Webpage.",
-  "version": "2.0.1",
+  "description": "View the Reddit comments of any YouTube video or webpage.",
+  "version": "2.1.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
@@ -39,5 +39,6 @@
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false
-  }
+  },
+  "host_permissions": ["*://*.reddit.com/*"]
 }

@@ -5,15 +5,6 @@ export type SubredditType = {
   commentNum: string;
 };
 
-export type PostType = {
-  id: number;
-  score: string;
-  title: string;
-  permalink: string;
-  date: string;
-  author: string;
-};
-
 export type DataType = {
   data: {
     score: number;
@@ -23,11 +14,13 @@ export type DataType = {
     author: string;
     subreddit: string;
     num_comments: number;
-    id: number;
+    id: string;
+    parent_id: string;
     children: string[];
     count: number;
-    depth: number;
     body_html: string;
+    likes: boolean;
+    name: string;
     replies: {
       kind: string;
       data: {
@@ -37,25 +30,4 @@ export type DataType = {
   };
   kind: string;
   length: number;
-  depth: number;
 };
-
-export type CommentType = {
-  id: string | number;
-  kind: string;
-  author: string;
-  score: string;
-  date: string;
-  bodyHTML: string;
-  depth: number;
-};
-
-export type LoadMoreType = {
-  id: string;
-  kind: string;
-  children: string[];
-  count: number;
-  depth: number;
-};
-
-export type CommentListType = CommentType | LoadMoreType | CommentListType[];
