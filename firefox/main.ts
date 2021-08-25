@@ -1,12 +1,30 @@
 import { SubredditType, DataType } from './types';
 
-export const getVote = (likes: boolean) => {
+export {
+  getVote,
+  getDir,
+  setIcon,
+  handleClickOnly,
+  toggleYoutube,
+  detectTheme,
+  getQueries,
+  getPostArr,
+  getSubreddits,
+  getCommentArr,
+  fixHref,
+  decodeHtml,
+  formatNumber,
+  convertDate,
+};
+
+const getVote = (likes: boolean) => {
   if (likes === true) return 1;
   if (likes === false) return -1;
   return 0;
 };
 
-export const getDir = (voteDir: number, vote: number) => {
+// Get vote direction
+const getDir = (voteDir: number, vote: number) => {
   let dir: number = voteDir;
   if ((dir === 1 && vote === 1) || (dir === -1 && vote === -1)) {
     dir = 0;
@@ -15,7 +33,7 @@ export const getDir = (voteDir: number, vote: number) => {
 };
 
 // Changes icon color
-export const setIcon = (postArr: DataType[]) => {
+const setIcon = (postArr: DataType[]) => {
   const icon = postArr.length
     ? '../images/reddit_16.png'
     : '../images/grey_16.png';
@@ -27,7 +45,7 @@ export const setIcon = (postArr: DataType[]) => {
 };
 
 // Only check for posts when icon is clicked
-export const handleClickOnly = () => {
+const handleClickOnly = () => {
   chrome.storage.sync.get('clickOnly', ({ clickOnly }) => {
     const value = !clickOnly;
     chrome.storage.sync.set({ clickOnly: value });
@@ -42,7 +60,7 @@ export const handleClickOnly = () => {
 };
 
 // Switch to youtube comments
-export const toggleYoutube = () => {
+const toggleYoutube = () => {
   document.getElementById('redComments')!.style.display = 'none';
   document.getElementById('comments')!.style.display = 'block';
   document.getElementById('redditImgWrap')!.style.display = 'flex';
@@ -50,7 +68,7 @@ export const toggleYoutube = () => {
 };
 
 // Detects system/ setting theme
-export const detectTheme = () => {
+const detectTheme = () => {
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     // OS theme setting detected as dark
     document.documentElement.setAttribute('data-theme', 'dark');
@@ -64,7 +82,7 @@ export const detectTheme = () => {
 };
 
 // Gets reddit search query URLs
-export const getQueries = (url: string): string[] => {
+const getQueries = (url: string): string[] => {
   const queries = [`https://api.reddit.com/submit?url=${url}`];
 
   if (url.startsWith('https')) {
@@ -103,7 +121,7 @@ export const getQueries = (url: string): string[] => {
 };
 
 // Gets list of matching reddit posts
-export const getPostArr = async (queries: string[]): Promise<DataType[]> => {
+const getPostArr = async (queries: string[]): Promise<DataType[]> => {
   const promisesFetch: Promise<Response>[] = [];
   const promisesJson: Promise<Response>[] = [];
   let postArr: DataType[] = [];
@@ -140,7 +158,7 @@ const compare = (a: DataType, b: DataType): number =>
   b.data.num_comments - a.data.num_comments;
 
 // Gets and prints list of subreddits
-export const getSubreddits = (data: DataType[]): SubredditType[] => {
+const getSubreddits = (data: DataType[]): SubredditType[] => {
   const subreddits: SubredditType[] = [];
   for (let i = 0; i < data.length; i++) {
     subreddits.push({
@@ -153,7 +171,7 @@ export const getSubreddits = (data: DataType[]): SubredditType[] => {
 };
 
 // Gets list of comments from post
-export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
+const getCommentArr = async (permalink: string): Promise<DataType[]> => {
   let commentArr: DataType[] = [];
   await fetch(`https://api.reddit.com${permalink}`)
     .then((response) => response.json())
@@ -171,18 +189,27 @@ export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
   return commentArr;
 };
 
-export const decodeHtml = (html: string): string => {
+const fixHref = (html: string): string => {
+  let fixed = decodeHtml(html).replace('<a href=', '<a target="_blank" href=');
+  fixed = fixed.replace(
+    '<a target="_blank" href="/',
+    '<a target="_blank" href="https://reddit.com/'
+  );
+  return fixed;
+};
+
+const decodeHtml = (html: string): string => {
   const txt: HTMLTextAreaElement = document.createElement('textarea');
   txt.innerHTML = html;
   return txt.value;
 };
 
-export const formatNumber = (num: number) =>
+const formatNumber = (num: number) =>
   Math.abs(num) > 9999
     ? `${(Math.sign(num) * (Math.abs(num) / 1000)).toFixed(0)}k`
     : `${Math.sign(num) * Math.abs(num)}`;
 
-export const convertDate = (timestamp: number) => {
+const convertDate = (timestamp: number) => {
   let diff: number = Date.now() - timestamp * 1000;
 
   if (diff < 1000) {
