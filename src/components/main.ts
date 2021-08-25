@@ -177,7 +177,6 @@ export const fixHref = (html: string): string => {
     '<a target="_blank" href="/',
     '<a target="_blank" href="https://reddit.com/'
   );
-  console.log(fixed);
   return fixed;
 };
 
