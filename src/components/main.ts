@@ -171,6 +171,16 @@ export const getCommentArr = async (permalink: string): Promise<DataType[]> => {
   return commentArr;
 };
 
+export const fixHref = (html: string): string => {
+  let fixed = decodeHtml(html).replace('<a href=', '<a target="_blank" href=');
+  fixed = fixed.replace(
+    '<a target="_blank" href="/',
+    '<a target="_blank" href="https://reddit.com/'
+  );
+  console.log(fixed);
+  return fixed;
+};
+
 export const decodeHtml = (html: string): string => {
   const txt: HTMLTextAreaElement = document.createElement('textarea');
   txt.innerHTML = html;

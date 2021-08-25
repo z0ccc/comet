@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import Parser from 'html-react-parser';
 import { DataType } from './types';
-import { convertDate, decodeHtml, formatNumber } from './main';
+import { convertDate, fixHref, formatNumber } from './main';
 import Comment from './Comment';
 import CommentScore from './CommentScore';
 
@@ -37,7 +37,7 @@ const FullComment = ({ comment, permalink, setCollapse }: ComponentProps) => (
           <div className="info">{convertDate(comment.data.created_utc)}</div>
         </div>
         <div className="commentBody">
-          {Parser(decodeHtml(comment.data.body_html))}
+          {Parser(fixHref(comment.data.body_html))}
         </div>
       </div>
     </div>
