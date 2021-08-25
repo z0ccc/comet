@@ -23,7 +23,7 @@ const Posts = ({ post }: ComponentProps) => {
   return (
     <div className="postScore">
       <button
-        className={`arrow ${vote === 1 ? 'upmod' : 'up'}`}
+        className={`arrow ${vote === 1 ? 'upmod' : 'upvote'}`}
         type="button"
         aria-label="Upvote"
         onClick={() => handleVote(1)}
@@ -36,7 +36,7 @@ const Posts = ({ post }: ComponentProps) => {
         {formatNumber(post.data.score)}
       </div>
       <button
-        className={`arrow ${vote === -1 ? 'downmod' : 'down'}`}
+        className={`arrow ${vote === -1 ? 'downmod' : 'downvote'}`}
         type="button"
         aria-label="Downvote"
         onClick={() => handleVote(-1)}

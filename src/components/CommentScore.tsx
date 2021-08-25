@@ -23,13 +23,13 @@ const CommentScore = ({ comment }: ComponentProps) => {
   return (
     <div className="postScore">
       <button
-        className={`arrow arrowMargin ${vote === 1 ? 'upmod' : 'up'}`}
+        className={`arrow arrowMargin ${vote === 1 ? 'upmod' : 'upvote'}`}
         type="button"
         aria-label="Upvote"
         onClick={() => handleVote(1)}
       />
       <button
-        className={`arrow arrowMargin ${vote === -1 ? 'downmod' : 'down'}`}
+        className={`arrow arrowMargin ${vote === -1 ? 'downmod' : 'downvote'}`}
         type="button"
         aria-label="Downvote"
         onClick={() => handleVote(-1)}

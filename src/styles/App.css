@@ -2,7 +2,7 @@
   --scrollbar: #ccc;
   --light-grey: #e9e9e9;
   --border: #cacfd2;
-  --line: #DDF;
+  --line: #ddf;
   --text: #212121;
   --blue: #369;
   --dark-grey: #888;
@@ -11,8 +11,8 @@
   --white: #fff;
   --link-blue: #0079d3;
   --blockQuote: #4f4f4f;
-  --orange: #FF8B60;
-  --purple: #9494FF;
+  --orange: #ff8b60;
+  --purple: #9494ff;
   scrollbar-color: var(--scrollbar) transparent !important;
   scrollbar-width: thin !important;
 }
@@ -45,13 +45,13 @@
 }
 
 button {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
   display: block;
 }
 
@@ -157,26 +157,26 @@ button {
   margin: 2px 0px 0px 0px;
 }
 
-.up {
-  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+.upvote {
+  background-image: url(../sprite-reddit.png);
   background-position: -106px -1654px;
   background-repeat: no-repeat;
 }
 
 .upmod {
-  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+  background-image: url(../sprite-reddit.png);
   background-position: 0px -1676px;
   background-repeat: no-repeat;
 }
 
-.down {
-  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+.downvote {
+  background-image: url(../sprite-reddit.png);
   background-position: -64px -1654px;
   background-repeat: no-repeat;
 }
 
 .downmod {
-  background-image: url(../sprite-reddit.5kxTB7FXse0.png);
+  background-image: url(../sprite-reddit.png);
   background-position: -85px -1654px;
   background-repeat: no-repeat;
 }
