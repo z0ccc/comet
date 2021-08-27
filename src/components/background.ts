@@ -31,9 +31,11 @@ chrome.tabs.onActivated.addListener(() => {
 // Listen for messages from content scripts
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.queries) {
-    getPostArr(request.queries).then((postArr) => {
-      sendResponse({ postArr });
-    });
+    getPostArr(request.queries)
+      .then((postArr) => {
+        sendResponse({ postArr });
+      })
+      .catch(() => sendResponse('err'));
   } else if (request.children) {
     const promisesFetch: Promise<DataType[]>[] = [];
     for (let i = 0; i < request.children.length; i++) {

@@ -31,7 +31,11 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     setfirstRender(false);
     const queries: string[] = getQueries(url);
     chrome.runtime.sendMessage({ queries }, (response) => {
-      if (response.postArr.length !== 0) {
+      if (response === 'err') {
+        setMessage(
+          'Error: Reddit might be down or another extension is blocking Reddit Wherever. <a class="submit" target="_blank" href="https://github.com/z0ccc/Reddit-Wherever#troubleshoot">Read more</a>'
+        );
+      } else if (response.postArr.length !== 0) {
         setSubreddits(getSubreddits(response.postArr));
         setPosts(response.postArr);
         const firstPost: DataType = response.postArr[0];
