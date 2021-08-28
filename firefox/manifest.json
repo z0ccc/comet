@@ -18,19 +18,19 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "images/reddit_16.png",
-      "32": "images/reddit_32.png",
-      "48": "images/reddit_48.png",
-      "128": "images/reddit_128.png"
+      "16": "images/logo_square_16.png",
+      "32": "images/logo_square_32.png",
+      "48": "images/logo_square_48.png",
+      "128": "images/logo_square_128.png"
     }
   },
   "icons": {
-    "16": "images/reddit_16.png",
-    "32": "images/reddit_32.png",
-    "48": "images/reddit_48.png",
-    "128": "images/reddit_128.png"
+    "16": "images/logo_square_16.png",
+    "32": "images/logo_square_32.png",
+    "48": "images/logo_square_48.png",
+    "128": "images/logo_square_128.png"
   },
-  "web_accessible_resources": ["images/youtube_32.png", "images/grey_32.png"],
+  "web_accessible_resources": ["images/youtube_32.png", "images/reddit_32.png"],
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false

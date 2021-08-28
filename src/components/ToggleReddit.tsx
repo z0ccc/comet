@@ -12,7 +12,7 @@ const ToggleReddit = () => (
       id="redditImg"
       className="toggleImg"
       alt="Youtube toggle icon"
-      src={chrome.runtime.getURL('../images/grey_32.png')}
+      src={chrome.runtime.getURL('../images/reddit_32.png')}
     />
   </button>
 );
