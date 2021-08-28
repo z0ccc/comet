@@ -31,6 +31,10 @@
   --blockQuote: #acacac;
 }
 
+body {
+  margin: 0;
+}
+
 #redComments {
   font-family: verdana, sans-serif;
   color: var(--text);
@@ -330,6 +334,26 @@ blockquote {
 .message {
   text-align: center;
   font-size: 14px;
+}
+
+.options {
+  color: var(--text);
+  background-color: var(--background);
+  padding: 8px;
+}
+
+.optionItemWrap {
+  display: flex;
+  align-items: center;
+  margin: 0 0 18px 0;
+}
+
+.selectBoxWrap {
+  margin: 0 6px 0 0;
+}
+
+input[type='checkBox'] {
+  margin: 0 6px 0 0;
 }
 
 @media screen and (max-width: 1000px) {
