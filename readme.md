@@ -42,7 +42,11 @@ If you're having problems that aren't addressed or fixed by this section please 
 
 <br />
 
-### The YouTube comments are stuck at 'loading...' or you have received the message 'Error: Reddit might be down or another extension is blocking Reddit Wherever'.
+### The YouTube comments are stuck at 'loading...'
+
+### or
+
+### 'Error: Reddit might be down or another extension is blocking Reddit Wherever'.
 
 Reddit.com or api.reddit.com may be down and you will have to wait until they are back up to use the extension.
 
