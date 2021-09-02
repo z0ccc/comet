@@ -42,9 +42,7 @@ If you're having problems that aren't addressed or fixed by this section please 
 
 <br />
 
-### The YouTube comments are stuck at 'loading...'
-
-### or
+### The YouTube comments are stuck at 'loading...' or
 
 ### 'Error: Reddit might be down or another extension is blocking Reddit Wherever'.
 
