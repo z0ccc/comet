@@ -1,7 +1,7 @@
 # Reddit Wherever
-<a href="https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaacchlnhljbcm"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/chrome.png" alt="Get Reddit Wherever for Chromium"></a>
-<a href="https://addons.mozilla.org/en-CA/firefox/addon/reddit-wherever/"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/firefox.png" alt="Get Reddit Wherever for Firefox"></a> 
 
+<a href="https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaacchlnhljbcm"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/chrome.png" alt="Get Reddit Wherever for Chromium"></a>
+<a href="https://addons.mozilla.org/en-CA/firefox/addon/reddit-wherever/"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/firefox.png" alt="Get Reddit Wherever for Firefox"></a>
 
 View the Reddit comments of any YouTube video or web page.
 
@@ -42,12 +42,14 @@ If you're having problems that aren't addressed or fixed by this section please 
 
 <br />
 
-### The YouTube comments are stuck at 'loading...'.
+### The YouTube comments are stuck at 'loading...' or you have received the message 'Error: Reddit might be down or another extension is blocking Reddit Wherever'.
+
+Reddit.com or api.reddit.com may be down and you will have to wait until they are back up to use the extension.
 
 If you are using the DuckDuckGo Privacy Essentials extension you must go to the settings of the DuckDuckGo extension and add api.reddit.com and youtube.com as unprotected sites.
- 
+
 If you are using uMatrix or uBlock origin advanced mode you need to allow the Reddit 3rd party domain to run on YouTube.
- 
+
 If you are not using any of these extensions check if any other extensions are preventing the comments from loading.
 
 <br />
