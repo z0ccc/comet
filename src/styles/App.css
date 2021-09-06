@@ -355,9 +355,3 @@ blockquote {
 input[type='checkBox'] {
   margin: 0 6px 0 0;
 }
-
-@media screen and (max-width: 1000px) {
-  #redditImgWrap {
-    z-index: 10;
-  }
-}
