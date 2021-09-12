@@ -17,8 +17,9 @@ export {
   convertDate,
 };
 
+// get current vote from json
 const getVote = (likes: boolean) => {
-  if (likes === true) return 1;
+  if (likes) return 1;
   if (likes === false) return -1;
   return 0;
 };
