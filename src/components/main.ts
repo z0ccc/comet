@@ -17,11 +17,11 @@ export {
   convertDate,
 };
 
-// get current vote from json
+// gets the current vote for a post or comment and return ternary value
 const getVote = (likes: boolean) => {
-  if (likes) return 1;
-  if (likes === false) return -1;
-  return 0;
+  if (likes) return 1; // if upvote
+  if (likes === false) return -1; // if downtown
+  return 0; // if no vote
 };
 
 // Get vote direction
