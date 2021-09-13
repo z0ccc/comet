@@ -17,10 +17,10 @@ export {
   convertDate,
 };
 
-// gets the current vote for a post or comment and return ternary value
+// gets the current vote for a post or comment and returns ternary value
 const getVote = (likes: boolean) => {
   if (likes) return 1; // if upvote
-  if (likes === false) return -1; // if downtown
+  if (likes === false) return -1; // if downvote
   return 0; // if no vote
 };
 
