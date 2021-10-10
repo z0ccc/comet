@@ -5,10 +5,6 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import CommentToggle from './ToggleReddit';
 
-document.addEventListener('DOMContentLoaded', () => prepareComments());
-document.addEventListener('yt-navigate-finish', () => prepareComments());
-document.addEventListener('spfdone', () => prepareComments());
-
 const prepareComments = () => {
   if (window.location.href.includes('watch?v=')) {
     const mountNode = document.getElementById('comments');
@@ -50,3 +46,9 @@ const loadComments = (mountNode: HTMLElement | undefined) => {
   ReactDOM.render(<App onYoutube url={window.location.href} />, redComments);
   ReactDOM.render(<CommentToggle />, redditImgWrap);
 };
+
+document.addEventListener('DOMContentLoaded', () => prepareComments());
+document.addEventListener('yt-navigate-finish', () => prepareComments());
+document.addEventListener('spfdone', () => prepareComments());
+
+prepareComments();

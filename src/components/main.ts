@@ -239,7 +239,6 @@ const convertDate = (timestamp: number) => {
 
   diff /= 7;
   if (diff < 4) {
-    console.log(diff, Math.trunc(diff));
     return `${Math.trunc(diff)} week${diff < 2 ? '' : 's'} ago`;
   }
 
