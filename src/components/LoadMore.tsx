@@ -25,19 +25,34 @@ const LoadMore = ({ comment, permalink }: ComponentProps) => {
   return (
     <>
       {replies.length === 0 ? (
-        <div className="comment">
-          {loading ? (
-            <div className="commentTitle loadMore">loading...</div>
-          ) : (
-            <button
+        <>
+          {comment.data.count === 0 ? (
+            <a
               className="commentTitle loadMore"
-              type="button"
-              onClick={loadMore}
+              href={`https://www.reddit.com/${permalink}${comment.data.parent_id.substring(
+                3
+              )}`}
+              target="_blank"
+              rel="noreferrer"
             >
-              {`load more comments (${comment.data.count})`}
-            </button>
+              continue this thread
+            </a>
+          ) : (
+            <div className="comment">
+              {loading ? (
+                <div className="commentTitle loadMore">loading...</div>
+              ) : (
+                <button
+                  className="commentTitle loadMore"
+                  type="button"
+                  onClick={loadMore}
+                >
+                  {`load more comments (${comment.data.count})`}
+                </button>
+              )}
+            </div>
           )}
-        </div>
+        </>
       ) : (
         <>
           {replies.map((comments) => (

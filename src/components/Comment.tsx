@@ -8,14 +8,17 @@ interface ComponentProps {
   permalink: string;
 }
 
-const Comment = ({ comment, permalink }: ComponentProps) => (
-  <>
-    {comment.kind === 'more' ? (
-      <LoadMore comment={comment} permalink={permalink} />
-    ) : (
-      <CommentInfo comment={comment} permalink={permalink} />
-    )}
-  </>
-);
+const Comment = ({ comment, permalink }: ComponentProps) => {
+  console.log(comment);
+  return (
+    <>
+      {comment.kind === 'more' ? (
+        <LoadMore comment={comment} permalink={permalink} />
+      ) : (
+        <CommentInfo comment={comment} permalink={permalink} />
+      )}
+    </>
+  );
+};
 
 export default Comment;
