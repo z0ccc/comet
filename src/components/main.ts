@@ -187,7 +187,6 @@ const getCommentArr = async (permalink: string): Promise<DataType[]> => {
         commentArr = json[1].data.children;
       }
     });
-  console.log(commentArr);
   return commentArr;
 };
 
