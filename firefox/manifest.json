@@ -1,20 +1,30 @@
 {
-  "name": "Reddit Wherever",
-  "description": "View the Reddit comments of any YouTube video or webpage.",
-  "version": "2.2.0",
+  "name": "Upvote - Reddit comments on YouTube or any webpage.",
+  "description": "Reddit comments on YouTube or any webpage.",
+  "version": "2.2.1",
   "manifest_version": 2,
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": true
   },
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
-      "js": ["content.js"],
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_end"
     }
   ],
-  "permissions": ["storage", "tabs", "*://*.reddit.com/*"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "*://*.reddit.com/*"
+  ],
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -30,7 +40,10 @@
     "48": "images/logo_48.png",
     "128": "images/logo_128.png"
   },
-  "web_accessible_resources": ["images/youtube_32.png", "images/reddit_32.png"],
+  "web_accessible_resources": [
+    "images/youtube_32.png",
+    "images/reddit_32.png"
+  ],
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false
