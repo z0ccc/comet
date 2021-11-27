@@ -1,6 +1,6 @@
 # Upvote
 
-<a href="https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaacchlnhljbcm"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/chrome.png" alt="Get Upvote for Chromium"></a>
+<!-- <a href="https://chrome.google.com/webstore/detail/reddit-wherever/delfgcgfgfjlllhhcgiaacchlnhljbcm"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/chrome.png" alt="Get Upvote for Chromium"></a> -->
 <a href="https://addons.mozilla.org/en-CA/firefox/addon/reddit-wherever/"><img src="https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/firefox.png" alt="Get Upvote for Firefox"></a>
 
 View the Reddit comments of any YouTube video or web page.
