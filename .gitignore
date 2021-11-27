@@ -2,7 +2,9 @@
 
 /chrome
 
+
 # dependencies
+yarn.lock
 /node_modules
 /.pnp
 .pnp.js
