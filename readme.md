@@ -19,9 +19,9 @@ Options:
 
 Upvote Anywhere contains no ads, collects no data and signup is not required.
 
-![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/screenshot-1.png)
+![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/screenshot-1.png)
 
-![Image of extension popup](https://raw.githubusercontent.com/z0ccc/Reddit-Wherever/master/promo/screenshot-2.png)
+![Image of extension popup](https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/screenshot-2.png)
 
 # Dev
 
