@@ -253,7 +253,7 @@ button {
   margin: 0 0 3px 0;
 }
 
-.infoWrap > *:not(:last-child) {
+.infoWrap>*:not(:last-child) {
   margin: 0 6px 0 0;
 }
 
