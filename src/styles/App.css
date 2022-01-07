@@ -310,8 +310,8 @@ p {
   margin: 0;
 }
 
-ol,
-ul {
+#redComments ol,
+#redComments ul {
   margin: 0;
   padding-inline-start: 40px !important;
 }
