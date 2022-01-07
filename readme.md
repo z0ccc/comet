@@ -3,7 +3,7 @@
 <a href="https://chrome.google.com/webstore/detail/upvote-anywhere/amlfbbehleledmbphnielafhieceggal"><img src="https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/chrome.png" alt="Get Upvote for Chromium"></a>
 <a href="https://addons.mozilla.org/en-CA/firefox/addon/upvote-anywhere/"><img src="https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/firefox.png" alt="Get Upvote Anywhere for Firefox"></a>
 
-Note: This extension was previously named 'Reddit wherver' but has been renamed due to trademark infringement.
+Note: This extension was previously named 'Reddit Wherever' but has been renamed due to trademark infringement.
 
 View the Reddit comments of any YouTube video or web page.
 
