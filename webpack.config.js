@@ -1,6 +1,6 @@
-const webpack = require("webpack");
-const path = require("path");
-const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
   entry: {
@@ -67,6 +67,7 @@ const config = {
   devServer: {
     contentBase: './dist',
   },
+  devtool: 'cheap-module-source-map',
   plugins: [
     new CopyPlugin({
       patterns: [{ from: 'public', to: '.' }],
