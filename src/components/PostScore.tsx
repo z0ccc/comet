@@ -9,6 +9,7 @@ interface ComponentProps {
 
 const Posts = ({ post }: ComponentProps) => {
   const [vote, setVote] = useState<number>(0);
+  const [score, setScore] = useState<number>(post.data.score);
 
   useEffect(() => {
     setVote(getVote(post.data.likes));
@@ -18,6 +19,7 @@ const Posts = ({ post }: ComponentProps) => {
     const dir: number = getDir(voteDir, vote);
     chrome.runtime.sendMessage({ id: post.data.name, dir });
     setVote(dir);
+    setScore(score + (dir === 0 ? voteDir * -1 : dir));
   };
 
   return (
@@ -33,7 +35,7 @@ const Posts = ({ post }: ComponentProps) => {
           vote === 1 ? 'orange' : vote === -1 && 'purple'
         }`}
       >
-        {formatNumber(post.data.score)}
+        {formatNumber(score)}
       </div>
       <button
         className={`arrow ${vote === -1 ? 'downmod' : 'downvote'}`}
