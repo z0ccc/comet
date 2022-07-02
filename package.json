@@ -1,6 +1,6 @@
 {
-  "name": "chrome-extension-react-typescript-boilerplate",
-  "version": "1.0.0",
+  "name": "upvote_anywhere",
+  "version": "2.2.3",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
