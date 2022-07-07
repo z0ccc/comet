@@ -1,5 +1,6 @@
 {
-  "name": "Upvote Anywhere",
+  "name": "Upvote Anywhere - Reddit comments on YouTube",
+  "short_name": "Upvote Anywhere",
   "description": "View Reddit comments on YouTube or any webpage.",
   "version": "2.2.3",
   "manifest_version": 3,
@@ -8,19 +9,12 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "*://*.youtube.com/*"
-      ],
-      "js": [
-        "content.js"
-      ],
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
       "run_at": "document_end"
     }
   ],
-  "permissions": [
-    "storage",
-    "tabs"
-  ],
+  "permissions": ["storage", "tabs"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -38,13 +32,8 @@
   },
   "web_accessible_resources": [
     {
-      "resources": [
-        "images/youtube_32.png",
-        "images/reddit_32.png"
-      ],
-      "matches": [
-        "*://*.youtube.com/*"
-      ],
+      "resources": ["images/youtube_32.png", "images/reddit_32.png"],
+      "matches": ["*://*.youtube.com/*"],
       "extension_ids": []
     }
   ],
@@ -52,7 +41,5 @@
     "page": "options.html",
     "open_in_tab": false
   },
-  "host_permissions": [
-    "*://*.reddit.com/*"
-  ]
+  "host_permissions": ["*://*.reddit.com/*"]
 }
