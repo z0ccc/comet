@@ -13,17 +13,18 @@ import '../styles/App.css';
 
 interface ComponentProps {
   onYoutube: boolean;
+  sortSetting: string;
   url: string;
 }
 
-const App = ({ onYoutube, url }: ComponentProps) => {
+const App = ({ onYoutube, sortSetting, url }: ComponentProps) => {
   const [firstRender, setfirstRender] = useState<boolean>(true);
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<DataType[]>([]);
   const [post, setPost] = useState<DataType | null>(null);
   const [comments, setComments] = useState<DataType[]>([]);
-  const [sort, setSort] = useState<string>('');
+  const [currentSort, setSort] = useState<string>(sortSetting);
   const [message, setMessage] = useState<string>('loading...');
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
         const firstPost: DataType = response.postArr[0];
         setPost(firstPost);
         chrome.runtime.sendMessage(
-          { permalink: firstPost.data.permalink },
+          { permalink: `${firstPost.data.permalink}?sort=${currentSort}` },
           (res) => {
             setComments(res.commentArr);
             setMessage('');
@@ -61,10 +62,10 @@ const App = ({ onYoutube, url }: ComponentProps) => {
     if (!firstRender) {
       setMessage('loading...');
       setPost(posts[selected]);
-      setSort('best');
+      setSort(currentSort);
       setComments([]);
       chrome.runtime.sendMessage(
-        { permalink: posts[selected].data.permalink },
+        { permalink: `${posts[selected].data.permalink}?sort=${currentSort}` },
         (res) => {
           setComments(res.commentArr);
           setMessage('');
@@ -79,14 +80,14 @@ const App = ({ onYoutube, url }: ComponentProps) => {
       setMessage('loading...');
       setComments([]);
       chrome.runtime.sendMessage(
-        { permalink: `${post!.data.permalink}?sort=${sort}` },
+        { permalink: `${post!.data.permalink}?sort=${currentSort}` },
         (res) => {
           setComments(res.commentArr);
           setMessage('');
         }
       );
     }
-  }, [sort]);
+  }, [currentSort]);
 
   return (
     <div className="App">
@@ -101,7 +102,7 @@ const App = ({ onYoutube, url }: ComponentProps) => {
       {post !== null && (
         <>
           <Post post={post} />
-          <SortDropDown sort={sort} setSort={setSort} />
+          <SortDropDown sort={currentSort} setSort={setSort} />
           {comments.map((object) => (
             <Comment comment={object} permalink={post.data.permalink} />
           ))}

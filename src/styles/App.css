@@ -337,6 +337,7 @@ blockquote {
 }
 
 .options {
+  min-height: 250px;
   color: var(--text);
   background-color: var(--background);
   padding: 8px;

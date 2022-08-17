@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import SelectTheme from './SelectTheme';
+import SortDefault from './SortDefault';
 import ClickOnly from './ClickOnly';
 import CommentDefault from './CommentDefault';
 import { detectTheme } from './main';
@@ -12,6 +13,7 @@ const OptionsPage = () => {
   return (
     <div className="options">
       <SelectTheme />
+      <SortDefault />
       <ClickOnly />
       <CommentDefault />
       <div className="optionText">
