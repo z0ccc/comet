@@ -39,7 +39,6 @@
   "dependencies": {
     "@types/chrome": "^0.0.154",
     "html-react-parser": "^1.2.7",
-    "node-sass": "^6.0.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-hot-loader": "^4.13.0"
