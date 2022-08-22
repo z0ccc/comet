@@ -18,7 +18,7 @@ interface ComponentProps {
 }
 
 const App = ({ onYoutube, sortSetting, url }: ComponentProps) => {
-  const [firstRender, setfirstRender] = useState<boolean>(true);
+  const [firstRender, setFirstRender] = useState<boolean>(true);
   const [subreddits, setSubreddits] = useState<SubredditType[]>([]);
   const [selected, setSelected] = useState<number>(0);
   const [posts, setPosts] = useState<DataType[]>([]);
@@ -29,7 +29,7 @@ const App = ({ onYoutube, sortSetting, url }: ComponentProps) => {
 
   useEffect(() => {
     detectTheme();
-    setfirstRender(false);
+    setFirstRender(false);
     const queries: string[] = getQueries(url);
     chrome.runtime.sendMessage({ queries }, (response) => {
       if (response === 'err') {

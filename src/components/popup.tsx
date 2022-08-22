@@ -5,5 +5,10 @@ import App from './App';
 
 const mountNode = document.getElementById('popup');
 chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-  ReactDOM.render(<App onYoutube={false} sortSetting={''} url={tabs[0].url!} />, mountNode);
+  chrome.storage.sync.get('sort', ({ sort }) => {
+    ReactDOM.render(
+      <App onYoutube={false} sortSetting={sort} url={tabs[0].url!} />,
+      mountNode
+    );
+  });
 });
