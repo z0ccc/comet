@@ -73,6 +73,10 @@ const config = {
       patterns: [{ from: 'public', to: '.' }],
     }),
   ],
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
 };
 
 module.exports = config;
