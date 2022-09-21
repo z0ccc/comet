@@ -12,6 +12,7 @@ const Posts = ({ post }: ComponentProps) => {
   const [score, setScore] = useState<number>(post.data.score);
 
   useEffect(() => {
+    setScore(post.data.score);
     setVote(getVote(post.data.likes));
   }, [post]);
 
