@@ -44,7 +44,10 @@ const loadComments = (mountNode: HTMLElement | undefined) => {
   mountNode!.parentNode!.insertBefore(redditImgWrap, mountNode!);
 
   chrome.storage.sync.get('sort', ({ sort }) => {
-    ReactDOM.render(<App onYoutube sortSetting={sort} url={window.location.href} />, redComments);
+    ReactDOM.render(
+      <App onYoutube sortSetting={sort} url={window.location.href} />,
+      redComments
+    );
     ReactDOM.render(<CommentToggle />, redditImgWrap);
   });
 };

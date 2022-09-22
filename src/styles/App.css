@@ -89,19 +89,22 @@ button {
   justify-content: space-between;
 }
 
-#subreddits::-webkit-scrollbar {
-  height: 7px;
-}
-
-::-webkit-scrollbar {
+#redComments::-webkit-scrollbar {
   width: 7px;
 }
 
-::-webkit-scrollbar-track {
+#subreddits::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+}
+
+#redComments::-webkit-scrollbar-track,
+#subreddits::-webkit-scrollbar-track {
   display: none;
 }
 
-::-webkit-scrollbar-thumb {
+#redComments::-webkit-scrollbar-thumb,
+#subreddits::-webkit-scrollbar-thumb {
   background: var(--scrollbar);
   border-radius: 2px;
 }
@@ -253,7 +256,7 @@ button {
   margin: 0 0 3px 0;
 }
 
-.infoWrap>*:not(:last-child) {
+.infoWrap > *:not(:last-child) {
   margin: 0 6px 0 0;
 }
 
