@@ -13,8 +13,6 @@
   --blockQuote: #4f4f4f;
   --orange: #ff8b60;
   --purple: #9494ff;
-  scrollbar-color: var(--scrollbar) transparent !important;
-  scrollbar-width: thin !important;
 }
 
 [data-theme='dark'] {
@@ -41,6 +39,8 @@ body {
   font-size: 25px;
   line-height: 22px;
   background-color: var(--background);
+  scrollbar-color: var(--scrollbar) transparent !important;
+  scrollbar-width: thin !important;
 }
 
 .popup {
