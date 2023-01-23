@@ -1,9 +1,11 @@
 {
-  "name": "Upvote Anywhere - Reddit comments on YouTube",
-  "short_name": "Upvote Anywhere",
-  "description": "View Reddit comments on YouTube or any webpage.",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "short_name": "Voat",
+  "description": "__MSG_extDesc__",
+  "author": "__MSG_extName__",
+  "default_locale": "en",
   "background": {
     "service_worker": "background.js"
   },

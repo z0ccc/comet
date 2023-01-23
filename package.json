@@ -1,6 +1,6 @@
 {
-  "name": "upvote_anywhere",
-  "version": "2.2.5",
+  "name": "voat",
+  "version": "2.2.6",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

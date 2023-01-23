@@ -1,7 +1,7 @@
-# Upvote Anywhere
+# Voat
 
 <a href="https://chrome.google.com/webstore/detail/upvote-anywhere/amlfbbehleledmbphnielafhieceggal"><img src="https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/chrome.png" alt="Get Upvote for Chromium"></a>
-<a href="https://addons.mozilla.org/en-CA/firefox/addon/upvote-anywhere/"><img src="https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/firefox.png" alt="Get Upvote Anywhere for Firefox"></a>
+<a href="https://addons.mozilla.org/en-CA/firefox/addon/upvote-anywhere/"><img src="https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/firefox.png" alt="Get Voat for Firefox"></a>
 
 View the Reddit comments of any YouTube video or web page.
 
@@ -15,7 +15,7 @@ Options:
 - Run browser popup only when icon is clicked
 - Show YouTube comments as default
 
-Upvote Anywhere contains no ads, collects no data and signup is not required.
+Voat contains no ads, collects no data and signup is not required.
 
 ![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/screenshot-1.png)
 
@@ -25,7 +25,7 @@ Upvote Anywhere contains no ads, collects no data and signup is not required.
 
 If you're having problems that aren't addressed or fixed by this section please open an issue.
 
-### The YouTube comments are stuck at 'loading...' or 'Error: Reddit might be down or another extension is blocking Upvote Anywhere'.
+### The YouTube comments are stuck at 'loading...' or 'Error: Reddit might be down or another extension is blocking Voat'.
 
 Reddit.com or api.reddit.com may be down and you will have to wait until they are back up to use the extension.
 

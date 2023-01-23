@@ -34,7 +34,7 @@ const App = ({ onYoutube, sortSetting, url }: ComponentProps) => {
     chrome.runtime.sendMessage({ queries }, (response) => {
       if (response === 'err') {
         setMessage(
-          'Error: Reddit might be down or another extension is blocking Upvote Anywhere. <a class="submit" target="_blank" href="https://github.com/z0ccc/Upvote-Anywhere#troubleshoot">Read more</a>'
+          'Error: Reddit might be down or another extension is blocking Voat. <a class="submit" target="_blank" href="https://github.com/z0ccc/Upvote-Anywhere#troubleshoot">Read more</a>'
         );
       } else if (response.postArr.length !== 0) {
         setSubreddits(getSubreddits(response.postArr));
