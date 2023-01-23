@@ -21,10 +21,10 @@ const OptionsPage = () => {
         <a
           target="_blank"
           className="submit"
-          href="https://github.com/z0ccc/Upvote-Anywhere"
+          href="https://github.com/z0ccc/voat-extension"
           rel="noreferrer"
         >
-          https://github.com/z0ccc/Upvote-Anywhere
+          https://github.com/z0ccc/voat-extension
         </a>
       </div>
     </div>

@@ -1,7 +1,7 @@
 # Voat
 
-<a href="https://chrome.google.com/webstore/detail/upvote-anywhere/amlfbbehleledmbphnielafhieceggal"><img src="https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/chrome.png" alt="Get Upvote for Chromium"></a>
-<a href="https://addons.mozilla.org/en-CA/firefox/addon/upvote-anywhere/"><img src="https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/firefox.png" alt="Get Voat for Firefox"></a>
+<a href="https://chrome.google.com/webstore/detail/voat-reddit-comments-on-y/amlfbbehleledmbphnielafhieceggal"><img src="https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/chrome.png" alt="Get Voat for Chromium"></a>
+<a href="https://addons.mozilla.org/en-CA/firefox/addon/voat/"><img src="https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/firefox.png" alt="Get Voat for Firefox"></a>
 
 View the Reddit comments of any YouTube video or web page.
 
@@ -17,9 +17,9 @@ Options:
 
 Voat contains no ads, collects no data and signup is not required.
 
-![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/screenshot-1.png)
+![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/screenshot-1.png)
 
-![Image of extension popup](https://raw.githubusercontent.com/z0ccc/Upvote-Anywhere/master/promo/screenshot-2.png)
+![Image of extension popup](https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/screenshot-2.png)
 
 # Troubleshoot
 
