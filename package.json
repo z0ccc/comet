@@ -1,6 +1,6 @@
 {
   "name": "voat",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
