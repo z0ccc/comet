@@ -36,8 +36,8 @@ const getDir = (voteDir: number, vote: number) => {
 // Changes icon color
 const setIcon = (postArr: DataType[]) => {
   const icon = postArr.length
-    ? '../images/logo_16.png'
-    : '../images/logo_grey_16.png';
+    ? '../images/logo48.png'
+    : '../images/logoGrey48.png';
   chrome.browserAction.setIcon({
     path: {
       16: icon,
@@ -53,7 +53,7 @@ const handleClickOnly = () => {
     if (value === true) {
       chrome.browserAction.setIcon({
         path: {
-          16: '../images/logo_16.png',
+          16: '../images/log48.png',
         },
       });
     }
