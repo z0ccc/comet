@@ -53,7 +53,7 @@ const handleClickOnly = () => {
     if (value === true) {
       chrome.browserAction.setIcon({
         path: {
-          16: '../images/log48.png',
+          16: '../images/logo48.png',
         },
       });
     }
