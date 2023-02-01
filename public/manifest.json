@@ -1,5 +1,5 @@
 {
-  "version": "2.2.7",
+  "version": "2.2.8",
   "manifest_version": 3,
   "name": "__MSG_extName__",
   "short_name": "Voat",
@@ -32,7 +32,7 @@
     {
       "resources": ["images/youtube_32.png", "images/reddit_32.png"],
       "matches": ["*://*.youtube.com/*"],
-      "extension_ids": []
+      "use_dynamic_url": true
     }
   ],
   "options_ui": {
