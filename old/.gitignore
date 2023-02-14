@@ -1,16 +1,19 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+/chrome
+
 
 # dependencies
 /node_modules
+/.pnp
+.pnp.js
 
 # testing
 /coverage
 
 # production
 /build
-
-# zip
-/zip
+/dist
 
 # misc
 .DS_Store
@@ -18,7 +21,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-.history
 
-# secrets
-secrets.*.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
