@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 import React from 'react'
 import getPosts from '../../utils/getPosts'
 import './Popup.css'
@@ -9,6 +11,15 @@ const Popup = () => {
 
   return (
     <div className="App">
+      <div
+        sx={{
+          fontWeight: 'bold',
+          fontSize: '40px', // picks up value from `theme.fontSizes[4]`
+          color: 'primary', // picks up value from `theme.colors.primary`
+        }}
+      >
+        Hello
+      </div>
       <header className="App-header">
         <p>
           Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
