@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Flex, Link, Box, Divider } from 'theme-ui'
+import { jsx, Flex, Button, Link, Box, Divider } from 'theme-ui'
 import React from 'react'
 import convertDate from '../utils/convertDate'
 import Upvote from '../assets/upvote.svg'
@@ -19,19 +19,23 @@ const Post = ({ post }) => {
             alignItems: 'center',
           }}
         >
-          <img
-            src={UpvoteGrey}
-            alt="logo"
-            sx={{ width: '18px', height: '18px' }}
-          />
+          <Button sx={{ all: 'unset', cursor: 'pointer' }}>
+            <img
+              src={UpvoteGrey}
+              alt="logo"
+              sx={{ width: '18px', height: '18px' }}
+            />
+          </Button>
           <Box sx={{ color: '#bbb', fontWeight: '600', my: '4px' }}>
             {post.score}
           </Box>
-          <img
-            src={DownvoteGrey}
-            alt="logo"
-            sx={{ width: '18px', height: '18px' }}
-          />
+          <Button sx={{ all: 'unset', cursor: 'pointer' }}>
+            <img
+              src={DownvoteGrey}
+              alt="logo"
+              sx={{ width: '18px', height: '18px' }}
+            />
+          </Button>
         </Flex>
         <Box sx={{ ml: '20px' }}>
           <Link
@@ -57,7 +61,6 @@ const Post = ({ post }) => {
               sx={{
                 color: '#4aabe7',
                 textDecoration: 'none',
-                transition: 'all .15s ease-in-out',
                 '&:hover': {
                   textDecoration: 'underline',
                 },

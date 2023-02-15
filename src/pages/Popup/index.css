@@ -8,3 +8,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
 }
+
+::-webkit-scrollbar {
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d1d1;
+  border-radius: 2px;
+}
