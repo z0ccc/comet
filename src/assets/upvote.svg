@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="58.078327mm"
+   height="58.144287mm"
+   viewBox="0 0 58.078326 58.144287"
+   version="1.1"
+   id="svg86983"
+   sodipodi:docname="upvote.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:export-filename="/home/user/Pictures/voat/logofixed.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview86985"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4363085"
+     inkscape:cx="-146.90438"
+     inkscape:cy="-0.69622928"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     width="211.9mm" />
+  <defs
+     id="defs86980">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7215"
+       id="linearGradient7221"
+       x1="-793.27277"
+       y1="-209.88112"
+       x2="-765.27893"
+       y2="-181.48827"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.119357,0,0,2.1183562,1834.957,478.30633)" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient7215">
+      <stop
+         style="stop-color:#4aabe7;stop-opacity:1"
+         offset="0"
+         id="stop7217" />
+      <stop
+         style="stop-color:#50b8f4;stop-opacity:1"
+         offset="1"
+         id="stop7219" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-154.25936,-35.413518)">
+    <path
+       style="fill:#77cdff;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient7221);stroke-width:3.17829;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 181.40669,41.25257 -24.50084,41.678104 c -1.72498,2.986353 -1.43156,6.668459 1.58543,8.409493 l 1.66027,0.628495 h 45.6274 l 2.64284,-0.984993 c 2.71136,-1.564681 2.94626,-5.232297 1.2516,-8.166136 L 185.37581,41.136505 c -2.01875,-2.995758 -1.96476,-3.039502 -3.96912,0.116086 z"
+       id="path7064-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/user/Pictures/voat/logofixed.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>

@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import React from 'react'
 import { ThemeProvider } from 'theme-ui'
 import { theme } from '../../theme'
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 
 import Popup from './Popup'

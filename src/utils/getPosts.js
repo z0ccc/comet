@@ -20,8 +20,6 @@ const getPosts = async (url) => {
 
   // posts = [...new Map(posts.map((item) => [item.data.id, item])).values()]
 
-  console.log(posts)
-
   return posts
 }
 

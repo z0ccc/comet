@@ -1,4 +1,4 @@
-<img src="src/assets/img/icon-128.png" width="64"/>
+<img src="src/assets/icon-128.png" width="64"/>
 
 # Chrome Extension (MV3) Boilerplate with React 18 and Webpack 5
 
@@ -128,14 +128,14 @@ To this task this boilerplate import the file `./secrets.<THE-NODE_ENV>.js` on y
 _./secrets.development.js_
 
 ```js
-export default { key: '123' };
+export default { key: '123' }
 ```
 
 _./src/popup.js_
 
 ```js
-import secrets from 'secrets';
-ApiCall({ key: secrets.key });
+import secrets from 'secrets'
+ApiCall({ key: secrets.key })
 ```
 
 :point_right: The files with name `secrets.*.js` already are ignored on the repository.

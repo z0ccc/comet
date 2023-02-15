@@ -1,39 +1,44 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, Box } from 'theme-ui'
 import React from 'react'
+import { useState, useEffect } from 'react'
 import getPosts from '../../utils/getPosts'
-import './Popup.css'
+import Subreddits from '../../components/Subreddits'
+import Post from '../../components/Post'
 
 const Popup = () => {
-  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-    tabs[0].url && getPosts(tabs[0].url)
-  })
+  const [posts, setPosts] = useState()
+  const [post, setPost] = useState()
+
+  useEffect(() => {
+    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+      if (tabs[0].url) {
+        getPosts('https://www.youtube.com/watch?v=6swmTBVI83k').then(
+          (posts) => {
+            console.log(posts)
+            setPosts(posts)
+            setPost(posts[0])
+          }
+        )
+      }
+    })
+  }, [])
 
   return (
-    <div className="App">
-      <div
-        sx={{
-          fontWeight: 'bold',
-          fontSize: '40px', // picks up value from `theme.fontSizes[4]`
-          color: 'primary', // picks up value from `theme.colors.primary`
-        }}
-      >
-        Hello
-      </div>
-      <header className="App-header">
-        <p>
-          Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-      </header>
-    </div>
+    <Box
+      sx={{
+        color: '#404040',
+      }}
+    >
+      {posts === undefined ? (
+        <p>loading...</p>
+      ) : (
+        <>
+          <Subreddits posts={posts} postId={post.id} setPost={setPost} />
+          <Post post={post} />
+        </>
+      )}
+    </Box>
   )
 }
 
