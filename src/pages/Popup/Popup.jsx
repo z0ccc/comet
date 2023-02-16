@@ -3,12 +3,15 @@ import { jsx, Box, Flex } from 'theme-ui'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import getPosts from '../../utils/getPosts'
+import getComments from '../../utils/getComments'
 import Subreddits from '../../components/Subreddits'
 import Post from '../../components/Post'
+import Comments from '../../components/Comments'
 
 const Popup = () => {
   const [posts, setPosts] = useState()
   const [post, setPost] = useState()
+  const [comments, setComments] = useState()
 
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
@@ -19,6 +22,9 @@ const Popup = () => {
             console.log(posts)
             setPosts(posts)
             setPost(posts[0])
+            getComments(posts[0].permalink).then((comments) => {
+              setComments(comments)
+            })
           }
         )
       }
@@ -35,11 +41,10 @@ const Popup = () => {
         <Flex
           sx={{
             width: '100%',
-            height: '40px',
+            py: '18px',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '14px',
-            color: '#707070',
           }}
         >
           Loading...
@@ -48,6 +53,21 @@ const Popup = () => {
         <>
           <Subreddits posts={posts} postId={post.id} setPost={setPost} />
           <Post post={post} />
+          {comments === undefined ? (
+            <Flex
+              sx={{
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '14px',
+                pb: '18px',
+              }}
+            >
+              Loading...
+            </Flex>
+          ) : (
+            <Comments comments={comments} />
+          )}
         </>
       )}
     </Box>

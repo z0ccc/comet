@@ -24,7 +24,7 @@ const Subreddits = ({ posts, postId, setPost }) => {
               cursor: 'pointer',
               p: '8px 10px',
               fontSize: '12px',
-              fontWeight: post.id === postId ? '500' : '400',
+              fontWeight: post.id === postId ? '600' : '400',
               color: post.id === postId ? '#4aabe7' : '#707070',
               transition: 'all .15s ease-in-out',
               borderBottom: '1px solid #d1d1d1',

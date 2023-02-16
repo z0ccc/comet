@@ -2,7 +2,7 @@ body {
   width: 600px;
   height: auto;
   margin: 0;
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+  font-family: 'Arial', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,9 +11,36 @@ body {
 
 ::-webkit-scrollbar {
   height: 6px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #d1d1d1;
   border-radius: 2px;
+}
+
+/* comment body css */
+
+.md a {
+  /* color: var(--link-blue); */
+  text-decoration: none;
+}
+
+p {
+  margin: 7px 0;
+  line-height: 20px;
+}
+
+blockquote {
+  border-left: 2px solid var(--border);
+  color: var(--blockQuote);
+  padding: 0 8px;
+  margin: 2px 0 2px 5px;
+}
+
+.md h1,
+.md h2 {
+  font-size: 20px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
