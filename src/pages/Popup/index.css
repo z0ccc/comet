@@ -31,6 +31,10 @@ p {
   line-height: 20px;
 }
 
+p:last-child {
+  margin: 7px 0 0 0;
+}
+
 blockquote {
   border-left: 2px solid var(--border);
   color: var(--blockQuote);
@@ -43,4 +47,13 @@ blockquote {
   font-size: 20px;
   margin-top: 13px;
   margin-bottom: 13px;
+}
+
+a {
+  color: #4aabe7;
+  text-decoration: none;
+}
+
+a.hover {
+  text-decoration: underline;
 }

@@ -8,4 +8,11 @@ export const theme = {
     text: '#000',
     background: '#fff',
   },
+  links: {
+    nav: {
+      fontWeight: 'bold',
+      color: 'inherit',
+      textDecoration: 'none',
+    },
+  },
 }

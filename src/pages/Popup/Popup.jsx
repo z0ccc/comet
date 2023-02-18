@@ -35,6 +35,7 @@ const Popup = () => {
     <Box
       sx={{
         color: '#404040',
+        pl: 'calc(100vw - 100%)',
       }}
     >
       {posts === undefined ? (
