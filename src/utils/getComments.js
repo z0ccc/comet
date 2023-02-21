@@ -8,4 +8,12 @@ const getComments = async (permalink) => {
   }
 }
 
-export default getComments
+const loadMoreComments = async (children, permalink) =>
+  await Promise.all(
+    children.map(
+      async (child) =>
+        await getComments(permalink.replace(/([^/]+)\/?$/, '') + child)
+    )
+  )
+
+export { getComments, loadMoreComments }

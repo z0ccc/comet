@@ -5,7 +5,6 @@ import Score from './Score'
 import convertDate from '../utils/convertDate'
 
 const Post = ({ post }) => {
-  console.log(post)
   return (
     <>
       <Flex sx={{ padding: '18px 12px', alignItems: 'center' }}>

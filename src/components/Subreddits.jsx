@@ -2,7 +2,6 @@
 import { jsx, Box, Flex, Button } from 'theme-ui'
 
 const Subreddits = ({ posts, postId, setPost }) => {
-  console.log(posts)
   return (
     <Box
       sx={{
