@@ -1,6 +1,6 @@
 const getComments = async (permalink) => {
-  const response = await (
-    await fetch(`https://api.reddit.com${permalink}`)
+  let response = await (
+    await fetch(`https://api.reddit.com${permalink}`).catch()
   ).json()
 
   if (response[1].data.children.length) {
@@ -10,10 +10,7 @@ const getComments = async (permalink) => {
 
 const loadMoreComments = async (children, permalink) =>
   await Promise.all(
-    children.map(
-      async (child) =>
-        await getComments(permalink.replace(/([^/]+)\/?$/, '') + child)
-    )
+    children.map(async (child) => await getComments(permalink + child))
   )
 
 export { getComments, loadMoreComments }

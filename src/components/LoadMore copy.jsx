@@ -2,13 +2,10 @@
 import { jsx, Button, Box } from 'theme-ui'
 import React, { useState } from 'react'
 import Reply from './Reply'
-import Comment from './Comment'
 import { loadMoreComments } from '../utils/getComments'
 
-const LoadMore = ({ comment, child, permalink, depth, isTopLevel }) => {
+const LoadMore = ({ comment, child, permalink, depth }) => {
   const [replies, setReplies] = useState([])
-
-  const newDepth = depth && !isTopLevel ? depth : comment.data.depth
 
   return (
     <>
@@ -40,18 +37,13 @@ const LoadMore = ({ comment, child, permalink, depth, isTopLevel }) => {
               {children !== undefined && (
                 <>
                   {children.map((child) => (
-                    <Box key={child.data.id}>
-                      {isTopLevel ? (
-                        <Comment comment={child} permalink={permalink} />
-                      ) : (
-                        <Reply
-                          child={child}
-                          permalink={permalink}
-                          depth={comment.data.depth + (child.data.depth + 1)}
-                          isLoadMore
-                        />
-                      )}
-                    </Box>
+                    <Reply
+                      child={child}
+                      permalink={permalink}
+                      depth={comment.data.depth + (child.data.depth + 1)}
+                      isLoadMore
+                      key={child.data.id}
+                    />
                   ))}
                 </>
               )}

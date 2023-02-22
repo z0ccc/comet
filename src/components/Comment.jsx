@@ -18,14 +18,19 @@ const prepareCommentBody = (body) =>
       '<a target="_blank" href="https://reddit.com/'
     )
 
-const Comment = ({ comment, depth, isLoadMore = false }) => {
+const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
   const newDepth = depth ? depth : comment.data.depth
 
-  console.log(comment.data.body, newDepth)
   return (
     <>
       {comment.kind === 'more' ? (
-        <div>Load More</div>
+        <LoadMore
+          comment={comment}
+          child={comment}
+          permalink={permalink}
+          depth={depth}
+          isTopLevel
+        />
       ) : (
         <Box
           key={comment.data.id}
@@ -107,11 +112,16 @@ const Comment = ({ comment, depth, isLoadMore = false }) => {
             comment.data.replies.data.children.map((child) => (
               <Box key={child.data.id}>
                 {child.kind === 'more' ? (
-                  <LoadMore comment={comment} child={child} depth={depth} />
-                ) : (
-                  <Reply
+                  <LoadMore
                     comment={comment}
                     child={child}
+                    permalink={permalink}
+                    depth={depth}
+                  />
+                ) : (
+                  <Reply
+                    child={child}
+                    permalink={permalink}
                     depth={depth}
                     isLoadMore={isLoadMore}
                   />
