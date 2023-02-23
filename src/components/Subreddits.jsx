@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Box, Flex, Button } from 'theme-ui'
 
-const Subreddits = ({ posts, postId, setPost }) => {
+const Subreddits = ({ posts, postIndex, setPostIndex }) => {
   return (
     <Box
       sx={{
@@ -15,7 +15,7 @@ const Subreddits = ({ posts, postId, setPost }) => {
           borderBottom: '1px solid #d1d1d1',
         }}
       >
-        {posts.map((post) => (
+        {posts.map((post, i) => (
           <Button
             key={post.id}
             sx={{
@@ -23,8 +23,8 @@ const Subreddits = ({ posts, postId, setPost }) => {
               cursor: 'pointer',
               p: '8px 10px',
               fontSize: '12px',
-              fontWeight: post.id === postId ? '600' : '400',
-              color: post.id === postId ? '#4aabe7' : '#707070',
+              // fontWeight: postIndex === i ? '600' : '400',
+              color: postIndex === i ? '#4aabe7' : '#707070',
               transition: 'all .15s ease-in-out',
               borderBottom: '1px solid #d1d1d1',
               mb: '-1px',
@@ -32,9 +32,11 @@ const Subreddits = ({ posts, postId, setPost }) => {
                 color: '#4aabe7',
               },
             }}
-            onClick={() => setPost(post)}
+            onClick={() => {
+              setPostIndex(i)
+            }}
           >
-            {post.subreddit}&nbsp;({post.score})
+            {post.subreddit}&nbsp;({post.num_comments})
           </Button>
         ))}
       </Flex>

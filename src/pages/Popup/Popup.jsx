@@ -9,24 +9,16 @@ import Comment from '../../components/Comment'
 
 const Popup = () => {
   const [posts, setPosts] = useState()
-  const [post, setPost] = useState()
-  const [comments, setComments] = useState()
+  const [postIndex, setPostIndex] = useState()
   const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       if (tabs[0].url) {
-        getPosts('https://www.youtube.com/watch?v=6swmTBVI83k')
+        getPosts('https://www.youtube.com/watch?v=hWLjYJ4BzvI')
           .then((posts) => {
             setPosts(posts)
-            setPost(posts[0])
-            getComments(posts[0].permalink)
-              .then((comments) => {
-                setComments(comments)
-              })
-              .catch(() => {
-                setIsError(true)
-              })
+            setPostIndex(0)
           })
           .catch(() => {
             setIsError(true)
@@ -34,6 +26,19 @@ const Popup = () => {
       }
     })
   }, [])
+
+  useEffect(() => {
+    if (postIndex !== undefined && !posts[postIndex].comments) {
+      getComments(posts[postIndex].permalink)
+        .then((comments) => {
+          posts[postIndex].comments = comments
+          setPosts([...posts])
+        })
+        .catch(() => {
+          setIsError(true)
+        })
+    }
+  }, [postIndex, posts])
 
   return (
     <Box
@@ -78,31 +83,44 @@ const Popup = () => {
         </Flex>
       ) : (
         <>
-          <Subreddits posts={posts} postId={post.id} setPost={setPost} />
-          <Post post={post} />
-          {comments === undefined ? (
-            <Flex
+          <Subreddits
+            posts={posts}
+            postIndex={postIndex}
+            setPostIndex={setPostIndex}
+          />
+          {posts.map((post, i) => (
+            <Box
               sx={{
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '14px',
-                pb: '18px',
+                display: postIndex === i ? 'block' : 'none',
               }}
+              key={post.id}
             >
-              Loading...
-            </Flex>
-          ) : (
-            <Box sx={{ mr: '4px' }}>
-              {comments.map((comment) => (
-                <Comment
-                  comment={comment}
-                  permalink={post.permalink}
-                  key={comment.data.id}
-                />
-              ))}
+              <Post post={post} />
+              {post.comments === undefined ? (
+                <Flex
+                  sx={{
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '14px',
+                    pb: '18px',
+                  }}
+                >
+                  Loading...
+                </Flex>
+              ) : (
+                <Box sx={{ mr: '4px' }}>
+                  {post.comments.map((comment) => (
+                    <Comment
+                      comment={comment}
+                      permalink={post.permalink}
+                      key={comment.data.id}
+                    />
+                  ))}
+                </Box>
+              )}
             </Box>
-          )}
+          ))}
         </>
       )}
     </Box>

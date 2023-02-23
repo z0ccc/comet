@@ -24,13 +24,15 @@ const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
   return (
     <>
       {comment.kind === 'more' ? (
-        <LoadMore
-          comment={comment}
-          child={comment}
-          permalink={permalink}
-          depth={depth}
-          isTopLevel
-        />
+        <Box sx={{ mt: '6px', mb: '10px' }}>
+          <LoadMore
+            comment={comment}
+            child={comment}
+            permalink={permalink}
+            depth={depth}
+            isTopLevel
+          />
+        </Box>
       ) : (
         <Box
           key={comment.data.id}
@@ -88,7 +90,7 @@ const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
                     ml: '6px',
                   }}
                 >
-                  {comment.data.score} posts
+                  {comment.data.score} points
                   <Flex
                     sx={{
                       fontSize: '11px',
@@ -104,7 +106,7 @@ const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
                 dangerouslySetInnerHTML={{
                   __html: prepareCommentBody(comment.data.body_html),
                 }}
-                sx={{ fontSize: '13px' }}
+                sx={{ fontSize: '13px', wordBreak: 'break-word' }}
               />
             </Box>
           </Flex>

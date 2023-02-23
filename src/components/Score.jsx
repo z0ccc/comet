@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx, Flex, Button, Link, Box, Divider } from 'theme-ui'
+import { jsx, Flex, Button, Box } from 'theme-ui'
 import React from 'react'
-import convertDate from '../utils/convertDate'
+import formatNumber from '../utils/formatNumber'
 import Upvote from '../assets/upvote.svg'
 import UpvoteGrey from '../assets/upvoteGrey.svg'
 import Downvote from '../assets/downvote.svg'
@@ -32,7 +32,7 @@ const Score = ({ score }) => {
           mb: '4px',
         }}
       >
-        {score}
+        {formatNumber(score)}
       </Box>
       <Button sx={{ all: 'unset', cursor: 'pointer' }}>
         <img
