@@ -28,6 +28,7 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
               transition: 'all .15s ease-in-out',
               borderBottom: '1px solid #d1d1d1',
               mb: '-1px',
+              whiteSpace: 'nowrap',
               '&:hover': {
                 color: '#4aabe7',
               },

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Flex, Link } from 'theme-ui'
+import { jsx, Box, Flex, Link, Select } from 'theme-ui'
 import React, { useState, useEffect } from 'react'
 import getPosts from '../../utils/getPosts'
 import { getComments } from '../../utils/getComments'
@@ -97,11 +97,20 @@ const Popup = () => {
             <Box
               sx={{
                 display: postIndex === i ? 'block' : 'none',
+                mx: '12px',
               }}
               key={post.id}
             >
               <Post post={post} />
-
+              <Box sx={{ my: '14px' }}>
+                <Select defaultValue="Best">
+                  <option>Best</option>
+                  <option>Top</option>
+                  <option>New</option>
+                  <option>Old</option>
+                  <option>Controversial</option>
+                </Select>
+              </Box>
               {post.hasOwnProperty('comments') ? (
                 <>
                   {post.comments && (

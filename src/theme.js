@@ -15,4 +15,16 @@ export const theme = {
       textDecoration: 'none',
     },
   },
+  forms: {
+    select: {
+      cursor: 'pointer',
+      borderColor: '#d1d1d1',
+      width: 'auto',
+      p: '4px 8px',
+      '&:focus': {
+        borderColor: 'primaryDark',
+        outline: 'none',
+      },
+    },
+  },
 }

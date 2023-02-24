@@ -5,6 +5,7 @@ import LoadMore from './LoadMore'
 import Reply from './Reply'
 import ReactHtmlParser from 'html-react-parser'
 import convertDate from '../utils/convertDate'
+import formatNumber from '../utils/formatNumber'
 import Upvote from '../assets/upvote.svg'
 import UpvoteGrey from '../assets/upvoteGrey.svg'
 import Downvote from '../assets/downvote.svg'
@@ -37,7 +38,7 @@ const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
         <Box
           key={comment.data.id}
           sx={{
-            m: newDepth === 0 ? '18px 8px 8px 14px' : '10px 8px 8px 14px',
+            m: newDepth === 0 ? '0 0px 18px 0' : '10px 8px 8px 14px',
           }}
         >
           <Flex sx={{ mb: '8px' }}>
@@ -90,7 +91,7 @@ const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
                     ml: '6px',
                   }}
                 >
-                  {comment.data.score} points
+                  {formatNumber(comment.data.score)} points
                   <Flex
                     sx={{
                       fontSize: '11px',

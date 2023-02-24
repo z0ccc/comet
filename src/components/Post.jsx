@@ -7,7 +7,7 @@ import convertDate from '../utils/convertDate'
 const Post = ({ post }) => {
   return (
     <>
-      <Flex sx={{ padding: '18px 12px', alignItems: 'center' }}>
+      <Flex sx={{ my: '18px', alignItems: 'center' }}>
         <Score score={post.score} />
         <Box sx={{ ml: '20px' }}>
           <Link
@@ -47,7 +47,7 @@ const Post = ({ post }) => {
           </Box>
         </Box>
       </Flex>
-      <Divider sx={{ color: '#d1d1d1', m: '0 12px 18px 12px' }} />
+      <Divider sx={{ color: '#d1d1d1' }} />
     </>
   )
 }
