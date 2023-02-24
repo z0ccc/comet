@@ -18,7 +18,6 @@ const Popup = () => {
       if (tabs[0].url) {
         getPosts(tabs[0].url)
           .then((posts) => {
-            console.log(posts)
             if (posts.length === 0) {
               setMessage(
                 <>
@@ -53,7 +52,10 @@ const Popup = () => {
   }, [])
 
   useEffect(() => {
-    if (postIndex !== undefined && !posts[postIndex].comments) {
+    if (
+      postIndex !== undefined &&
+      !posts[postIndex].hasOwnProperty('comments')
+    ) {
       getComments(posts[postIndex].permalink)
         .then((comments) => {
           posts[postIndex].comments = comments
@@ -99,7 +101,22 @@ const Popup = () => {
               key={post.id}
             >
               <Post post={post} />
-              {post.comments === undefined ? (
+
+              {post.hasOwnProperty('comments') ? (
+                <>
+                  {post.comments && (
+                    <Box sx={{ mr: '4px' }}>
+                      {post.comments.map((comment) => (
+                        <Comment
+                          comment={comment}
+                          permalink={post.permalink}
+                          key={comment.data.id}
+                        />
+                      ))}
+                    </Box>
+                  )}
+                </>
+              ) : (
                 <Flex
                   sx={{
                     width: '100%',
@@ -111,16 +128,6 @@ const Popup = () => {
                 >
                   Loading...
                 </Flex>
-              ) : (
-                <Box sx={{ mr: '4px' }}>
-                  {post.comments.map((comment) => (
-                    <Comment
-                      comment={comment}
-                      permalink={post.permalink}
-                      key={comment.data.id}
-                    />
-                  ))}
-                </Box>
               )}
             </Box>
           ))}
