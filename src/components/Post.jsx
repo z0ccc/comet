@@ -7,9 +7,7 @@ import convertDate from '../utils/convertDate'
 const Post = ({ post }) => {
   return (
     <>
-      <Flex
-        sx={{ padding: '18px 12px', alignItems: 'center', minHeight: '96px' }}
-      >
+      <Flex sx={{ padding: '18px 12px', alignItems: 'center' }}>
         <Score score={post.score} />
         <Box sx={{ ml: '20px' }}>
           <Link
@@ -19,6 +17,7 @@ const Post = ({ post }) => {
               fontWeight: '600',
               textDecoration: 'none',
               transition: 'all .15s ease-in-out',
+              lineHeight: '20px',
               '&:hover': {
                 color: '#4aabe7',
               },
@@ -29,7 +28,7 @@ const Post = ({ post }) => {
           >
             {post.title}
           </Link>
-          <Box sx={{ color: '#707070', fontSize: '12px', mt: '10px' }}>
+          <Box sx={{ color: '#707070', fontSize: '12px', mt: '8px' }}>
             {convertDate(post.created_utc)} by{' '}
             <Link
               sx={{

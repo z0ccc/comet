@@ -1,11 +1,16 @@
 const getPosts = async (url) => {
   const urls = getUrls(url)
+  const redditUrls = [
+    'https://api.reddit.com/submit?url=',
+    'https://www.reddit.com/api/info.json?url=',
+  ]
 
   const responses = await Promise.all(
-    urls.map(
-      async (url) =>
-        await (await fetch('https://api.reddit.com/submit?url=' + url)).json()
-    )
+    redditUrls
+      .map((redditUrl) =>
+        urls.map(async (url) => await (await fetch(redditUrl + url)).json())
+      )
+      .flat()
   )
 
   let posts = responses
@@ -18,7 +23,7 @@ const getPosts = async (url) => {
 
   posts = posts.sort(compare)
 
-  // posts = [...new Map(posts.map((item) => [item.data.id, item])).values()]
+  posts = [...new Map(posts.map((post) => [post.id, post])).values()]
 
   return posts
 }

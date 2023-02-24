@@ -16,7 +16,7 @@ const Score = ({ score }) => {
         minWidth: '28px',
       }}
     >
-      <Button sx={{ all: 'unset', cursor: 'pointer' }}>
+      <Button sx={{ all: 'unset', cursor: 'pointer', height: '16px' }}>
         <img
           src={UpvoteGrey}
           alt="logo"
@@ -28,13 +28,12 @@ const Score = ({ score }) => {
           color: '#bbb',
           fontWeight: '600',
           fontSize: '13px',
-          mt: '1px',
-          mb: '4px',
+          my: '4px',
         }}
       >
         {formatNumber(score)}
       </Box>
-      <Button sx={{ all: 'unset', cursor: 'pointer' }}>
+      <Button sx={{ all: 'unset', cursor: 'pointer', height: '16px' }}>
         <img
           src={DownvoteGrey}
           alt="logo"

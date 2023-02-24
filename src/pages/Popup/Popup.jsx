@@ -6,22 +6,47 @@ import { getComments } from '../../utils/getComments'
 import Subreddits from '../../components/Subreddits'
 import Post from '../../components/Post'
 import Comment from '../../components/Comment'
+import Error from '../../components/Error'
 
 const Popup = () => {
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
-  const [isError, setIsError] = useState(false)
+  const [message, setMessage] = useState('Loading...')
 
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       if (tabs[0].url) {
-        getPosts('https://www.youtube.com/watch?v=hWLjYJ4BzvI')
+        getPosts(tabs[0].url)
           .then((posts) => {
-            setPosts(posts)
-            setPostIndex(0)
+            console.log(posts)
+            if (posts.length === 0) {
+              setMessage(
+                <>
+                  No posts found.{' '}
+                  <Link
+                    sx={{
+                      color: '#4aabe7',
+                      textDecoration: 'none',
+                      ml: '4px',
+                      '&:hover': {
+                        textDecoration: 'underline',
+                      },
+                    }}
+                    href={`https://www.reddit.com/r/voatme/submit?url=${tabs[0].url}`}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Submit it
+                  </Link>
+                </>
+              )
+            } else {
+              setPosts(posts)
+              setPostIndex(0)
+            }
           })
           .catch(() => {
-            setIsError(true)
+            setMessage(<Error />)
           })
       }
     })
@@ -35,7 +60,7 @@ const Popup = () => {
           setPosts([...posts])
         })
         .catch(() => {
-          setIsError(true)
+          setMessage(<Error />)
         })
     }
   }, [postIndex, posts])
@@ -57,29 +82,7 @@ const Popup = () => {
             fontSize: '14px',
           }}
         >
-          {isError ? (
-            <>
-              Error: Reddit API may be down or another extension is blocking
-              Voat.
-              <Link
-                sx={{
-                  color: '#4aabe7',
-                  textDecoration: 'none',
-                  ml: '4px',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                  },
-                }}
-                href="https://github.com/z0ccc/voat-extension#troubleshoot"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Read More
-              </Link>
-            </>
-          ) : (
-            'Loading...'
-          )}
+          {message}
         </Flex>
       ) : (
         <>
