@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Box, Flex, Link, Select } from 'theme-ui'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import getPosts from '../../utils/getPosts'
 import { getComments } from '../../utils/getComments'
 import Subreddits from '../../components/Subreddits'
@@ -11,15 +11,16 @@ import Error from '../../components/Error'
 const Popup = () => {
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
-  const [message, setMessage] = useState('Loading...')
+  const [postsMessage, setPostsMessage] = useState('Loading...')
+  const [commentMessage, setCommentsMessage] = useState('Loading...')
 
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       if (tabs[0].url) {
-        getPosts(tabs[0].url)
+        getPosts('https://www.youtube.com/watch?v=6swmTBVI83k')
           .then((posts) => {
             if (posts.length === 0) {
-              setMessage(
+              setPostsMessage(
                 <>
                   No posts found.{' '}
                   <Link
@@ -42,30 +43,34 @@ const Popup = () => {
             } else {
               setPosts(posts)
               setPostIndex(0)
+              posts[0].sort = 'best'
             }
           })
           .catch(() => {
-            setMessage(<Error />)
+            setPostsMessage(<Error />)
           })
       }
     })
   }, [])
 
-  useEffect(() => {
-    if (
-      postIndex !== undefined &&
-      !posts[postIndex].hasOwnProperty('comments')
-    ) {
-      getComments(posts[postIndex].permalink)
-        .then((comments) => {
-          posts[postIndex].comments = comments
-          setPosts([...posts])
-        })
-        .catch(() => {
-          setMessage(<Error />)
-        })
-    }
+  const handleCommentFetch = useCallback(() => {
+    console.log('1')
+    getComments(posts[postIndex].permalink + `?sort=${posts[postIndex].sort}`)
+      .then((comments) => {
+        posts[postIndex].comments = comments === undefined ? null : comments
+        setPosts([...posts])
+      })
+      .catch(() => {
+        setPostsMessage(<Error />)
+      })
   }, [postIndex, posts])
+
+  useEffect(() => {
+    console.log('2')
+    if (postIndex !== undefined && posts[postIndex].comments === undefined) {
+      handleCommentFetch()
+    }
+  }, [handleCommentFetch, postIndex, posts])
 
   return (
     <Box
@@ -84,7 +89,7 @@ const Popup = () => {
             fontSize: '14px',
           }}
         >
-          {message}
+          {postsMessage}
         </Flex>
       ) : (
         <>
@@ -103,15 +108,21 @@ const Popup = () => {
             >
               <Post post={post} />
               <Box sx={{ my: '14px' }}>
-                <Select defaultValue="Best">
-                  <option>Best</option>
-                  <option>Top</option>
-                  <option>New</option>
-                  <option>Old</option>
-                  <option>Controversial</option>
+                <Select
+                  onChange={(e) => {
+                    post.sort = e.target.value
+                    post.comments = undefined
+                    setPosts([...posts])
+                  }}
+                >
+                  <option value="best">Best</option>
+                  <option value="top">Top</option>
+                  <option value="new">New</option>
+                  <option value="old">Old</option>
+                  <option value="controversial">Controversial</option>
                 </Select>
               </Box>
-              {post.hasOwnProperty('comments') ? (
+              {post.comments !== undefined ? (
                 <>
                   {post.comments && (
                     <Box sx={{ mr: '4px' }}>
@@ -135,7 +146,7 @@ const Popup = () => {
                     pb: '18px',
                   }}
                 >
-                  Loading...
+                  {commentMessage}
                 </Flex>
               )}
             </Box>

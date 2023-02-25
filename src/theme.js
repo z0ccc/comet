@@ -20,9 +20,12 @@ export const theme = {
       cursor: 'pointer',
       borderColor: '#d1d1d1',
       width: 'auto',
-      p: '4px 8px',
+      p: '3px 26px 3px 8px',
+      borderRadius: '3px',
+      '&:hover': {
+        borderColor: '#4aabe7',
+      },
       '&:focus': {
-        borderColor: 'primaryDark',
         outline: 'none',
       },
     },
