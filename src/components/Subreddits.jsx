@@ -29,6 +29,7 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
               borderBottom: '1px solid #d1d1d1',
               mb: '-1px',
               whiteSpace: 'nowrap',
+              textAlign: 'center',
               '&:hover': {
                 color: '#4aabe7',
               },
@@ -44,7 +45,7 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
                 fontWeight: '600',
                 color: 'transparent',
                 whiteSpace: 'nowrap',
-                mt: '-15px',
+                mt: '-14px',
               }}
             >
               {post.subreddit}&nbsp;({post.num_comments})
