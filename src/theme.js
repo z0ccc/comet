@@ -10,12 +10,17 @@ export const theme = {
   },
   links: {
     nav: {
-      fontWeight: 'bold',
-      color: 'inherit',
       textDecoration: 'none',
+      transition: 'all 0.15s ease-in-out',
+      fontSize: '12px',
+      color: '#404040',
+      '&:hover': {
+        color: '#4aabe7',
+      },
     },
   },
   forms: {
+    label: { width: 'auto', alignItems: 'center', mb: '6px', color: '#404040' },
     select: {
       cursor: 'pointer',
       borderColor: '#d1d1d1',
@@ -28,6 +33,11 @@ export const theme = {
       '&:focus': {
         outline: 'none',
       },
+    },
+    checkbox: {
+      outline: 'none',
+      color: '#707070',
+      cursor: 'pointer',
     },
   },
 }

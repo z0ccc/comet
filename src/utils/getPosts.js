@@ -13,6 +13,8 @@ const getPosts = async (url) => {
       .flat()
   )
 
+  // https://hn.algolia.com/api/v1/search?query=https://hn.algolia.com/&restrictSearchableAttributes=url&typoTolerance=false
+
   let posts = responses
     .filter(
       (response) =>

@@ -12,7 +12,6 @@ const Popup = () => {
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
   const [postsMessage, setPostsMessage] = useState('Loading...')
-  const [commentMessage, setCommentsMessage] = useState('Loading...')
 
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
@@ -54,7 +53,6 @@ const Popup = () => {
   }, [])
 
   const handleCommentFetch = useCallback(() => {
-    console.log('1')
     getComments(posts[postIndex].permalink + `?sort=${posts[postIndex].sort}`)
       .then((comments) => {
         posts[postIndex].comments = comments === undefined ? null : comments
@@ -66,8 +64,8 @@ const Popup = () => {
   }, [postIndex, posts])
 
   useEffect(() => {
-    console.log('2')
     if (postIndex !== undefined && posts[postIndex].comments === undefined) {
+      console.log()
       handleCommentFetch()
     }
   }, [handleCommentFetch, postIndex, posts])
@@ -146,7 +144,7 @@ const Popup = () => {
                     pb: '18px',
                   }}
                 >
-                  {commentMessage}
+                  Loading...
                 </Flex>
               )}
             </Box>

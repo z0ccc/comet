@@ -23,7 +23,7 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
               cursor: 'pointer',
               p: '8px 10px',
               fontSize: '12px',
-              // fontWeight: postIndex === i ? '600' : '400',
+              fontWeight: postIndex === i ? '600' : '400',
               color: postIndex === i ? '#4aabe7' : '#707070',
               transition: 'all .15s ease-in-out',
               borderBottom: '1px solid #d1d1d1',
@@ -38,6 +38,17 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
             }}
           >
             {post.subreddit}&nbsp;({post.num_comments})
+            <Box
+              sx={{
+                fontSize: '12px',
+                fontWeight: '600',
+                color: 'transparent',
+                whiteSpace: 'nowrap',
+                mt: '-15px',
+              }}
+            >
+              {post.subreddit}&nbsp;({post.num_comments})
+            </Box>
           </Button>
         ))}
       </Flex>
