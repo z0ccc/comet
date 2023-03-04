@@ -16,7 +16,7 @@ const Popup = () => {
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       if (tabs[0].url) {
-        getPosts('https://www.youtube.com/watch?v=6swmTBVI83k')
+        getPosts(tabs[0].url)
           .then((posts) => {
             if (posts.length === 0) {
               setPostsMessage(

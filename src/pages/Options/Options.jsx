@@ -5,10 +5,12 @@ import React from 'react'
 
 const Options = () => {
   const [hidePosts, setHidePosts] = useState(false)
+  const [noPopupCheck, setNoPopupCheck] = useState(false)
 
   useEffect(() => {
-    chrome.storage.local.get(['hidePosts'], (storage) => {
+    chrome.storage.local.get(['hidePosts', 'noPopupCheck'], (storage) => {
       setHidePosts(storage.hidePosts)
+      setNoPopupCheck(storage.noPopupCheck)
     })
   }, [setHidePosts])
 
@@ -34,8 +36,19 @@ const Options = () => {
           Show YouTube comments by default
         </Label>
         <Label>
-          <Checkbox />
-          Check for posts only when popup icon is clicked
+          <Checkbox
+            checked={noPopupCheck}
+            onChange={(e) => {
+              setNoPopupCheck(e.target.checked)
+              chrome.storage.local.set({ noPopupCheck: e.target.checked })
+              chrome.action.setIcon({
+                path: {
+                  48: '../icon48.png',
+                },
+              })
+            }}
+          />
+          Only check for posts when popup icon is clicked
         </Label>
         <Label>
           <Checkbox />
