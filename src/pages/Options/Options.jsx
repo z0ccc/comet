@@ -1,8 +1,17 @@
 /** @jsx jsx */
+import { useState, useEffect } from 'react'
 import { jsx, Box, Label, Flex, Link, Select, Checkbox } from 'theme-ui'
 import React from 'react'
 
 const Options = () => {
+  const [hidePosts, setHidePosts] = useState(false)
+
+  useEffect(() => {
+    chrome.storage.local.get(['hidePosts'], (storage) => {
+      setHidePosts(storage.hidePosts)
+    })
+  }, [setHidePosts])
+
   return (
     <Box sx={{ mx: '20px' }}>
       <Box sx={{ mb: '12px' }}>
@@ -11,8 +20,14 @@ const Options = () => {
           Dark mode
         </Label>
         <Label>
-          <Checkbox />
-          Check for posts only when popup icon is clicked
+          <Checkbox
+            checked={hidePosts}
+            onChange={(e) => {
+              setHidePosts(e.target.checked)
+              chrome.storage.local.set({ hidePosts: e.target.checked })
+            }}
+          />
+          Hide posts with 0 comments
         </Label>
         <Label>
           <Checkbox />
@@ -20,7 +35,7 @@ const Options = () => {
         </Label>
         <Label>
           <Checkbox />
-          Hide posts with 0 comments
+          Check for posts only when popup icon is clicked
         </Label>
         <Label>
           <Checkbox />

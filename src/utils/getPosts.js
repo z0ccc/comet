@@ -15,6 +15,8 @@ const getPosts = async (url) => {
 
   // https://hn.algolia.com/api/v1/search?query=https://hn.algolia.com/&restrictSearchableAttributes=url&typoTolerance=false
 
+  const hidePosts = await readLocalStorage('hidePosts')
+
   let posts = responses
     .filter(
       (response) =>
@@ -22,12 +24,25 @@ const getPosts = async (url) => {
     )
     .reduce((acc, val) => acc.concat(val.data.children), [])
     .reduce((acc, val) => acc.concat(val.data), [])
+    .filter((post) => post.num_comments >= (hidePosts ? 1 : 0))
 
   posts = posts.sort(compare)
 
   posts = [...new Map(posts.map((post) => [post.id, post])).values()]
 
   return posts
+}
+
+const readLocalStorage = async (key) => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get([key], function (result) {
+      if (result[key] === undefined) {
+        reject()
+      } else {
+        resolve(result[key])
+      }
+    })
+  })
 }
 
 const getUrls = (url) => {

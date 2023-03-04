@@ -184,6 +184,15 @@ var options = {
     new CopyWebpackPlugin({
       patterns: [
         {
+          from: 'src/assets/iconGrey48.png',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
           from: 'src/_locales',
           to: path.join(__dirname, 'build/_locales'),
           force: true,

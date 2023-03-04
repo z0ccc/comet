@@ -7,10 +7,12 @@
   "default_locale": "en",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "storage"],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon48.png"
+    "default_icon": {
+      "48": "icon48.png"
+    }
   },
   "icons": {
     "128": "icon128.png"
