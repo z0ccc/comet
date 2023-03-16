@@ -50,12 +50,8 @@ const Options = () => {
           />
           Only check for posts when popup icon is clicked
         </Label>
-        <Label>
-          <Checkbox />
-          Show Hacker News comments first
-        </Label>
       </Box>
-      <Label htmlFor="postSort">Sort posts by</Label>
+      <Label htmlFor="postSort">Sort posts by: </Label>
       <Select name="postsort" sx={{ width: '100%' }}>
         <option value="best">Comment count</option>
         <option value="top">Upvotes</option>

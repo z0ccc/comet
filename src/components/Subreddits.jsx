@@ -21,7 +21,7 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
             sx={{
               all: 'unset',
               cursor: 'pointer',
-              p: '8px 8px',
+              p: '8px',
               fontSize: '12px',
               fontWeight: postIndex === i ? '600' : '400',
               color: postIndex === i ? '#4aabe7' : '#707070',

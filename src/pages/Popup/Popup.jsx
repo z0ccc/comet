@@ -65,7 +65,6 @@ const Popup = () => {
 
   useEffect(() => {
     if (postIndex !== undefined && posts[postIndex].comments === undefined) {
-      console.log()
       handleCommentFetch()
     }
   }, [handleCommentFetch, postIndex, posts])

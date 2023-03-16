@@ -8,7 +8,7 @@ const Post = ({ post }) => {
   return (
     <>
       <Flex sx={{ my: '18px', alignItems: 'center' }}>
-        <Score score={post.score} />
+        <Score post={post} />
         <Box sx={{ ml: '20px' }}>
           <Link
             sx={{
