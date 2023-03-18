@@ -27,6 +27,7 @@ export const theme = {
       width: 'auto',
       p: '3px 26px 3px 8px',
       borderRadius: '3px',
+      transition: 'all .15s ease-in-out',
       '&:hover': {
         borderColor: '#4aabe7',
       },

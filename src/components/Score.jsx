@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { jsx, Flex, Button, Box } from 'theme-ui'
-import React from 'react'
 import formatNumber from '../utils/formatNumber'
 import Upvote from '../assets/upvote.svg'
 import UpvoteGrey from '../assets/upvoteGrey.svg'
@@ -14,6 +13,15 @@ const getVote = (likes) => {
   return 0 // if no vote
 }
 
+const getScore = (score, vote, voteType) => {
+  if (vote === voteType) {
+    return score - voteType
+  } else if (vote + voteType === 0) {
+    return score + voteType * 2
+  }
+  return score + voteType
+}
+
 const Score = ({ post }) => {
   const [vote, setVote] = useState(0)
   const [score, setScore] = useState(post.score)
@@ -23,17 +31,9 @@ const Score = ({ post }) => {
   }, [post.likes])
 
   const handleVote = (voteType) => {
-    // const direction = vote
-    if (vote === voteType) {
-      setScore(score - voteType)
-    } else if (vote + voteType === 0) {
-      setScore(score + voteType * 2)
-    } else {
-      setScore(score + voteType)
-    }
-
     const direction = vote === voteType ? 0 : voteType
     setVote(direction)
+    setScore(getScore(score, vote, voteType))
 
     chrome.runtime.sendMessage({ id: post.name, direction })
   }
