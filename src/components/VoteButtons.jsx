@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Button } from 'theme-ui'
+import { Flex, Button, Image } from 'theme-ui'
 import Upvote from '../assets/upvote.svg'
 import UpvoteGrey from '../assets/upvoteGrey.svg'
 import Downvote from '../assets/downvote.svg'
@@ -20,7 +20,7 @@ const VoteButtons = ({ vote, onVote }) => {
         sx={{ all: 'unset', cursor: 'pointer' }}
         onClick={() => onVote(1)}
       >
-        <img
+        <Image
           src={vote === 1 ? Upvote : UpvoteGrey}
           alt="logo"
           sx={{ width: '14px', height: '14px' }}
@@ -30,7 +30,7 @@ const VoteButtons = ({ vote, onVote }) => {
         sx={{ all: 'unset', cursor: 'pointer' }}
         onClick={() => onVote(-1)}
       >
-        <img
+        <Image
           src={vote === -1 ? Downvote : DownvoteGrey}
           alt="logo"
           sx={{ width: '14px', height: '14px' }}

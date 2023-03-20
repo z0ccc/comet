@@ -42,7 +42,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (request.replyId) {
-    sendReply(request.replyId, request.replyText)
+    sendReply(request.replyId, request.replyText).then((response) => {
+      sendResponse(response)
+    })
+    return true
   }
 })
 
@@ -93,5 +96,6 @@ const sendReply = async (replyId, text) => {
   const response = await fetch(url, {
     method: 'POST',
   })
+
   return response.json()
 }

@@ -1,15 +1,9 @@
 import React from 'react'
-import { Flex, Link, Box } from 'theme-ui'
+import { Flex, Link } from 'theme-ui'
 import convertDate from '../utils/convertDate'
 import formatNumber from '../utils/formatNumber'
 
-const CommentHeader = ({
-  author,
-  score,
-  created_utc,
-  permalink,
-  commentId,
-}) => {
+const CommentHeader = ({ author, score, created_utc }) => {
   return (
     <Flex>
       <Link

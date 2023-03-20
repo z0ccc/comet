@@ -116,6 +116,7 @@ const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
               />
               <CommentActions
                 permalink={permalink}
+                depth={depth}
                 commentId={comment.data.id}
                 commentName={comment.data.name}
               />
