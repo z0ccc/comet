@@ -21,9 +21,9 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
             sx={{
               all: 'unset',
               cursor: 'pointer',
-              p: '8px',
-              fontSize: '12px',
-              fontWeight: postIndex === i ? '600' : '400',
+              p: '10px 8px',
+              fontSize: '13px',
+              fontWeight: postIndex === i ? '500' : '400',
               color: postIndex === i ? '#4aabe7' : '#707070',
               transition: 'all .15s ease-in-out',
               borderBottom: '1px solid #d1d1d1',
@@ -41,8 +41,8 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
             {post.subreddit}&nbsp;({post.num_comments})
             <Box
               sx={{
-                fontSize: '12px',
-                fontWeight: '600',
+                fontSize: '13px',
+                fontWeight: '500',
                 color: 'transparent',
                 whiteSpace: 'nowrap',
                 mt: '-14px',

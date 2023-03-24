@@ -1,10 +1,20 @@
 import React, { useState } from 'react'
-import { Button, Link, Flex, Textarea, Text, Box } from 'theme-ui'
-import Reply from './Reply'
+import { Button, Link, Flex, Textarea, Text } from 'theme-ui'
 
-const CommentActions = ({ permalink, depth, commentId, commentName }) => {
+const actionButtonStyles = {
+  all: 'unset',
+  cursor: 'pointer',
+  fontWeight: '500',
+  fontSize: '13px',
+  color: '#707070',
+  transition: 'all .15s ease-in-out',
+  '&:hover': {
+    color: '#4aabe7',
+  },
+}
+
+const CommentActions = ({ permalink, commentId, commentName, setNewReply }) => {
   const [showReplyForm, setShowReplyForm] = useState(false)
-  const [newReply, setNewReply] = useState()
 
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -23,12 +33,8 @@ const CommentActions = ({ permalink, depth, commentId, commentName }) => {
       (response) => {
         console.log(response)
         if (response.json.errors.length > 0) {
-          console.log(response.json)
-          console.log(response.json.errors)
-          console.log(response.json.errors[0][1])
           setErrorMessage(response.json.errors[0][1])
         } else {
-          console.log(response.json.data.things[0].data)
           setShowReplyForm(false)
           setNewReply(response.json.data.things[0])
         }
@@ -38,55 +44,19 @@ const CommentActions = ({ permalink, depth, commentId, commentName }) => {
 
   return (
     <>
-      <Flex sx={{ gap: '10px', my: '6px' }}>
-        <Link
+      <Flex sx={{ gap: '12px', mt: '6px' }}>
+        <Button
           href={`https://reddit.com${permalink}${commentId}`}
           target="_blank"
           rel="noreferrer"
-          sx={{
-            all: 'unset',
-            cursor: 'pointer',
-            fontWeight: '600',
-            fontSize: '11px',
-            color: '#6a6a6a',
-            transition: 'all .15s ease-in-out',
-            '&:hover': {
-              color: '#4aabe7',
-            },
-          }}
+          sx={actionButtonStyles}
         >
           permanlink
-        </Link>
-        <Link
-          href={`https://reddit.com${permalink}`}
-          sx={{
-            all: 'unset',
-            cursor: 'pointer',
-            fontWeight: '600',
-            fontSize: '11px',
-            color: '#6a6a6a',
-            transition: 'all .15s ease-in-out',
-            '&:hover': {
-              color: '#4aabe7',
-            },
-          }}
-        >
+        </Button>
+        <Link href={`https://reddit.com${permalink}`} sx={actionButtonStyles}>
           save
         </Link>
-        <Button
-          onClick={toggleReplyForm}
-          sx={{
-            all: 'unset',
-            cursor: 'pointer',
-            fontWeight: '600',
-            fontSize: '11px',
-            color: '#6a6a6a',
-            transition: 'all .15s ease-in-out',
-            '&:hover': {
-              color: '#4aabe7',
-            },
-          }}
-        >
+        <Button onClick={toggleReplyForm} sx={actionButtonStyles}>
           {showReplyForm ? 'cancel' : 'reply'}
         </Button>
       </Flex>
@@ -96,11 +66,12 @@ const CommentActions = ({ permalink, depth, commentId, commentName }) => {
             name="reply"
             sx={{
               border: '1px solid #d1d1d1',
-              height: '100px',
+              height: '120px',
               backgroundColor: '#fff',
-              mt: '10px',
+              mt: '12px',
               outline: 'none',
               font: 'inherit',
+              fontSize: '14px',
               resize: 'vertical',
               transition: 'all .15s ease-in-out',
               '&:hover': {
@@ -117,18 +88,17 @@ const CommentActions = ({ permalink, depth, commentId, commentName }) => {
               sx={{
                 all: 'unset',
                 cursor: 'pointer',
-                fontWeight: '600',
-                fontSize: '11px',
+                fontWeight: '500',
+                fontSize: '13px',
                 color: '#6a6a6a',
-                backgroundColor: '#e6e6e6',
                 p: '4px 8px',
                 mt: '8px',
                 borderRadius: '3px',
                 border: '1px solid #d1d1d1',
                 transition: 'all .15s ease-in-out',
+                background: '#e6e6e6',
                 '&:hover': {
-                  backgroundColor: '#4aabe7',
-                  color: '#fff',
+                  backgroundColor: '#d1d1d1',
                 },
               }}
             >
@@ -138,7 +108,7 @@ const CommentActions = ({ permalink, depth, commentId, commentName }) => {
               <Text
                 sx={{
                   color: 'red',
-                  fontSize: '12px',
+                  fontSize: '13px',
                   display: 'block',
                   mt: '6px',
                 }}
@@ -148,11 +118,6 @@ const CommentActions = ({ permalink, depth, commentId, commentName }) => {
             )}
           </Flex>
         </form>
-      )}
-      {newReply && (
-        // <Box sx={{ mt: '8px' }}>
-        <Reply child={newReply} permalink={permalink} depth={depth} />
-        // </Box>
       )}
     </>
   )

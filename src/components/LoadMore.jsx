@@ -5,28 +5,29 @@ import Reply from './Reply'
 import Comment from './Comment'
 import { loadMoreComments } from '../utils/getComments'
 
-const LoadMore = ({ comment, child, permalink, depth, isTopLevel }) => {
+const LoadMore = ({ parent, comment, permalink }) => {
   const [replies, setReplies] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
+  console.log(parent.data.depth + comment.data.depth)
+
   return (
-    <>
+    <Box sx={{ mt: '14px' }}>
       {replies.length === 0 ? (
         <Box
           sx={{
             cursor: 'pointer',
             color: '#4aabe7',
-            fontSize: '11px',
-            ml: (depth ? depth : comment.data.depth) === 0 ? '14px' : 0,
-            my: '4px',
+            fontSize: '13px',
+            mt: '6px',
             '&:hover': {
               textDecoration: 'underline',
             },
           }}
         >
-          {child.data.count === 0 ? (
+          {comment.data.count === 0 ? (
             <Link
-              href={`https://www.reddit.com/${permalink}${comment.data.parent_id.substring(
+              href={`https://www.reddit.com/${permalink}${parent.data.parent_id.substring(
                 3
               )}`}
               target="_blank"
@@ -39,13 +40,15 @@ const LoadMore = ({ comment, child, permalink, depth, isTopLevel }) => {
               sx={{ all: 'unset' }}
               onClick={() => {
                 setIsLoading(true)
-                loadMoreComments(child.data.children, permalink).then((res) => {
-                  setReplies(res)
-                  setIsLoading(false)
-                })
+                loadMoreComments(comment.data.children, permalink).then(
+                  (res) => {
+                    setReplies(res)
+                    setIsLoading(false)
+                  }
+                )
               }}
             >
-              {isLoading ? 'Loading...' : `Load more (${child.data.count})`}
+              {isLoading ? 'Loading...' : `Load more (${comment.data.count})`}
             </Button>
           )}
         </Box>
@@ -57,16 +60,11 @@ const LoadMore = ({ comment, child, permalink, depth, isTopLevel }) => {
                 <>
                   {children.map((child) => (
                     <Box key={child.data.id}>
-                      {isTopLevel ? (
-                        <Comment comment={child} permalink={permalink} />
-                      ) : (
-                        <Reply
-                          child={child}
-                          permalink={permalink}
-                          depth={comment.data.depth + (child.data.depth + 1)}
-                          isLoadMore
-                        />
-                      )}
+                      <Comment
+                        comment={child}
+                        permalink={permalink}
+                        depth={parent.data.depth + comment.data.depth}
+                      />
                     </Box>
                   ))}
                 </>
@@ -75,7 +73,7 @@ const LoadMore = ({ comment, child, permalink, depth, isTopLevel }) => {
           ))}
         </>
       )}
-    </>
+    </Box>
   )
 }
 

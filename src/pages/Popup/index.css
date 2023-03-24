@@ -1,9 +1,10 @@
 body {
-  width: 600px;
+  width: 650px;
   height: auto;
   margin: 0;
-  font-family: 'Arial', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantrell',
+    'Open Sans', 'Helvetica Neue', 'Arial', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;

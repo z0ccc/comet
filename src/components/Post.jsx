@@ -14,10 +14,10 @@ const Post = ({ post }) => {
             sx={{
               color: '#4a4a4a',
               fontSize: '16px',
-              fontWeight: '600',
+              fontWeight: '500',
               textDecoration: 'none',
               transition: 'all .15s ease-in-out',
-              lineHeight: '20px',
+              lineHeight: '1.4',
               '&:hover': {
                 color: '#4aabe7',
               },
@@ -28,8 +28,9 @@ const Post = ({ post }) => {
           >
             {post.title}
           </Link>
-          <Box sx={{ color: '#707070', fontSize: '12px', mt: '8px' }}>
-            {convertDate(post.created_utc)} by{' '}
+          <Flex
+            sx={{ color: '#707070', fontSize: '13px', mt: '8px', gap: '12px' }}
+          >
             <Link
               sx={{
                 color: '#4aabe7',
@@ -44,7 +45,8 @@ const Post = ({ post }) => {
             >
               {post.author}
             </Link>
-          </Box>
+            {convertDate(post.created_utc)}
+          </Flex>
         </Box>
       </Flex>
       <Divider sx={{ color: '#d1d1d1' }} />

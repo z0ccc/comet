@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { jsx, Box, Label, Flex, Link, Select, Checkbox } from 'theme-ui'
-import React from 'react'
 
 const Options = () => {
   const [hidePosts, setHidePosts] = useState(false)

@@ -1,16 +1,15 @@
 import React from 'react'
-import { Flex, Link } from 'theme-ui'
+import { Flex, Link, Text } from 'theme-ui'
 import convertDate from '../utils/convertDate'
 import formatNumber from '../utils/formatNumber'
 
 const CommentHeader = ({ author, score, created_utc }) => {
   return (
-    <Flex>
+    <Flex sx={{ gap: '12px', fontSize: '13px', color: '#707070', mb: '8px' }}>
       <Link
         sx={{
-          fontSize: '11px',
           color: '#4aabe7',
-          fontWeight: '600',
+          fontWeight: '500',
           textDecoration: 'none',
 
           '&:hover': {
@@ -23,24 +22,8 @@ const CommentHeader = ({ author, score, created_utc }) => {
       >
         {author}
       </Link>
-      <Flex
-        sx={{
-          fontSize: '11px',
-          color: '#707070',
-          ml: '6px',
-        }}
-      >
-        {formatNumber(score)} points
-        <Flex
-          sx={{
-            fontSize: '11px',
-            color: '#707070',
-            ml: '4px',
-          }}
-        >
-          {convertDate(created_utc)}
-        </Flex>
-      </Flex>
+      <Text>{formatNumber(score)} points</Text>
+      <Text>{convertDate(created_utc)}</Text>
     </Flex>
   )
 }

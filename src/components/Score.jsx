@@ -59,8 +59,8 @@ const Score = ({ post }) => {
       <Box
         sx={{
           color: vote === 1 ? '#4aabe7' : vote === -1 ? '#a696ff' : '#bbb',
-          fontWeight: '600',
-          fontSize: '13px',
+          fontWeight: '500',
+          fontSize: '14px',
           my: '4px',
         }}
       >

@@ -25,9 +25,11 @@ const getVote = (likes) => {
   return 0 // if no vote
 }
 
-const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
+const Comment = ({ comment, permalink, depth }) => {
+  console.log(comment.data.author, depth)
   const [vote, setVote] = useState(0)
   const [score, setScore] = useState(comment.data.score)
+  const [newReply, setNewReply] = useState()
 
   const newDepth = depth ? depth : comment.data.depth
 
@@ -54,95 +56,118 @@ const Comment = ({ comment, permalink, depth, isLoadMore = false }) => {
     <>
       {comment.kind === 'more' ? (
         <Box sx={{ mt: '6px', mb: '10px' }}>
-          <LoadMore
-            comment={comment}
-            child={comment}
-            permalink={permalink}
-            depth={depth}
-            isTopLevel
-          />
+          <LoadMore parent={comment} comment={comment} permalink={permalink} />
         </Box>
       ) : (
-        <Box
+        <Flex
           key={comment.data.id}
           sx={{
-            m: newDepth === 0 ? '0 0px 18px 0' : '10px 8px 8px 14px',
+            m: newDepth === 0 ? '0 0 24px 0' : '18px 0 0 22px',
           }}
         >
-          <Flex sx={{ mb: '8px' }}>
-            <Flex
-              sx={{
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '2px',
-                mr: '12px',
-                minWidth: '14px',
-              }}
-            >
-              <Button
-                sx={{ all: 'unset', cursor: 'pointer' }}
-                onClick={() => handleVote(1)}
-              >
-                <Image
-                  src={vote === 1 ? Upvote : UpvoteGrey}
-                  alt="logo"
-                  sx={{ width: '14px', height: '14px' }}
-                />
-              </Button>
-              <Button
-                sx={{ all: 'unset', cursor: 'pointer' }}
-                onClick={() => handleVote(-1)}
-              >
-                <Image
-                  src={vote === -1 ? Downvote : DownvoteGrey}
-                  alt="logo"
-                  sx={{ width: '14px', height: '14px' }}
-                />
-              </Button>
-            </Flex>
-            <Box sx={{ width: '100%' }}>
-              <CommentHeader
-                author={comment.data.author}
-                score={score}
-                created_utc={comment.data.created_utc}
-                permalink={permalink}
-                commentId={comment.data.id}
-              />
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: prepareCommentBody(comment.data.body_html),
+          <Button
+            sx={{
+              all: 'unset',
+              cursor: 'pointer',
+              borderLeft: '1px solid #d1d1d1',
+              pl: '8px',
+              transition: 'all .15s ease-in-out',
+              '&:hover': {
+                borderColor: '#4aabe7',
+              },
+            }}
+          />
+          <Box
+            sx={{
+              width: '100%',
+            }}
+          >
+            <Flex>
+              <Flex
+                sx={{
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '2px',
+                  mr: '8px',
+                  minWidth: '14px',
                 }}
-                sx={{ fontSize: '13px', wordBreak: 'break-word' }}
-              />
-              <CommentActions
-                permalink={permalink}
-                depth={depth}
-                commentId={comment.data.id}
-                commentName={comment.data.name}
-              />
-            </Box>
-          </Flex>
-          {comment.data.replies &&
-            comment.data.replies.data.children.map((child) => (
-              <Box key={child.data.id}>
-                {child.kind === 'more' ? (
-                  <LoadMore
-                    comment={comment}
-                    child={child}
-                    permalink={permalink}
-                    depth={depth}
+              >
+                <Button
+                  sx={{ all: 'unset', cursor: 'pointer' }}
+                  onClick={() => handleVote(1)}
+                >
+                  <Image
+                    src={vote === 1 ? Upvote : UpvoteGrey}
+                    alt="logo"
+                    sx={{ width: '14px', height: '14px' }}
                   />
-                ) : (
-                  <Reply
-                    child={child}
-                    permalink={permalink}
-                    depth={depth}
-                    isLoadMore={isLoadMore}
+                </Button>
+                <Button
+                  sx={{ all: 'unset', cursor: 'pointer' }}
+                  onClick={() => handleVote(-1)}
+                >
+                  <Image
+                    src={vote === -1 ? Downvote : DownvoteGrey}
+                    alt="logo"
+                    sx={{ width: '14px', height: '14px' }}
                   />
-                )}
+                </Button>
+              </Flex>
+              <Box
+                sx={{
+                  width: '100%',
+                  // pb: '12px',
+                  // borderBottom: '1px solid #d1d1d1',
+                }}
+              >
+                <CommentHeader
+                  author={comment.data.author}
+                  score={score}
+                  created_utc={comment.data.created_utc}
+                  permalink={permalink}
+                  commentId={comment.data.id}
+                />
+                <Box
+                  dangerouslySetInnerHTML={{
+                    __html: prepareCommentBody(comment.data.body_html),
+                  }}
+                  sx={{ fontSize: '14px', wordBreak: 'break-word' }}
+                />
+                <CommentActions
+                  permalink={permalink}
+                  commentId={comment.data.id}
+                  commentName={comment.data.name}
+                  setNewReply={setNewReply}
+                />
               </Box>
-            ))}
-        </Box>
+            </Flex>
+            {/* {newReply && (
+            <Comment
+              child={newReply}
+              permalink={permalink}
+              depth={newDepth + 1}
+            />
+          )} */}
+            {comment.data.replies &&
+              comment.data.replies.data.children.map((child) => (
+                <Box key={child.data.id}>
+                  {child.kind === 'more' ? (
+                    <LoadMore
+                      parent={comment}
+                      comment={child}
+                      permalink={permalink}
+                    />
+                  ) : (
+                    <Comment
+                      comment={child}
+                      permalink={permalink}
+                      depth={depth}
+                    />
+                  )}
+                </Box>
+              ))}
+          </Box>
+        </Flex>
       )}
     </>
   )
