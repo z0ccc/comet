@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { jsx, Flex, Link, Box, Divider } from 'theme-ui'
 import React from 'react'
-import Score from './Score'
+import { jsx, Flex, Link, Box, Divider } from 'theme-ui'
+import PostScore from './PostScore'
 import convertDate from '../utils/convertDate'
 
 const Post = ({ post }) => {
   return (
     <>
       <Flex sx={{ my: '18px', alignItems: 'center' }}>
-        <Score post={post} />
-        <Box sx={{ ml: '20px' }}>
+        <PostScore post={post} />
+        <Box sx={{ ml: '18px' }}>
           <Link
             sx={{
               color: '#4a4a4a',

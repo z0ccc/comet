@@ -47,6 +47,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     })
     return true
   }
+
+  if (request.saveId) {
+    savePost(request.saveId, request.action).then((response) => {
+      sendResponse(response)
+    })
+    return true
+  }
 })
 
 const getModhash = () =>
@@ -98,4 +105,25 @@ const sendReply = async (replyId, text) => {
   })
 
   return response.json()
+}
+
+const savePost = async (id, action) => {
+  const modhash = await getModhash()
+  const queryParams = {
+    id,
+    uh: modhash,
+  }
+
+  const url = buildURL(`https://www.reddit.com/api/${action}.json`, queryParams)
+
+  const response = await fetch(url, {
+    method: 'POST',
+  })
+
+  if (response.ok) {
+    return { success: true }
+  } else {
+    const error = await response.text()
+    return { error }
+  }
 }

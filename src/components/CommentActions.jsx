@@ -13,10 +13,28 @@ const actionButtonStyles = {
   },
 }
 
-const CommentActions = ({ permalink, commentId, commentName, setNewReply }) => {
+const CommentActions = ({
+  permalink,
+  commentId,
+  commentName,
+  isSaved,
+  setNewReply,
+}) => {
   const [showReplyForm, setShowReplyForm] = useState(false)
-
   const [errorMessage, setErrorMessage] = useState(null)
+  const [saved, setSaved] = useState(isSaved)
+
+  const handleSave = () => {
+    const action = saved ? 'unsave' : 'save'
+    chrome.runtime.sendMessage({ saveId: commentName, action }, (response) => {
+      if (response.error) {
+        console.error(response.error)
+      } else {
+        console.log('Post saved/unsave successfully')
+        setSaved(!saved)
+      }
+    })
+  }
 
   const toggleReplyForm = () => {
     setShowReplyForm(!showReplyForm)
@@ -31,7 +49,6 @@ const CommentActions = ({ permalink, commentId, commentName, setNewReply }) => {
         replyText: e.target.reply.value,
       },
       (response) => {
-        console.log(response)
         if (response.json.errors.length > 0) {
           setErrorMessage(response.json.errors[0][1])
         } else {
@@ -45,17 +62,17 @@ const CommentActions = ({ permalink, commentId, commentName, setNewReply }) => {
   return (
     <>
       <Flex sx={{ gap: '12px', mt: '6px' }}>
-        <Button
+        <Link
           href={`https://reddit.com${permalink}${commentId}`}
           target="_blank"
           rel="noreferrer"
           sx={actionButtonStyles}
         >
           permanlink
-        </Button>
-        <Link href={`https://reddit.com${permalink}`} sx={actionButtonStyles}>
-          save
         </Link>
+        <Button onClick={handleSave} sx={actionButtonStyles}>
+          {saved ? 'unsave' : 'save'}
+        </Button>
         <Button onClick={toggleReplyForm} sx={actionButtonStyles}>
           {showReplyForm ? 'cancel' : 'reply'}
         </Button>

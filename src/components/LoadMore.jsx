@@ -1,15 +1,12 @@
 /** @jsx jsx */
 import { jsx, Button, Box, Link } from 'theme-ui'
 import React, { useState } from 'react'
-import Reply from './Reply'
 import Comment from './Comment'
 import { loadMoreComments } from '../utils/getComments'
 
 const LoadMore = ({ parent, comment, permalink }) => {
   const [replies, setReplies] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-
-  console.log(parent.data.depth + comment.data.depth)
 
   return (
     <Box sx={{ mt: '14px' }}>
