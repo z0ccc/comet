@@ -21,10 +21,10 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
             sx={{
               all: 'unset',
               cursor: 'pointer',
-              p: '10px 8px',
+              p: '8px',
               fontSize: '13px',
               fontWeight: postIndex === i ? '500' : '400',
-              color: postIndex === i ? '#4aabe7' : '#707070',
+              color: postIndex === i ? '#4aabe7' : '#7e7e7e',
               transition: 'all .15s ease-in-out',
               borderBottom: '1px solid #d1d1d1',
               mb: '-1px',

@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, Button, Box, Link } from 'theme-ui'
 import React, { useState } from 'react'
+import { jsx, Button, Box, Link } from 'theme-ui'
 import Comment from './Comment'
 import { loadMoreComments } from '../utils/getComments'
 

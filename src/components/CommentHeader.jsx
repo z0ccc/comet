@@ -1,11 +1,11 @@
 import React from 'react'
-import { Flex, Link, Text } from 'theme-ui'
+import { Flex, Link, Text, Button } from 'theme-ui'
 import convertDate from '../utils/convertDate'
 import formatNumber from '../utils/formatNumber'
 
 const CommentHeader = ({ author, score, created_utc }) => {
   return (
-    <Flex sx={{ gap: '12px', fontSize: '13px', color: '#707070', mb: '8px' }}>
+    <Flex sx={{ gap: '12px', fontSize: '13px', color: '#7e7e7e' }}>
       <Link
         sx={{
           color: '#4aabe7',

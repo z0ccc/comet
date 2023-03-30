@@ -7,6 +7,9 @@ import CommentActions from './CommentActions'
 import VoteButton from './VoteButton'
 import { getVote, getScore } from '../utils/voteUtils'
 import ReactHtmlParser from 'html-react-parser'
+import SaveButton from './SaveButton'
+import ReplyButton from './ReplyButton'
+import ReplyForm from './ReplyForm'
 
 const prepareCommentBody = (body) =>
   ReactHtmlParser(body)
@@ -17,12 +20,13 @@ const prepareCommentBody = (body) =>
     )
 
 const Comment = ({ comment, permalink, depth }) => {
-  console.log(comment)
   const [vote, setVote] = useState(0)
   const [score, setScore] = useState(comment.data.score)
+  const [hideCommment, setHideComment] = useState(false)
+  const [showReplyForm, setShowReplyForm] = useState(false)
   const [newReply, setNewReply] = useState()
 
-  const newDepth = depth ? depth : comment.data.depth
+  const newDepth = depth !== undefined ? depth : comment.data.depth
 
   useEffect(() => {
     setVote(getVote(comment.data.likes))
@@ -59,87 +63,123 @@ const Comment = ({ comment, permalink, depth }) => {
                 borderColor: '#4aabe7',
               },
             }}
+            onClick={() => setHideComment(!hideCommment)}
           />
           <Box
             sx={{
               width: '100%',
             }}
           >
-            <Flex>
-              <Flex
-                sx={{
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '4px',
-                  mr: '8px',
-                  minWidth: '14px',
-                }}
-              >
-                <VoteButton
-                  vote={vote}
-                  voteType={1}
-                  handleClick={handleVote}
-                  size="14px"
-                />
-                <VoteButton
-                  vote={vote}
-                  voteType={-1}
-                  handleClick={handleVote}
-                  size="14px"
-                />
-              </Flex>
-              <Box
-                sx={{
-                  width: '100%',
-                }}
-              >
-                <CommentHeader
-                  author={comment.data.author}
-                  score={score}
-                  created_utc={comment.data.created_utc}
-                  permalink={permalink}
-                  commentId={comment.data.id}
-                />
-                <Box
-                  dangerouslySetInnerHTML={{
-                    __html: prepareCommentBody(comment.data.body_html),
-                  }}
-                  sx={{ fontSize: '14px', wordBreak: 'break-word' }}
-                />
-                <CommentActions
-                  permalink={permalink}
-                  commentId={comment.data.id}
-                  commentName={comment.data.name}
-                  isSaved={comment.data.saved}
-                  setNewReply={setNewReply}
-                />
-              </Box>
-            </Flex>
-            {newReply && (
-              <Comment
-                comment={newReply}
+            {hideCommment ? (
+              <CommentHeader
+                author={comment.data.author}
+                score={score}
+                created_utc={comment.data.created_utc}
                 permalink={permalink}
-                depth={newDepth + 1}
+                commentId={comment.data.id}
               />
+            ) : (
+              <>
+                <Flex>
+                  <Flex
+                    sx={{
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '4px',
+                      mr: '8px',
+                      minWidth: '14px',
+                    }}
+                  >
+                    <VoteButton
+                      vote={vote}
+                      voteType={1}
+                      handleClick={handleVote}
+                      size="14px"
+                    />
+                    <VoteButton
+                      vote={vote}
+                      voteType={-1}
+                      handleClick={handleVote}
+                      size="14px"
+                    />
+                  </Flex>
+                  <Box
+                    sx={{
+                      width: '100%',
+                    }}
+                  >
+                    <CommentHeader
+                      author={comment.data.author}
+                      score={score}
+                      created_utc={comment.data.created_utc}
+                      permalink={permalink}
+                      commentId={comment.data.id}
+                    />
+                    <Box
+                      dangerouslySetInnerHTML={{
+                        __html: prepareCommentBody(comment.data.body_html),
+                      }}
+                      sx={{
+                        fontSize: '14px',
+                        wordBreak: 'break-word',
+                        mt: '8px',
+                      }}
+                    />
+                    <Flex sx={{ gap: '12px', mt: '6px' }}>
+                      <Button
+                        onClick={() =>
+                          window.open(
+                            `https://reddit.com${permalink}${comment.data.id}`
+                          )
+                        }
+                        variant="action"
+                      >
+                        permanlink
+                      </Button>
+                      <SaveButton
+                        name={comment.data.name}
+                        isSaved={comment.data.saved}
+                      />
+                      <ReplyButton
+                        showReplyForm={showReplyForm}
+                        setShowReplyForm={setShowReplyForm}
+                      />
+                    </Flex>
+                    <ReplyForm
+                      name={comment.data.name}
+                      showReplyForm={showReplyForm}
+                      setShowReplyForm={setShowReplyForm}
+                      setNewReply={setNewReply}
+                    />
+                  </Box>
+                </Flex>
+                {newReply && (
+                  <Comment
+                    comment={newReply}
+                    permalink={permalink}
+                    depth={newDepth + 1}
+                  />
+                )}
+                {comment.data.replies &&
+                  comment.data.replies.data.children.map((child) => (
+                    <Box key={child.data.id}>
+                      {child.kind === 'more' ? (
+                        <LoadMore
+                          parent={comment}
+                          comment={child}
+                          permalink={permalink}
+                        />
+                      ) : (
+                        <Comment
+                          comment={child}
+                          permalink={permalink}
+                          depth={depth}
+                        />
+                      )}
+                    </Box>
+                  ))}
+              </>
             )}
-            {comment.data.replies &&
-              comment.data.replies.data.children.map((child) => (
-                <Box key={child.data.id}>
-                  {child.kind === 'more' ? (
-                    <LoadMore
-                      parent={comment}
-                      comment={child}
-                      permalink={permalink}
-                    />
-                  ) : (
-                    <Comment
-                      comment={child}
-                      permalink={permalink}
-                      depth={depth}
-                    />
-                  )}
-                </Box>
-              ))}
           </Box>
         </Flex>
       )}

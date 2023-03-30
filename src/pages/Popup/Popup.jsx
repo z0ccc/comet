@@ -12,6 +12,7 @@ const Popup = () => {
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
   const [postsMessage, setPostsMessage] = useState('Loading...')
+  const [newReply, setNewReply] = useState()
 
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
@@ -103,7 +104,7 @@ const Popup = () => {
               }}
               key={post.id}
             >
-              <Post post={post} />
+              <Post post={post} setNewReply={setNewReply} />
               <Box sx={{ my: '14px' }}>
                 <Select
                   onChange={(e) => {
@@ -123,6 +124,13 @@ const Popup = () => {
                 <>
                   {post.comments && (
                     <Box sx={{ mr: '4px' }}>
+                      {newReply && (
+                        <Comment
+                          comment={newReply}
+                          permalink={post.permalink}
+                          depth={0}
+                        />
+                      )}
                       {post.comments.map((comment) => (
                         <Comment
                           comment={comment}

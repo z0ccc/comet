@@ -1,41 +1,19 @@
 import React, { useState } from 'react'
 import { Button, Flex, Textarea, Text } from 'theme-ui'
 
-const CommentActions = ({
-  permalink,
-  commentId,
-  commentName,
-  isSaved,
-  setNewReply,
-}) => {
-  const [showReplyForm, setShowReplyForm] = useState(false)
+const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
   const [errorMessage, setErrorMessage] = useState(null)
-  const [saved, setSaved] = useState(isSaved)
-
-  const handleSave = () => {
-    const action = saved ? 'unsave' : 'save'
-    chrome.runtime.sendMessage({ saveId: commentName, action }, (response) => {
-      if (response.error) {
-        console.error(response.error)
-      } else {
-        setSaved(!saved)
-      }
-    })
-  }
-
-  const toggleReplyForm = () => {
-    setShowReplyForm(!showReplyForm)
-  }
 
   const handleSubmitReply = (e) => {
     e.preventDefault()
 
     chrome.runtime.sendMessage(
       {
-        replyId: commentName,
+        replyId: name,
         replyText: e.target.reply.value,
       },
       (response) => {
+        console.log('response', response)
         if (response.json.errors.length > 0) {
           setErrorMessage(response.json.errors[0][1])
         } else {
@@ -48,22 +26,6 @@ const CommentActions = ({
 
   return (
     <>
-      <Flex sx={{ gap: '12px', mt: '6px' }}>
-        <Button
-          onClick={() =>
-            window.open(`https://reddit.com${permalink}${commentId}`)
-          }
-          variant="action"
-        >
-          permanlink
-        </Button>
-        <Button onClick={handleSave} variant="action">
-          {saved ? 'unsave' : 'save'}
-        </Button>
-        <Button onClick={toggleReplyForm} variant="action">
-          {showReplyForm ? 'cancel' : 'reply'}
-        </Button>
-      </Flex>
       {showReplyForm && (
         <form onSubmit={handleSubmitReply}>
           <Textarea
@@ -127,4 +89,4 @@ const CommentActions = ({
   )
 }
 
-export default CommentActions
+export default ReplyForm

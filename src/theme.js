@@ -19,6 +19,19 @@ export const theme = {
       },
     },
   },
+  buttons: {
+    action: {
+      all: 'unset',
+      cursor: 'pointer',
+      // fontWeight: '500',
+      fontSize: '13px',
+      color: '#7e7e7e',
+      transition: 'all .15s ease-in-out',
+      '&:hover': {
+        color: '#4aabe7',
+      },
+    },
+  },
   forms: {
     label: { width: 'auto', alignItems: 'center', mb: '6px', color: '#404040' },
     select: {
@@ -37,7 +50,7 @@ export const theme = {
     },
     checkbox: {
       outline: 'none',
-      color: '#707070',
+      color: '#7e7e7e',
       cursor: 'pointer',
     },
   },
