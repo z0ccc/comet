@@ -17,9 +17,14 @@ const Popup = () => {
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       if (tabs[0].url) {
-        getPosts('https://www.youtube.com/watch?v=6swmTBVI83k')
-          .then((posts) => {
-            if (posts.length === 0) {
+        chrome.runtime.sendMessage(
+          {
+            url: tabs[0].url,
+          },
+          (response) => {
+            if (response === -1) {
+              setPostsMessage(<Error />)
+            } else if (response.length === 0) {
               setPostsMessage(
                 <>
                   No posts found.{' '}
@@ -41,14 +46,12 @@ const Popup = () => {
                 </>
               )
             } else {
-              setPosts(posts)
+              setPosts(response)
               setPostIndex(0)
-              posts[0].sort = 'best'
+              response[0].sort = 'best'
             }
-          })
-          .catch(() => {
-            setPostsMessage(<Error />)
-          })
+          }
+        )
       }
     })
   }, [])

@@ -37,6 +37,17 @@ chrome.tabs.onActivated.addListener(() => {
 
 // Listen for messages
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.url) {
+    getPosts(request.url)
+      .then((posts) => {
+        sendResponse(posts)
+      })
+      .catch(() => {
+        sendResponse(-1)
+      })
+    return true
+  }
+
   if (request.voteId) {
     sendVote(request.voteId, request.direction)
   }

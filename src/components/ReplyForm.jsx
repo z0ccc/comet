@@ -13,7 +13,6 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
         replyText: e.target.reply.value,
       },
       (response) => {
-        console.log('response', response)
         if (response.json.errors.length > 0) {
           setErrorMessage(response.json.errors[0][1])
         } else {
