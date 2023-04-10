@@ -1,17 +1,23 @@
 /** @jsx jsx */
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { jsx, Box, Label, Flex, Link, Select, Checkbox } from 'theme-ui'
 
 const Options = () => {
   const [hidePosts, setHidePosts] = useState(false)
   const [noPopupCheck, setNoPopupCheck] = useState(false)
+  const [commentSort, setCommentSort] = useState('best')
 
   useEffect(() => {
-    chrome.storage.local.get(['hidePosts', 'noPopupCheck'], (storage) => {
-      setHidePosts(storage.hidePosts)
-      setNoPopupCheck(storage.noPopupCheck)
-    })
-  }, [setHidePosts])
+    chrome.storage.local.get(
+      ['hidePosts', 'noPopupCheck', 'commentSort'],
+      (storage) => {
+        storage.hidePosts !== undefined && setHidePosts(storage.hidePosts)
+        storage.noPopupCheck !== undefined &&
+          setNoPopupCheck(storage.noPopupCheck)
+        storage.commentSort !== undefined && setCommentSort(storage.commentSort)
+      }
+    )
+  }, [])
 
   return (
     <Box sx={{ mx: '20px' }}>
@@ -50,24 +56,31 @@ const Options = () => {
           Only check for posts when popup icon is clicked
         </Label>
       </Box>
-      <Label htmlFor="postSort">Sort posts by: </Label>
-      <Select name="postsort" sx={{ width: '100%' }}>
-        <option value="best">Comment count</option>
-        <option value="top">Upvotes</option>
-        <option value="new">Newest</option>
-        <option value="old">Oldest</option>
-      </Select>
       <Label htmlFor="commentSort" sx={{ mt: '12px' }}>
         Sort comments by (default):{' '}
       </Label>
-      <Select name="commentSort" sx={{ width: '100%' }}>
+      <Select
+        name="commentSort"
+        sx={{ width: '100%' }}
+        value={commentSort}
+        onChange={(e) => {
+          setCommentSort(e.target.value)
+          chrome.storage.local.set({ commentSort: e.target.value })
+        }}
+      >
         <option value="best">Best</option>
         <option value="top">Top</option>
         <option value="new">New</option>
         <option value="old">Old</option>
         <option value="controversial">Controversial</option>
       </Select>
-      <Flex sx={{ justifyContent: 'center', gap: '12px', my: '20px' }}>
+      <Flex
+        sx={{
+          justifyContent: 'center',
+          gap: '12px',
+          my: '20px',
+        }}
+      >
         <Link href="mailto:contact@voat.me" rel="noreferrer" variant="nav">
           Contact
         </Link>

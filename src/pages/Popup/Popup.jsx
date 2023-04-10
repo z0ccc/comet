@@ -13,6 +13,7 @@ const Popup = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [postsMessage, setPostsMessage] = useState('Loading...')
   const [newReply, setNewReply] = useState()
+  const [commentSort, setCommentSort] = useState('best')
 
   useEffect(() => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
@@ -22,7 +23,6 @@ const Popup = () => {
             url: tabs[0].url,
           },
           (response) => {
-            console.log(response.modhash)
             if (response === -1) {
               setPostsMessage(<Error />)
             } else if (response.posts.length === 0) {
@@ -47,10 +47,13 @@ const Popup = () => {
                 </>
               )
             } else {
-              setPosts(response.posts)
-              setPostIndex(0)
-              response.posts[0].sort = 'best'
-              setIsLoggedIn(!!response.modhash)
+              chrome.storage.local.get(['commentSort'], (storage) => {
+                setCommentSort(storage.commentSort)
+                setPosts(response.posts)
+                setPostIndex(0)
+                response.posts[0].sort = storage.commentSort || 'best'
+                setIsLoggedIn(!!response.modhash)
+              })
             }
           }
         )
@@ -59,7 +62,10 @@ const Popup = () => {
   }, [])
 
   const handleCommentFetch = useCallback(() => {
-    getComments(posts[postIndex].permalink + `?sort=${posts[postIndex].sort}`)
+    getComments(
+      posts[postIndex].permalink +
+        `?sort=${posts[postIndex].sort || commentSort}`
+    )
       .then((comments) => {
         posts[postIndex].comments = comments === undefined ? null : comments
         setPosts([...posts])
@@ -67,7 +73,7 @@ const Popup = () => {
       .catch(() => {
         setPostsMessage(<Error />)
       })
-  }, [postIndex, posts])
+  }, [commentSort, postIndex, posts])
 
   useEffect(() => {
     if (postIndex !== undefined && posts[postIndex].comments === undefined) {
@@ -116,6 +122,7 @@ const Popup = () => {
               />
               <Box sx={{ my: '14px' }}>
                 <Select
+                  value={post.sort || commentSort}
                   onChange={(e) => {
                     post.sort = e.target.value
                     post.comments = undefined

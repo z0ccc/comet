@@ -12,7 +12,7 @@ export const theme = {
     nav: {
       textDecoration: 'none',
       transition: 'all 0.15s ease-in-out',
-      fontSize: '14px',
+      fontSize: '12px',
       color: '#404040',
       '&:hover': {
         color: '#4aabe7',
