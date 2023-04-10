@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx, Box, Flex, Link, Select } from 'theme-ui'
 import React, { useState, useEffect, useCallback } from 'react'
-import getPosts from '../../utils/getPosts'
 import { getComments } from '../../utils/getComments'
 import Subreddits from '../../components/Subreddits'
 import Post from '../../components/Post'
@@ -11,6 +10,7 @@ import Error from '../../components/Error'
 const Popup = () => {
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [postsMessage, setPostsMessage] = useState('Loading...')
   const [newReply, setNewReply] = useState()
 
@@ -22,9 +22,10 @@ const Popup = () => {
             url: tabs[0].url,
           },
           (response) => {
+            console.log(response.modhash)
             if (response === -1) {
               setPostsMessage(<Error />)
-            } else if (response.length === 0) {
+            } else if (response.posts.length === 0) {
               setPostsMessage(
                 <>
                   No posts found.{' '}
@@ -46,9 +47,10 @@ const Popup = () => {
                 </>
               )
             } else {
-              setPosts(response)
+              setPosts(response.posts)
               setPostIndex(0)
-              response[0].sort = 'best'
+              response.posts[0].sort = 'best'
+              setIsLoggedIn(!!response.modhash)
             }
           }
         )
@@ -107,7 +109,11 @@ const Popup = () => {
               }}
               key={post.id}
             >
-              <Post post={post} setNewReply={setNewReply} />
+              <Post
+                post={post}
+                setNewReply={setNewReply}
+                isLoggedIn={isLoggedIn}
+              />
               <Box sx={{ my: '14px' }}>
                 <Select
                   onChange={(e) => {
@@ -131,6 +137,7 @@ const Popup = () => {
                         <Comment
                           comment={newReply}
                           permalink={post.permalink}
+                          isLoggedIn={isLoggedIn}
                           depth={0}
                         />
                       )}
@@ -138,6 +145,7 @@ const Popup = () => {
                         <Comment
                           comment={comment}
                           permalink={post.permalink}
+                          isLoggedIn={isLoggedIn}
                           key={comment.data.id}
                         />
                       ))}

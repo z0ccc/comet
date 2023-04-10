@@ -18,7 +18,7 @@ const prepareCommentBody = (body) =>
       '<a target="_blank" href="https://reddit.com/'
     )
 
-const Comment = ({ comment, permalink, depth }) => {
+const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
   const [vote, setVote] = useState(0)
   const [score, setScore] = useState(comment.data.score)
   const [hideCommment, setHideComment] = useState(false)
@@ -135,14 +135,18 @@ const Comment = ({ comment, permalink, depth }) => {
                       >
                         permanlink
                       </Button>
-                      <SaveButton
-                        name={comment.data.name}
-                        isSaved={comment.data.saved}
-                      />
-                      <ReplyButton
-                        showReplyForm={showReplyForm}
-                        setShowReplyForm={setShowReplyForm}
-                      />
+                      {isLoggedIn && (
+                        <>
+                          <SaveButton
+                            name={comment.data.name}
+                            isSaved={comment.data.saved}
+                          />
+                          <ReplyButton
+                            showReplyForm={showReplyForm}
+                            setShowReplyForm={setShowReplyForm}
+                          />
+                        </>
+                      )}
                     </Flex>
                     <ReplyForm
                       name={comment.data.name}
@@ -156,6 +160,7 @@ const Comment = ({ comment, permalink, depth }) => {
                   <Comment
                     comment={newReply}
                     permalink={permalink}
+                    isLoggedIn={isLoggedIn}
                     depth={newDepth + 1}
                   />
                 )}
@@ -172,6 +177,7 @@ const Comment = ({ comment, permalink, depth }) => {
                         <Comment
                           comment={child}
                           permalink={permalink}
+                          isLoggedIn={isLoggedIn}
                           depth={depth}
                         />
                       )}

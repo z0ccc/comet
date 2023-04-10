@@ -40,7 +40,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.url) {
     getPosts(request.url)
       .then((posts) => {
-        sendResponse(posts)
+        getModhash().then((modhash) => {
+          sendResponse({ posts, modhash: modhash })
+        })
       })
       .catch(() => {
         sendResponse(-1)
@@ -68,7 +70,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 })
 
 const getModhash = () =>
-  fetch('https://api.reddit.com/api/me.json')
+  fetch('https://api.reddit.com/api/me.json', {
+    credentials: 'include',
+  })
     .then((response) => response.json())
     .then((json) => json.data.modhash)
 

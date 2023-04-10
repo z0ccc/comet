@@ -9,7 +9,7 @@ import { getVote, getScore } from '../utils/voteUtils'
 import ReplyButton from './ReplyButton'
 import ReplyForm from './ReplyForm'
 
-const Post = ({ post, setNewReply }) => {
+const Post = ({ post, setNewReply, isLoggedIn }) => {
   const [vote, setVote] = useState(0)
   const [score, setScore] = useState(post.score)
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -33,6 +33,7 @@ const Post = ({ post, setNewReply }) => {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '5px',
+            minWidth: '16px',
           }}
         >
           <VoteButton
@@ -94,11 +95,15 @@ const Post = ({ post, setNewReply }) => {
               {post.author}
             </Link>
             <Text>{convertDate(post.created_utc)}</Text>
-            <SaveButton name={post.name} isSaved={post.saved} />
-            <ReplyButton
-              showReplyForm={showReplyForm}
-              setShowReplyForm={setShowReplyForm}
-            />
+            {isLoggedIn && (
+              <>
+                <SaveButton name={post.name} isSaved={post.saved} />
+                <ReplyButton
+                  showReplyForm={showReplyForm}
+                  setShowReplyForm={setShowReplyForm}
+                />
+              </>
+            )}
           </Flex>
         </Box>
       </Flex>
