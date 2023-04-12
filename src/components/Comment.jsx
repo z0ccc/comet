@@ -55,15 +55,25 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
             sx={{
               all: 'unset',
               cursor: 'pointer',
-              borderLeft: '1px solid #d1d1d1',
               pl: '8px',
+              ml: '-8px',
               transition: 'all .15s ease-in-out',
               '&:hover': {
-                borderColor: '#4aabe7',
+                '> div': {
+                  borderColor: '#4aabe7',
+                },
               },
             }}
             onClick={() => setHideComment(!hideCommment)}
-          />
+          >
+            <Box
+              sx={{
+                height: '100%',
+                borderLeft: '1px solid #d1d1d1',
+                pl: '8px',
+              }}
+            />
+          </Button>
           <Box
             sx={{
               width: '100%',
