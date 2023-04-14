@@ -30,9 +30,10 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
           <Textarea
             name="reply"
             sx={{
-              border: '1px solid #d1d1d1',
+              border: '1px solid',
+              borderColor: 'border',
               height: '120px',
-              backgroundColor: '#fff',
+              background: 'transparent',
               mt: '12px',
               outline: 'none',
               font: 'inherit',
@@ -40,10 +41,10 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
               resize: 'vertical',
               transition: 'all .15s ease-in-out',
               '&:hover': {
-                borderColor: '#4aabe7',
+                borderColor: 'primary',
               },
               '&:focus': {
-                borderColor: '#4aabe7',
+                borderColor: 'primary',
               },
             }}
           />
@@ -55,15 +56,16 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
                 cursor: 'pointer',
                 fontWeight: '500',
                 fontSize: '13px',
-                color: '#6a6a6a',
+                color: 'textDark',
                 p: '4px 8px',
                 mt: '8px',
                 borderRadius: '3px',
-                border: '1px solid #d1d1d1',
+                border: '1px solid',
+                borderColor: 'border',
                 transition: 'all .15s ease-in-out',
-                background: '#e6e6e6',
+                background: 'button',
                 '&:hover': {
-                  backgroundColor: '#d1d1d1',
+                  backgroundColor: 'border',
                 },
               }}
             >
@@ -72,7 +74,7 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
             {errorMessage && (
               <Text
                 sx={{
-                  color: 'red',
+                  color: 'error',
                   fontSize: '13px',
                   display: 'block',
                   mt: '6px',

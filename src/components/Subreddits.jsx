@@ -12,7 +12,8 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
       <Flex
         sx={{
           width: '100%',
-          borderBottom: '1px solid #d1d1d1',
+          borderBottom: '1px solid',
+          borderColor: 'border',
         }}
       >
         {posts.map((post, i) => (
@@ -24,14 +25,15 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
               p: '8px',
               fontSize: '13px',
               fontWeight: postIndex === i ? '500' : '400',
-              color: postIndex === i ? '#4aabe7' : '#7e7e7e',
+              color: postIndex === i ? 'primary' : 'lightText',
               transition: 'all .15s ease-in-out',
-              borderBottom: '1px solid #d1d1d1',
+              borderBottom: '1px solid',
+              borderColor: 'border',
               mb: '-1px',
               whiteSpace: 'nowrap',
               textAlign: 'center',
               '&:hover': {
-                color: '#4aabe7',
+                color: 'primary',
               },
             }}
             onClick={() => {

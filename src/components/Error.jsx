@@ -8,7 +8,7 @@ const Error = () => {
       Error: Reddit API may be down or another extension is blocking Voat.
       <Link
         sx={{
-          color: '#4aabe7',
+          color: 'primary',
           textDecoration: 'none',
           ml: '4px',
           '&:hover': {

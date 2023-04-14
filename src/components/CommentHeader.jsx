@@ -5,10 +5,10 @@ import formatNumber from '../utils/formatNumber'
 
 const CommentHeader = ({ author, score, created_utc }) => {
   return (
-    <Flex sx={{ gap: '12px', fontSize: '13px', color: '#7e7e7e' }}>
+    <Flex sx={{ gap: '12px', fontSize: '13px', color: 'lightText' }}>
       <Link
         sx={{
-          color: '#4aabe7',
+          color: 'primary',
           fontWeight: '500',
           textDecoration: 'none',
 

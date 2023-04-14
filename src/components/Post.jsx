@@ -52,14 +52,14 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
         <Box sx={{ ml: '12px' }}>
           <Link
             sx={{
-              color: '#4a4a4a',
+              color: 'darkText',
               fontSize: '16px',
               fontWeight: '500',
               textDecoration: 'none',
               transition: 'all .15s ease-in-out',
               lineHeight: '1.4',
               '&:hover': {
-                color: '#4aabe7',
+                color: 'primary',
               },
             }}
             href={`https://reddit.com${post.permalink}`}
@@ -69,23 +69,28 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
             {post.title}
           </Link>
           <Flex
-            sx={{ color: '#7e7e7e', fontSize: '13px', mt: '6px', gap: '12px' }}
+            sx={{
+              color: 'lightText',
+              fontSize: '13px',
+              mt: '6px',
+              gap: '12px',
+            }}
           >
             <Text
               sx={{
                 fontWeight: '500',
                 color:
-                  vote === 1 ? '#4aabe7' : vote === -1 ? '#a696ff' : '#7e7e7e',
+                  vote === 1 ? 'primary' : vote === -1 ? 'purple' : 'lightText',
               }}
             >
               {formatNumber(score)} points
             </Text>
             <Link
               sx={{
-                color: '#7e7e7e',
+                color: 'lightText',
                 textDecoration: 'none',
                 '&:hover': {
-                  color: '#4aabe7',
+                  color: 'primary',
                 },
               }}
               href={`https://reddit.com/u/${post.author}`}
@@ -115,7 +120,7 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
           setNewReply={setNewReply}
         />
       </Box>
-      <Divider sx={{ color: '#d1d1d1', mt: '18px' }} />
+      <Divider sx={{ color: 'border', mt: '18px' }} />
     </>
   )
 }

@@ -5,17 +5,22 @@ export const theme = {
     monospace: 'Menlo, monospace',
   },
   colors: {
-    text: '#000',
-    background: '#fff',
+    primary: '#4aabe7',
+    border: '#d1d1d1',
+    darkText: '#404040',
+    lightText: '#7e7e7e',
+    button: '#e6e6e6',
+    purple: '#a696ff',
+    error: '#eb3b5a',
   },
   links: {
     nav: {
       textDecoration: 'none',
       transition: 'all 0.15s ease-in-out',
       fontSize: '12px',
-      color: '#404040',
+      color: 'darkText',
       '&:hover': {
-        color: '#4aabe7',
+        color: 'primary',
       },
     },
   },
@@ -23,26 +28,31 @@ export const theme = {
     action: {
       all: 'unset',
       cursor: 'pointer',
-      // fontWeight: '500',
       fontSize: '13px',
-      color: '#7e7e7e',
+      color: 'lightText',
       transition: 'all .15s ease-in-out',
       '&:hover': {
-        color: '#4aabe7',
+        color: 'primary',
       },
     },
   },
   forms: {
-    label: { width: 'auto', alignItems: 'center', mb: '6px', color: '#404040' },
+    label: {
+      width: 'auto',
+      alignItems: 'center',
+      mb: '6px',
+      color: 'darkText',
+    },
     select: {
       cursor: 'pointer',
-      borderColor: '#d1d1d1',
+      borderColor: 'border',
+      background: 'transparent',
       width: 'auto',
       p: '3px 26px 3px 8px',
       borderRadius: '3px',
       transition: 'all .15s ease-in-out',
       '&:hover': {
-        borderColor: '#4aabe7',
+        borderColor: 'primary',
       },
       '&:focus': {
         outline: 'none',
@@ -50,7 +60,7 @@ export const theme = {
     },
     checkbox: {
       outline: 'none',
-      color: '#7e7e7e',
+      color: 'lightText',
       cursor: 'pointer',
     },
   },

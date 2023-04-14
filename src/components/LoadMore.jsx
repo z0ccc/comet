@@ -14,7 +14,7 @@ const LoadMore = ({ parent, comment, permalink }) => {
         <Box
           sx={{
             cursor: 'pointer',
-            color: '#4aabe7',
+            color: 'primary',
             fontSize: '13px',
             mt: '6px',
             '&:hover': {

@@ -31,7 +31,7 @@ const Popup = () => {
                   No posts found.{' '}
                   <Link
                     sx={{
-                      color: '#4aabe7',
+                      color: 'primary',
                       textDecoration: 'none',
                       ml: '4px',
                       '&:hover': {
@@ -84,7 +84,7 @@ const Popup = () => {
   return (
     <Box
       sx={{
-        color: '#404040',
+        color: 'darkText',
         pl: 'calc(100vw - 100%)',
       }}
     >

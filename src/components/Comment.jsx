@@ -60,7 +60,7 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
               transition: 'all .15s ease-in-out',
               '&:hover': {
                 '> div': {
-                  borderColor: '#4aabe7',
+                  borderColor: 'primary',
                 },
               },
             }}
@@ -69,7 +69,8 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
             <Box
               sx={{
                 height: '100%',
-                borderLeft: '1px solid #d1d1d1',
+                borderLeft: '1px solid',
+                borderColor: 'border',
                 pl: '8px',
               }}
             />
