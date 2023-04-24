@@ -131,7 +131,7 @@ const App = ({ url, isPopup }) => {
             <Box
               sx={{
                 display: postIndex === i ? 'block' : 'none',
-                mx: '30px',
+                mx: isPopup ? '12px' : '0',
               }}
               key={post.id}
             >
