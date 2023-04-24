@@ -7,6 +7,7 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
       sx={{
         overflow: 'auto',
         scrollbarWidth: 'thin',
+        width: '100%',
       }}
     >
       <Flex

@@ -19,15 +19,24 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
-      "js": ["contentScript.bundle.js"],
-      "css": ["content.styles.css"]
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["contentScript.bundle.js"]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["content.styles.css", "icon128.png", "icon48.png"],
-      "matches": []
+      "resources": [
+        "icon128.png",
+        "icon48.png",
+        "upvote.svg",
+        "upvoteGrey.svg",
+        "downvote.svg",
+        "downvoteGrey.svg",
+        "reddit.svg",
+        "youtube.svg"
+      ],
+      "matches": ["*://*.youtube.com/*"],
+      "use_dynamic_url": true
     }
   ],
   "options_ui": {

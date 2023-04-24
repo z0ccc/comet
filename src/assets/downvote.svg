@@ -14,7 +14,6 @@
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
@@ -28,11 +27,11 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.4363085"
-     inkscape:cx="271.52942"
-     inkscape:cy="-7.658522"
+     inkscape:cx="194.94419"
+     inkscape:cy="-10.443439"
      inkscape:window-width="1920"
-     inkscape:window-height="1052"
-     inkscape:window-x="1920"
+     inkscape:window-height="1012"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
@@ -42,37 +41,14 @@
      fit-margin-bottom="0"
      width="211.9mm" />
   <defs
-     id="defs86980">
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient7151"
-       id="linearGradient7157"
-       x1="-849.56396"
-       y1="-209.69234"
-       x2="-821.74878"
-       y2="-181.29947"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(2.1184505,0,0,2.1184505,1842.5737,480.97031)" />
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient7151">
-      <stop
-         style="stop-color:#927cff;stop-opacity:1"
-         offset="0"
-         id="stop7153" />
-      <stop
-         style="stop-color:#8870ff;stop-opacity:1"
-         offset="1"
-         id="stop7155" />
-    </linearGradient>
-  </defs>
+     id="defs86980" />
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-43.533809,-37.228728)">
     <path
-       style="fill:#a696ff;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient7157);stroke-width:3.17768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#a696ff;fill-opacity:1;fill-rule:evenodd;stroke:#8b74ff;stroke-width:3.17768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 70.669917,89.535919 46.179549,47.855958 C 44.4553,44.869472 44.7486,41.187204 47.764299,39.446092 l 1.659573,-0.628524 h 45.607865 l 2.641706,0.985037 c 2.710227,1.564752 2.945007,5.23253 1.251073,8.1665 L 74.637329,89.65199 c -2.017887,2.99589 -1.96391,3.039636 -3.967412,-0.116093 z"
        id="path7064-9-2"
        inkscape:connector-curvature="0"

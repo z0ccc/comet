@@ -132,9 +132,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 })
 
 const getModhash = () =>
-  fetch('https://api.reddit.com/api/me.json', {
-    credentials: 'include',
-  })
+  fetch('https://api.reddit.com/api/me.json')
     .then((response) => response.json())
     .then((json) => json.data.modhash)
 

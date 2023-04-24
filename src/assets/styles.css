@@ -1,5 +1,4 @@
 body {
-  width: 650px;
   height: auto;
   margin: 0;
   font-family: 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantrell',
@@ -57,4 +56,8 @@ a {
 
 a.hover {
   text-decoration: underline;
+}
+
+#redditImgWrap {
+  margin: 0 0 -52px 0;
 }

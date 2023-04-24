@@ -1,13 +1,14 @@
 import React from 'react'
 import { Button, Image } from 'theme-ui'
-import Upvote from '../assets/upvote.svg'
-import UpvoteGrey from '../assets/upvoteGrey.svg'
-import Downvote from '../assets/downvote.svg'
-import DownvoteGrey from '../assets/downvoteGrey.svg'
 
 const VoteButton = ({ vote, voteType, handleClick, size }) => {
-  const activeIcon = voteType === 1 ? Upvote : Downvote
-  const inactiveIcon = voteType === 1 ? UpvoteGrey : DownvoteGrey
+  const upvote = chrome.runtime.getURL('/upvote.svg')
+  const upvoteGrey = chrome.runtime.getURL('/upvoteGrey.svg')
+  const downvote = chrome.runtime.getURL('/downvote.svg')
+  const downvoteGrey = chrome.runtime.getURL('/downvoteGrey.svg')
+
+  const activeIcon = voteType === 1 ? upvote : downvote
+  const inactiveIcon = voteType === 1 ? upvoteGrey : downvoteGrey
 
   return (
     <Button
