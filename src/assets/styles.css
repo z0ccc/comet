@@ -60,4 +60,5 @@ a.hover {
 
 #redditImgWrap {
   margin: 16px 0 -52px 0;
+  display: none;
 }
