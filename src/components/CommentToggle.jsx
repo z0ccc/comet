@@ -24,9 +24,6 @@ const CommentToggle = () => (
         sx={{
           minWidth: '32px',
           height: '32px',
-          // '&:hover': {
-          //   fill: 'primary',
-          // },
         }}
       />
     </Button>
