@@ -25,7 +25,7 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [newReply, setNewReply] = useState()
 
-  const newDepth = depth !== undefined ? depth : comment.data.depth
+  const newDepth = depth ? depth : comment.data.depth
 
   useEffect(() => {
     setVote(getVote(comment.data.likes))
