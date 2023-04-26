@@ -5,15 +5,18 @@ import { jsx, Box, Label, Flex, Link, Select, Checkbox } from 'theme-ui'
 const Options = () => {
   const [hidePosts, setHidePosts] = useState(false)
   const [noPopupCheck, setNoPopupCheck] = useState(false)
+  const [youtubeDefault, setYoutubeDefault] = useState(false)
   const [commentSort, setCommentSort] = useState('best')
 
   useEffect(() => {
     chrome.storage.local.get(
-      ['hidePosts', 'noPopupCheck', 'commentSort'],
+      ['hidePosts', 'noPopupCheck', 'youtubeDefault', 'commentSort'],
       (storage) => {
         storage.hidePosts !== undefined && setHidePosts(storage.hidePosts)
         storage.noPopupCheck !== undefined &&
           setNoPopupCheck(storage.noPopupCheck)
+        storage.youtubeDefault !== undefined &&
+          setYoutubeDefault(storage.youtubeDefault)
         storage.commentSort !== undefined && setCommentSort(storage.commentSort)
       }
     )
@@ -37,7 +40,13 @@ const Options = () => {
           Hide posts with 0 comments
         </Label>
         <Label>
-          <Checkbox />
+          <Checkbox
+            checked={youtubeDefault}
+            onChange={(e) => {
+              setYoutubeDefault(e.target.checked)
+              chrome.storage.local.set({ youtubeDefault: e.target.checked })
+            }}
+          />
           Show YouTube comments by default
         </Label>
         <Label>

@@ -32,8 +32,8 @@ const loadComments = (mountNode) => {
   redditImgWrap = document.createElement('div')
   redditImgWrap.setAttribute('id', 'redditImgWrap')
 
-  chrome.storage.sync.get('commentDefault', ({ commentDefault }) => {
-    if (commentDefault) {
+  chrome.storage.local.get(['youtubeDefault'], (storage) => {
+    if (storage.youtubeDefault) {
       redditComments.style.display = 'none'
       redditImgWrap.style.display = 'flex'
     } else {
@@ -44,20 +44,19 @@ const loadComments = (mountNode) => {
   mountNode.parentNode.insertBefore(redditComments, mountNode)
   mountNode.parentNode.insertBefore(redditImgWrap, mountNode)
 
-  chrome.storage.sync.get('sort', ({ sort }) => {
-    ReactDOM.render(
-      <ThemeProvider theme={theme}>
-        <App url={window.location.href} />
-      </ThemeProvider>,
-      redditComments
-    )
-    ReactDOM.render(
-      <ThemeProvider theme={theme}>
-        <CommentToggle />
-      </ThemeProvider>,
-      redditImgWrap
-    )
-  })
+  ReactDOM.render(
+    <ThemeProvider theme={theme}>
+      <App url={window.location.href} />
+    </ThemeProvider>,
+    redditComments
+  )
+
+  ReactDOM.render(
+    <ThemeProvider theme={theme}>
+      <CommentToggle />
+    </ThemeProvider>,
+    redditImgWrap
+  )
 }
 
 document.addEventListener('DOMContentLoaded', () => prepareComments())
