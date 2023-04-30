@@ -1,3 +1,7 @@
+* {
+  box-sizing: inherit !important;
+}
+
 body {
   height: auto;
   margin: 0;
@@ -49,12 +53,12 @@ blockquote {
   margin-bottom: 13px;
 }
 
-a {
+.voatCommentBody a {
   color: #4aabe7;
   text-decoration: none;
 }
 
-a.hover {
+.voatCommentBody a:hover {
   text-decoration: underline;
 }
 

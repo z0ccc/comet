@@ -2,7 +2,7 @@
 import { jsx, Flex, Image, Button } from 'theme-ui'
 import { toggleReddit } from '../utils/toggleComments'
 
-const CommentToggle = () => (
+const RedditToggle = () => (
   <Flex
     sx={{
       width: '100%',
@@ -30,4 +30,4 @@ const CommentToggle = () => (
   </Flex>
 )
 
-export default CommentToggle
+export default RedditToggle

@@ -1,12 +1,14 @@
 /** @jsx jsx */
-import { jsx, Box, Flex, Link, Select, Image, Button } from 'theme-ui'
 import React, { useState, useEffect, useCallback } from 'react'
+import { jsx, Box, Flex, Select, Image, Button } from 'theme-ui'
 import { getComments } from '../utils/getComments'
 import { toggleYoutube } from '../utils/toggleComments'
 import Subreddits from './Subreddits'
 import Post from './Post'
 import Comment from './Comment'
 import Error from './Error'
+import NoPosts from './NoPosts'
+import YoutubeToggle from './YoutubeToggle'
 import '../assets/styles.css'
 
 const App = ({ url, isPopup }) => {
@@ -27,26 +29,7 @@ const App = ({ url, isPopup }) => {
           if (response === -1) {
             setPostsMessage(<Error />)
           } else if (response.posts.length === 0) {
-            setPostsMessage(
-              <>
-                No posts found.{' '}
-                <Link
-                  sx={{
-                    color: 'primary',
-                    textDecoration: 'none',
-                    ml: '4px',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                    },
-                  }}
-                  href={`https://www.reddit.com/r/voatme/submit?url=${url}`}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Submit it
-                </Link>
-              </>
-            )
+            setPostsMessage(<NoPosts url={url} isPopup={isPopup} />)
           } else {
             chrome.storage.local.get(['commentSort'], (storage) => {
               setCommentSort(storage.commentSort)
@@ -59,7 +42,7 @@ const App = ({ url, isPopup }) => {
         }
       )
     }
-  }, [url])
+  }, [isPopup, url])
 
   const handleCommentFetch = useCallback(() => {
     getComments(
@@ -92,7 +75,8 @@ const App = ({ url, isPopup }) => {
         <Flex
           sx={{
             width: '100%',
-            py: '18px',
+            pt: isPopup ? '18px' : '0',
+            pb: '18px',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '14px',
@@ -108,21 +92,7 @@ const App = ({ url, isPopup }) => {
               postIndex={postIndex}
               setPostIndex={setPostIndex}
             />
-            {isPopup ? null : (
-              <Button
-                onClick={toggleYoutube}
-                sx={{ all: 'unset', cursor: 'pointer', maxHeight: '34px' }}
-              >
-                <Image
-                  src={chrome.runtime.getURL('/youtube.svg')}
-                  alt="Reddit comment toggle"
-                  sx={{
-                    minWidth: '32px',
-                    height: '32px',
-                  }}
-                />
-              </Button>
-            )}
+            <YoutubeToggle isPopup={isPopup} />
           </Flex>
           {posts.map((post, i) => (
             <Box

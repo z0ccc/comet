@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom'
 import { ThemeProvider } from 'theme-ui'
 import { theme } from '../../theme'
 import App from '../../components/App'
-import CommentToggle from '../../components/CommentToggle'
+import RedditToggle from '../../components/RedditToggle'
 
 const prepareComments = () => {
   if (window.location.href.includes('watch?v=')) {
@@ -53,7 +53,7 @@ const loadComments = (mountNode) => {
 
   ReactDOM.render(
     <ThemeProvider theme={theme}>
-      <CommentToggle />
+      <RedditToggle />
     </ThemeProvider>,
     redditImgWrap
   )

@@ -126,6 +126,7 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
                       commentId={comment.data.id}
                     />
                     <Box
+                      className="voatCommentBody"
                       dangerouslySetInnerHTML={{
                         __html: prepareCommentBody(comment.data.body_html),
                       }}
