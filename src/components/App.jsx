@@ -29,6 +29,7 @@ const App = ({ url, isPopup }) => {
           if (response === -1) {
             setPostsMessage(<Error />)
           } else if (response.posts.length === 0) {
+            !isPopup && toggleYoutube()
             setPostsMessage(<NoPosts url={url} isPopup={isPopup} />)
           } else {
             chrome.storage.local.get(['commentSort'], (storage) => {
