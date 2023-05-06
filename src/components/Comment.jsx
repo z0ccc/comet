@@ -12,8 +12,8 @@ import ReplyForm from './ReplyForm'
 
 const prepareCommentBody = (body) =>
   ReactHtmlParser(body)
-    .replace('<a href=', '<a target="_blank" href=')
-    .replace(
+    .replaceAll('<a href=', '<a target="_blank" href=')
+    .replaceAll(
       '<a target="_blank" href="/',
       '<a target="_blank" href="https://reddit.com/'
     )
