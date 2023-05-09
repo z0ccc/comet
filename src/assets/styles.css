@@ -1,5 +1,5 @@
 * {
-  box-sizing: inherit !important;
+  box-sizing: revert !important;
 }
 
 body {
@@ -10,7 +10,6 @@ body {
     'Segoe UI Emoji', 'Segoe UI Symbol';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
 }
 
 ::-webkit-scrollbar {
@@ -25,29 +24,24 @@ body {
 
 /* comment body css */
 
-.md a {
-  /* color: var(--link-blue); */
-  text-decoration: none;
-}
-
-p {
+.voatCommentBody p {
   margin: 7px 0;
   line-height: 20px;
 }
 
-p:last-child {
+.voatCommentBody p:last-child {
   margin: 7px 0 0 0;
 }
 
-blockquote {
+.voatCommentBody blockquote {
   border-left: 2px solid var(--border);
   color: var(--blockQuote);
   padding: 0 8px;
   margin: 2px 0 2px 5px;
 }
 
-.md h1,
-.md h2 {
+.voatCommentBody .md h1,
+.voatCommentBody .md h2 {
   font-size: 20px;
   margin-top: 13px;
   margin-bottom: 13px;

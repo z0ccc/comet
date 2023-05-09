@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useState, useEffect, useCallback } from 'react'
-import { jsx, Box, Flex, Select, Image, Button } from 'theme-ui'
+import { jsx, Box, Flex, Select } from 'theme-ui'
 import { getComments } from '../utils/getComments'
 import { toggleYoutube } from '../utils/toggleComments'
 import Subreddits from './Subreddits'
