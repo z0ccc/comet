@@ -65,9 +65,10 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
             href={`https://reddit.com${post.permalink}`}
             target="_blank"
             rel="noreferrer"
-          >
-            {post.title}
-          </Link>
+            dangerouslySetInnerHTML={{
+              __html: post.title,
+            }}
+          />
           <Flex
             sx={{
               color: 'lightText',
