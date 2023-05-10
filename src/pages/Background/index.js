@@ -5,13 +5,32 @@ const getPosts = async (url) => {
     'https://www.reddit.com/api/info.json?url=',
   ]
 
-  const responses = await Promise.all(
+  let responses = await Promise.all(
     redditUrls
       .map((redditUrl) =>
         urls.map(async (url) => await (await fetch(redditUrl + url)).json())
       )
       .flat()
   )
+
+  const youtubeVideoString = 'www.youtube.com/watch?v='
+  const youtubeIdIndex = url.indexOf(youtubeVideoString)
+
+  if (youtubeIdIndex !== -1) {
+    let youtubeId
+    if (url.indexOf('&') === -1) {
+      youtubeId = url.substring(youtubeIdIndex + youtubeVideoString.length)
+    } else {
+      youtubeId = url.substring(
+        youtubeIdIndex + youtubeVideoString.length,
+        url.lastIndexOf('&')
+      )
+    }
+    const searchResponse = await fetch(
+      `https://www.reddit.com/search.json?q=url%3A%27${youtubeId}%27&sort=top&type=link`
+    )
+    responses.push(await searchResponse.json())
+  }
 
   // https://hn.algolia.com/api/v1/search?query=https://hn.algolia.com/&restrictSearchableAttributes=url&typoTolerance=false
 
