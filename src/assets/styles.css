@@ -37,8 +37,7 @@
 }
 
 .voatCommentBody blockquote {
-  border-left: 2px solid var(--border);
-  color: var(--blockQuote);
+  border-left: 2px solid #d1d1d1;
   padding: 0 8px;
   margin: 2px 0 2px 5px;
 }
@@ -57,6 +56,23 @@
 
 .voatCommentBody a:hover {
   text-decoration: underline;
+}
+
+.voatCommentBody table {
+  border-collapse: collapse;
+}
+
+.voatCommentBody .md td,
+.voatCommentBody .md th {
+  border: 1px solid #d1d1d1;
+  text-align: left;
+}
+
+.voatCommentBody .md pre,
+.voatCommentBody .md .-cells,
+.voatCommentBody .md th,
+.voatCommentBody .md td {
+  padding: 4px 9px;
 }
 
 #redditImgWrap {
