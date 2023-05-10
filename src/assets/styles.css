@@ -2,7 +2,8 @@
   box-sizing: revert !important;
 }
 
-body {
+#popupBody {
+  width: 650px;
   height: auto;
   margin: 0;
   font-family: 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantrell',
@@ -12,12 +13,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar {
+#popupBody::-webkit-scrollbar,
+#subreddits::-webkit-scrollbar {
   height: 6px;
   width: 6px;
 }
 
-::-webkit-scrollbar-thumb {
+#popupBody::-webkit-scrollbar-thumb,
+#subreddits::-webkit-scrollbar-thumb {
   background: #d1d1d1;
   border-radius: 2px;
 }

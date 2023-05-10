@@ -4,6 +4,7 @@ import { jsx, Box, Flex, Button } from 'theme-ui'
 const Subreddits = ({ posts, postIndex, setPostIndex }) => {
   return (
     <Box
+      id="subreddits"
       sx={{
         overflow: 'auto',
         scrollbarWidth: 'thin',
