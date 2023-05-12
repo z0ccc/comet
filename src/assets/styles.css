@@ -1,11 +1,8 @@
-* {
-  box-sizing: revert !important;
-}
-
 #popupBody {
   width: 650px;
   height: auto;
   margin: 0;
+  background: var(--theme-ui-colors-background);
   font-family: 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantrell',
     'Open Sans', 'Helvetica Neue', 'Arial', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -21,7 +18,7 @@
 
 #popupBody::-webkit-scrollbar-thumb,
 #subreddits::-webkit-scrollbar-thumb {
-  background: #d1d1d1;
+  background: var(--theme-ui-colors-border);
   border-radius: 2px;
 }
 
@@ -37,7 +34,7 @@
 }
 
 .voatCommentBody blockquote {
-  border-left: 2px solid #d1d1d1;
+  border-left: 2px solid var(--theme-ui-colors-border);
   padding: 0 8px;
   margin: 2px 0 2px 5px;
 }
@@ -50,7 +47,7 @@
 }
 
 .voatCommentBody a {
-  color: #4aabe7;
+  color: var(--theme-ui-colors-primary);
   text-decoration: none;
 }
 
@@ -64,7 +61,7 @@
 
 .voatCommentBody .md td,
 .voatCommentBody .md th {
-  border: 1px solid #d1d1d1;
+  border: 1px solid var(--theme-ui-colors-border);
   text-align: left;
 }
 

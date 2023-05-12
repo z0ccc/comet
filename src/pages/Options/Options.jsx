@@ -6,6 +6,7 @@ const Options = () => {
   const [hidePosts, setHidePosts] = useState(false)
   const [noPopupCheck, setNoPopupCheck] = useState(false)
   const [youtubeDefault, setYoutubeDefault] = useState(false)
+  const [theme, setTheme] = useState('default')
   const [commentSort, setCommentSort] = useState('best')
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const Options = () => {
           setNoPopupCheck(storage.noPopupCheck)
         storage.youtubeDefault !== undefined &&
           setYoutubeDefault(storage.youtubeDefault)
+        storage.theme !== undefined && setTheme(storage.theme)
         storage.commentSort !== undefined && setCommentSort(storage.commentSort)
       }
     )
@@ -25,10 +27,6 @@ const Options = () => {
   return (
     <Box sx={{ mx: '20px' }}>
       <Box sx={{ mb: '12px' }}>
-        <Label>
-          <Checkbox />
-          Dark mode
-        </Label>
         <Label>
           <Checkbox
             checked={hidePosts}
@@ -65,8 +63,26 @@ const Options = () => {
           Only check for posts when popup icon is clicked
         </Label>
       </Box>
+
+      <Label htmlFor="theme" sx={{ mt: '12px' }}>
+        Extension Theme:
+      </Label>
+      <Select
+        name="theme"
+        sx={{ width: '100%' }}
+        value={theme}
+        onChange={(e) => {
+          setTheme(e.target.value)
+          chrome.storage.local.set({ theme: e.target.value })
+        }}
+      >
+        <option value="default">Default</option>
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </Select>
+
       <Label htmlFor="commentSort" sx={{ mt: '12px' }}>
-        Sort comments by (default):{' '}
+        Sort comments by (default):
       </Label>
       <Select
         name="commentSort"
