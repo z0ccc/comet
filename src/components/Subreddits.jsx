@@ -27,7 +27,7 @@ const Subreddits = ({ posts, postIndex, setPostIndex }) => {
               p: '8px',
               fontSize: '13px',
               fontWeight: postIndex === i ? '500' : '400',
-              color: postIndex === i ? 'primary' : 'lightText',
+              color: postIndex === i ? 'primary' : 'secondaryText',
               transition: 'all .15s ease-in-out',
               borderBottom: '1px solid',
               borderColor: 'border',

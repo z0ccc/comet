@@ -85,7 +85,7 @@ const App = ({ url, isPopup }) => {
   return (
     <Box
       sx={{
-        color: 'darkText',
+        color: 'primaryText',
         pl: isPopup ? 'calc(100vw - 100%)' : null,
       }}
     >

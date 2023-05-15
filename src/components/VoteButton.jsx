@@ -15,14 +15,14 @@ const VoteButton = ({ vote, voteType, handleClick, size }) => {
             vote !== voteType
               ? 'button'
               : voteType === 1
-              ? 'primaryBorder'
+              ? 'primaryLight'
               : 'purple',
           stroke:
             vote !== voteType
               ? 'border'
               : voteType === 1
               ? 'primary'
-              : 'purpleBorder',
+              : 'purpleDark',
         },
         ':hover': {
           opacity: 0.8,

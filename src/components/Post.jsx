@@ -52,7 +52,7 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
         <Box sx={{ ml: '12px' }}>
           <Link
             sx={{
-              color: 'darkText',
+              color: 'primaryText',
               fontSize: '16px',
               fontWeight: '500',
               textDecoration: 'none',
@@ -71,7 +71,7 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
           />
           <Flex
             sx={{
-              color: 'lightText',
+              color: 'secondaryText',
               fontSize: '13px',
               mt: '6px',
               gap: '12px',
@@ -81,14 +81,18 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
               sx={{
                 fontWeight: '500',
                 color:
-                  vote === 1 ? 'primary' : vote === -1 ? 'purple' : 'lightText',
+                  vote === 1
+                    ? 'primary'
+                    : vote === -1
+                    ? 'purple'
+                    : 'secondaryText',
               }}
             >
               {formatNumber(score)} points
             </Text>
             <Link
               sx={{
-                color: 'lightText',
+                color: 'secondaryText',
                 textDecoration: 'none',
                 '&:hover': {
                   color: 'primary',
