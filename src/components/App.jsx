@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useState, useEffect, useCallback } from 'react'
-import { jsx, Box, Flex, Select } from 'theme-ui'
+import { jsx, useColorMode, Box, Flex, Select } from 'theme-ui'
 import { getComments } from '../utils/getComments'
 import { toggleYoutube } from '../utils/toggleComments'
 import Subreddits from './Subreddits'
@@ -12,12 +12,29 @@ import YoutubeToggle from './YoutubeToggle'
 import '../assets/styles.css'
 
 const App = ({ url, isPopup }) => {
+  const [colorMode, setColorMode] = useColorMode()
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [postsMessage, setPostsMessage] = useState('Loading...')
   const [newReply, setNewReply] = useState()
   const [commentSort, setCommentSort] = useState('best')
+
+  chrome.storage.local.get(['theme'], (storage) => {
+    console.log(storage.theme)
+    if (storage.theme === 'default') {
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        setColorMode('dark')
+      } else {
+        setColorMode('light')
+      }
+    } else {
+      setColorMode(storage.theme)
+    }
+  })
 
   useEffect(() => {
     if (url) {

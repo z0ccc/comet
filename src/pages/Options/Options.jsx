@@ -11,7 +11,7 @@ const Options = () => {
 
   useEffect(() => {
     chrome.storage.local.get(
-      ['hidePosts', 'noPopupCheck', 'youtubeDefault', 'commentSort'],
+      ['hidePosts', 'noPopupCheck', 'youtubeDefault', 'theme', 'commentSort'],
       (storage) => {
         storage.hidePosts !== undefined && setHidePosts(storage.hidePosts)
         storage.noPopupCheck !== undefined &&
@@ -25,7 +25,7 @@ const Options = () => {
   }, [])
 
   return (
-    <Box sx={{ mx: '20px' }}>
+    <Box sx={{ mx: '20px', mt: '12px' }}>
       <Box sx={{ mb: '12px' }}>
         <Label>
           <Checkbox
