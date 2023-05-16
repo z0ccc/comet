@@ -12,7 +12,6 @@ import YoutubeToggle from './YoutubeToggle'
 import '../assets/styles.css'
 
 const App = ({ url, isPopup }) => {
-  const [colorMode, setColorMode] = useColorMode()
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -20,8 +19,9 @@ const App = ({ url, isPopup }) => {
   const [newReply, setNewReply] = useState()
   const [commentSort, setCommentSort] = useState('best')
 
+  const [, setColorMode] = useColorMode()
+
   chrome.storage.local.get(['theme'], (storage) => {
-    console.log(storage.theme)
     if (storage.theme === 'default') {
       if (
         window.matchMedia &&

@@ -151,7 +151,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 })
 
 const getModhash = () =>
-  fetch('https://api.reddit.com/api/me.json')
+  fetch('https://api.reddit.com/api/me.json', { cache: 'no-cache' })
     .then((response) => response.json())
     .then((json) => json.data.modhash)
 
@@ -167,6 +167,8 @@ const buildURL = (baseURL, queryParams) => {
 // sends vote to Reddit api
 const sendVote = async (id, dir) => {
   const modhash = await getModhash()
+  if (!modhash) return
+
   const queryParams = {
     dir,
     id,
