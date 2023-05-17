@@ -106,17 +106,15 @@ const setBrowserActionIcon = (icon) => {
   })
 }
 
-chrome.webNavigation.onHistoryStateUpdated.addListener((e) => {
+const handleWebNavigation = (e) => {
   if (e.frameType === 'outermost_frame') {
     updateIcon(e.url)
   }
-})
+}
 
-chrome.webNavigation.onBeforeNavigate.addListener((e) => {
-  if (e.frameType === 'outermost_frame') {
-    updateIcon(e.url)
-  }
-})
+chrome.webNavigation.onHistoryStateUpdated.addListener(handleWebNavigation)
+
+chrome.webNavigation.onBeforeNavigate.addListener(handleWebNavigation)
 
 chrome.tabs.onActivated.addListener(() => {
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
