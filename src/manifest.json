@@ -7,7 +7,7 @@
   "default_locale": "en",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "webNavigation"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

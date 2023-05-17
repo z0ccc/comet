@@ -106,8 +106,16 @@ const setBrowserActionIcon = (icon) => {
   })
 }
 
-chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
-  updateIcon(tab.url)
+chrome.webNavigation.onHistoryStateUpdated.addListener((e) => {
+  if (e.frameType === 'outermost_frame') {
+    updateIcon(e.url)
+  }
+})
+
+chrome.webNavigation.onBeforeNavigate.addListener((e) => {
+  if (e.frameType === 'outermost_frame') {
+    updateIcon(e.url)
+  }
 })
 
 chrome.tabs.onActivated.addListener(() => {
