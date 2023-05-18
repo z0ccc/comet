@@ -29,6 +29,13 @@ const LoadMore = ({ parent, comment, permalink }) => {
               )}`}
               target="_blank"
               rel="noreferrer"
+              sx={{
+                textDecoration: 'none',
+                color: 'primary',
+                '&:hover': {
+                  textDecoration: 'underline',
+                },
+              }}
             >
               Continue this thread
             </Link>
