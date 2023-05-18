@@ -4,7 +4,7 @@ import { jsx, Button, Box, Link } from 'theme-ui'
 import Comment from './Comment'
 import { loadMoreComments } from '../utils/getComments'
 
-const LoadMore = ({ parent, comment, permalink }) => {
+const LoadMore = ({ parent, comment, permalink, isLoggedIn }) => {
   const [replies, setReplies] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -67,6 +67,7 @@ const LoadMore = ({ parent, comment, permalink }) => {
                       <Comment
                         comment={child}
                         permalink={permalink}
+                        isLoggedIn={isLoggedIn}
                         depth={parent.data.depth + comment.data.depth}
                       />
                     </Box>

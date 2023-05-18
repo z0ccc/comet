@@ -42,7 +42,12 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
     <>
       {comment.kind === 'more' ? (
         <Box sx={{ mt: '6px', mb: '10px' }}>
-          <LoadMore parent={comment} comment={comment} permalink={permalink} />
+          <LoadMore
+            parent={comment}
+            comment={comment}
+            permalink={permalink}
+            isLoggedIn={isLoggedIn}
+          />
         </Box>
       ) : (
         <Flex
@@ -184,6 +189,7 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
                           parent={comment}
                           comment={child}
                           permalink={permalink}
+                          isLoggedIn={isLoggedIn}
                         />
                       ) : (
                         <Comment
