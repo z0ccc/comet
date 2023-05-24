@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Image, Button } from 'theme-ui'
+import { jsx, Button } from 'theme-ui'
 import { toggleYoutube } from '../utils/toggleComments'
 
 const RedditToggle = ({ isPopup }) =>

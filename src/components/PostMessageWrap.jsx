@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react'
 import { jsx, Box, Flex } from 'theme-ui'
 import YoutubeToggle from './YoutubeToggle'
 

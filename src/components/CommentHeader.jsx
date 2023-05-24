@@ -1,5 +1,5 @@
-import React from 'react'
-import { Flex, Link, Text } from 'theme-ui'
+/** @jsx jsx */
+import { jsx, Flex, Link, Text } from 'theme-ui'
 import convertDate from '../utils/convertDate'
 import formatNumber from '../utils/formatNumber'
 

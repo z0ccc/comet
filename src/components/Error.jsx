@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react'
 import { jsx, Link } from 'theme-ui'
 import PostMessageWrap from './PostMessageWrap'
 
