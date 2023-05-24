@@ -9,13 +9,16 @@ import Comment from './Comment'
 import Error from './Error'
 import NoPosts from './NoPosts'
 import YoutubeToggle from './YoutubeToggle'
+import PostMessageWrap from './PostMessageWrap'
 import '../assets/styles.css'
 
 const App = ({ url, isPopup }) => {
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [postsMessage, setPostsMessage] = useState('Loading...')
+  const [postsMessage, setPostsMessage] = useState(
+    <PostMessageWrap isPopup={isPopup}>Loading...</PostMessageWrap>
+  )
   const [newReply, setNewReply] = useState()
   const [commentSort, setCommentSort] = useState('best')
 
@@ -44,7 +47,7 @@ const App = ({ url, isPopup }) => {
         },
         (response) => {
           if (response === -1) {
-            setPostsMessage(<Error />)
+            setPostsMessage(<Error isPopup={isPopup} />)
           } else if (response.posts.length === 0) {
             !isPopup && toggleYoutube()
             setPostsMessage(<NoPosts url={url} isPopup={isPopup} />)
@@ -72,9 +75,9 @@ const App = ({ url, isPopup }) => {
         setPosts([...posts])
       })
       .catch(() => {
-        setPostsMessage(<Error />)
+        setPostsMessage(<Error isPopup={isPopup} />)
       })
-  }, [commentSort, postIndex, posts])
+  }, [commentSort, isPopup, postIndex, posts])
 
   useEffect(() => {
     if (postIndex !== undefined && posts[postIndex].comments === undefined) {

@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { jsx, Link } from 'theme-ui'
 import React from 'react'
+import { jsx, Link } from 'theme-ui'
+import PostMessageWrap from './PostMessageWrap'
 
-const Error = () => {
+const Error = ({ isPopup }) => {
   return (
-    <>
+    <PostMessageWrap isPopup={isPopup}>
       Error: Reddit API may be down or another extension is blocking Voat.
       <Link
         sx={{
@@ -21,7 +22,7 @@ const Error = () => {
       >
         Read More
       </Link>
-    </>
+    </PostMessageWrap>
   )
 }
 
