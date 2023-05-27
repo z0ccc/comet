@@ -114,7 +114,6 @@ const setBrowserActionIcon = (icon) => {
 }
 
 const handleWebNavigation = (e) => {
-  console.log(e)
   if (e.frameType === 'outermost_frame' || e.frameId === 0) {
     updateIcon(e.url)
   }

@@ -64,6 +64,7 @@ export const theme = {
       color: 'primaryText',
     },
     select: {
+      fontSize: '12px',
       cursor: 'pointer',
       borderColor: 'border',
       background: 'background',

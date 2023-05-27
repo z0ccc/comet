@@ -10,6 +10,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#popupBody,
+#subreddits {
+  scrollbar-color: var(--theme-ui-colors-border) transparent !important;
+  scrollbar-width: thin !important;
+}
+
 #popupBody::-webkit-scrollbar,
 #subreddits::-webkit-scrollbar {
   height: 6px;
