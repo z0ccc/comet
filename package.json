@@ -8,8 +8,11 @@
     "url": "https://github.com/z0ccc/voat-extension.git"
   },
   "scripts": {
-    "build": "node utils/build.js",
-    "start": "node utils/webserver.js",
+    "buildManifest": "jq -s '.[0] * .[1]' src/manifest/common.json src/manifest/$BROWSER.json > build/manifest.json",
+    "build-chrome": "node utils/build.js && BROWSER=chrome yarn buildManifest",
+    "build-firefox": "node utils/build.js && BROWSER=firefox yarn buildManifest",
+    "start-chrome": "node utils/webserver.js && BROWSER=chrome yarn buildManifest",
+    "start-firefox": "node utils/webserver.js && BROWSER=firefox yarn buildManifest",
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
   },
   "dependencies": {

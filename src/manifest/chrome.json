@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "background": { "service_worker": "background.bundle.js" },
+  "permissions": ["tabs", "storage", "webNavigation"],
+  "host_permissions": ["*://*.reddit.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon48.png"
+    }
+  }
+}

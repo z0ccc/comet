@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["background.bundle.js"],
+    "persistent": true
+  },
+  "permissions": ["tabs", "storage", "webNavigation", "*://*.reddit.com/*"],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon48.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "voat@example.com"
+    }
+  }
+}
