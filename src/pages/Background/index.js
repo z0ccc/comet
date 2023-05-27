@@ -81,6 +81,7 @@ const readStorage = async (key) => {
 }
 
 const compare = (a, b) => b.num_comments - a.num_comments
+
 const updateIcon = async (url) => {
   const noPopupCheck = await getStorageValue('noPopupCheck')
   if (!noPopupCheck) {
@@ -99,15 +100,22 @@ const getStorageValue = (key) => {
 }
 
 const setBrowserActionIcon = (icon) => {
-  chrome.action.setIcon({
+  const iconDetails = {
     path: {
       48: icon,
     },
-  })
+  }
+
+  try {
+    chrome.action.setIcon(iconDetails)
+  } catch (e) {
+    chrome.browserAction.setIcon(iconDetails)
+  }
 }
 
 const handleWebNavigation = (e) => {
-  if (e.frameType === 'outermost_frame') {
+  console.log(e)
+  if (e.frameType === 'outermost_frame' || e.frameId === 0) {
     updateIcon(e.url)
   }
 }
