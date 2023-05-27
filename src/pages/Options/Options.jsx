@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { useState, useEffect } from 'react'
 import { jsx, Box, Label, Flex, Link, Select, Checkbox } from 'theme-ui'
+import { setIcon } from '../../utils/setIcon'
 
 const Options = () => {
   const [hidePosts, setHidePosts] = useState(false)
@@ -53,11 +54,7 @@ const Options = () => {
             onChange={(e) => {
               setNoPopupCheck(e.target.checked)
               chrome.storage.local.set({ noPopupCheck: e.target.checked })
-              chrome.action.setIcon({
-                path: {
-                  48: '../icon48.png',
-                },
-              })
+              setIcon('../icon48.png')
             }}
           />
           Only check for posts when popup icon is clicked

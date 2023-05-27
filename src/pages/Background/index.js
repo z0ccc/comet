@@ -1,3 +1,5 @@
+import { setIcon } from '../../utils/setIcon'
+
 const getPosts = async (url) => {
   const urls = getUrls(url)
   const redditUrls = [
@@ -87,7 +89,7 @@ const updateIcon = async (url) => {
   if (!noPopupCheck) {
     const posts = await getPosts(url)
     const icon = posts.length ? '../icon48.png' : '../iconGrey48.png'
-    setBrowserActionIcon(icon)
+    setIcon(icon)
   }
 }
 
@@ -97,20 +99,6 @@ const getStorageValue = (key) => {
       resolve(storage[key])
     })
   })
-}
-
-const setBrowserActionIcon = (icon) => {
-  const iconDetails = {
-    path: {
-      48: icon,
-    },
-  }
-
-  try {
-    chrome.action.setIcon(iconDetails)
-  } catch (e) {
-    chrome.browserAction.setIcon(iconDetails)
-  }
 }
 
 const handleWebNavigation = (e) => {
