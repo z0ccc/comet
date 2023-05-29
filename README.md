@@ -16,8 +16,6 @@ The extension icon will turn blue when the current web page has been submitted t
 
 Voat contains no ads, collects no data and signup is not required.
 
-GitHub Repository: https://github.com/z0ccc/voat-extension
-
 Note: This extension is not affiliated with Reddit or YouTube.
 
 ![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/screenshot-1.png)
