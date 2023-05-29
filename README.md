@@ -18,9 +18,12 @@ Voat contains no ads, collects no data and signup is not required.
 
 Note: This extension is not affiliated with Reddit or YouTube.
 
-![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/screenshot-1.png)
+![Image of YouTube comment section](/promo/screenshot-1.png)
 
-![Image of extension popup](https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/screenshot-2.png)
+![Image of extension popup with browser](/promo/screenshot-2.png)
+
+![Image of extension popup](/promo/screenshot-3.png)
+
 
 # Troubleshoot
 
