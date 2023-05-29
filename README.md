@@ -45,8 +45,6 @@ If the default system theme is not automatically being selected (sometimes happe
 
 # Dev
 
-Built with JavaScript and React.
-
 Setup:
 
 Install dependencies
