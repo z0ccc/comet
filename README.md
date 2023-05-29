@@ -43,8 +43,6 @@ If the default system theme is not automatically being selected (sometimes happe
 
 # Dev
 
-Setup:
-
 Install dependencies
 ```
 yarn install
