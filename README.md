@@ -6,21 +6,19 @@
 |[Download](https://chrome.google.com/webstore/detail/voat-reddit-comments-on-y/amlfbbehleledmbphnielafhieceggal) | [Download](https://addons.mozilla.org/en-CA/firefox/addon/voat/)|[Download](https://microsoftedge.microsoft.com/addons/detail/voat-reddit-comments-on/cccloigbofabjmobhmcnpaekcifmpjlb)|[Download](https://chrome.google.com/webstore/detail/voat-reddit-comments-on-y/amlfbbehleledmbphnielafhieceggal)|
 
 
-View the Reddit comments of any YouTube video or web page.
+Replace Youtube comments with Reddit comments or view the Reddit comments of any webpage.
+
+This browser extension allows users to replace the comment section on YouTube videos with the comments from the corresponding Reddit post. It also allows users to view the Reddit post and comments associated with the current URL in the extension popup. 
 
 By default YouTube comments will be replaced with the relevant Reddit comments. YouTube comments can still be viewed by clicking the YouTube icon located at the top right of the comments section.
 
-If the extension icon turns red while browsing it means that the current web page has been submitted to Reddit. Clicking the icon will open a popup where you can view the posts and comments associated with the URL.
-
-Options:
-
-- Hide posts with 0 comments
-- Show YouTube comments by default
-- Only check for posts when popup icon is clicked
-- Extension Theme (default/light/dark)
-- Default comment sort option
+The extension icon will turn blue when the current web page has been submitted to Reddit, and clicking on it will open a popup where users can view the posts and comments. 
 
 Voat contains no ads, collects no data and signup is not required.
+
+GitHub Repository: https://github.com/z0ccc/voat-extension
+
+Note: This extension is not affiliated with Reddit or YouTube.
 
 ![Image of YouTube comment section](https://raw.githubusercontent.com/z0ccc/voat-extension/master/promo/screenshot-1.png)
 
@@ -47,15 +45,22 @@ If the default system theme is not automatically being selected (sometimes happe
 
 # Dev
 
-Built with React, Typescript and Webpack.
+Built with JavaScript and React.
 
 Setup:
 
+Install dependencies
 ```
 yarn install
-yarn run start
 ```
 
-Then load the dist folder as an unpacked extension in Chrome.
+Build for Chromium
+```
+yarn build-chrome
+```
 
-For the firefox version switch files in the 'firefox' folder and then re-build.
+Build for Firefox
+```
+yarn build-firfox
+```
+
