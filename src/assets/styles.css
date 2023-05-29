@@ -78,6 +78,12 @@
   padding: 4px 9px;
 }
 
+.voatCommentBody .md .-lists,
+.md ul,
+.md ol {
+  padding-left: 40px;
+}
+
 #redditImgWrap {
   margin: 16px 0 -52px 0;
   display: none;
