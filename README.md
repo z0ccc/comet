@@ -14,9 +14,11 @@ If the extension icon turns red while browsing it means that the current web pag
 
 Options:
 
-- Dark mode
-- Run browser popup only when icon is clicked
-- Show YouTube comments as default
+- Hide posts with 0 comments
+- Show YouTube comments by default
+- Only check for posts when popup icon is clicked
+- Extension Theme (default/light/dark)
+- Default comment sort option
 
 Voat contains no ads, collects no data and signup is not required.
 
