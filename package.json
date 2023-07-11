@@ -1,6 +1,6 @@
 {
   "name": "voat",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Replace Youtube comments with Reddit comments or view the Reddit comments of any webpage.",
   "license": "MIT",
   "repository": {

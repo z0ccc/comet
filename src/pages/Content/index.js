@@ -33,11 +33,10 @@ const loadComments = (mountNode) => {
   redditImgWrap.setAttribute('id', 'redditImgWrap')
 
   chrome.storage.local.get(['youtubeDefault'], (storage) => {
+    console.log(storage.youtubeDefault)
     if (storage.youtubeDefault) {
       redditComments.style.display = 'none'
       redditImgWrap.style.display = 'flex'
-    } else {
-      ytComments.style.display = 'none'
     }
   })
 
