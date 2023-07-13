@@ -34,7 +34,7 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
             fontSize: '16px',
             fontWeight: '500',
             textDecoration: 'none',
-            transition: 'all .15s ease-in-out',
+            transition: '.1s linear',
             lineHeight: '1.4',
             '&:hover': {
               color: 'primary',

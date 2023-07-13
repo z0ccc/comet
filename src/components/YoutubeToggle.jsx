@@ -10,7 +10,7 @@ const RedditToggle = ({ isPopup }) =>
         all: 'unset',
         cursor: 'pointer',
         maxHeight: '34px',
-        transition: 'all .15s ease-in-out',
+        transition: '.1s linear',
         'svg > path': {
           fill: 'button',
         },

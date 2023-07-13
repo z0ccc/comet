@@ -36,7 +36,7 @@ export const theme = {
   links: {
     nav: {
       textDecoration: 'none',
-      transition: 'all 0.15s ease-in-out',
+      transition: '.1s linear',
       fontSize: '12px',
       color: 'primaryText',
       '&:hover': {
@@ -50,7 +50,7 @@ export const theme = {
       cursor: 'pointer',
       fontSize: '13px',
       color: 'secondaryText',
-      transition: 'all .15s ease-in-out',
+      transition: '.1s linear',
       '&:hover': {
         color: 'primary',
       },
@@ -72,7 +72,7 @@ export const theme = {
       width: 'auto',
       p: '3px 26px 3px 8px',
       borderRadius: '3px',
-      transition: 'all .15s ease-in-out',
+      transition: '.1s linear',
       '&:hover': {
         borderColor: 'primary',
       },

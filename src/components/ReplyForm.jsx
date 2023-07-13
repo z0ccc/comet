@@ -39,7 +39,7 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
               font: 'inherit',
               fontSize: '14px',
               resize: 'vertical',
-              transition: 'all .15s ease-in-out',
+              transition: '.1s linear',
               '&:hover': {
                 borderColor: 'primary',
               },
@@ -62,7 +62,7 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
                 borderRadius: '3px',
                 border: '1px solid',
                 borderColor: 'border',
-                transition: 'all .15s ease-in-out',
+                transition: '.1s linear',
                 background: 'button',
                 '&:hover': {
                   backgroundColor: 'border',

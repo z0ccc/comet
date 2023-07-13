@@ -16,7 +16,7 @@ const RedditToggle = () => (
       sx={{
         all: 'unset',
         cursor: 'pointer',
-        transition: 'all .15s ease-in-out',
+        transition: '.1s linear',
         'svg > path': {
           fill: 'button',
         },
