@@ -32,14 +32,6 @@ const loadComments = (mountNode) => {
   redditImgWrap = document.createElement('div')
   redditImgWrap.setAttribute('id', 'redditImgWrap')
 
-  chrome.storage.local.get(['youtubeDefault'], (storage) => {
-    console.log(storage.youtubeDefault)
-    if (storage.youtubeDefault) {
-      redditComments.style.display = 'none'
-      redditImgWrap.style.display = 'flex'
-    }
-  })
-
   mountNode.parentNode.insertBefore(redditComments, mountNode)
   mountNode.parentNode.insertBefore(redditImgWrap, mountNode)
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { jsx, useColorMode, Box, Flex, Select } from 'theme-ui'
 import { getComments } from '../utils/getComments'
-import { toggleYoutube } from '../utils/toggleComments'
+import { toggleYoutube, toggleReddit } from '../utils/toggleComments'
 import Subreddits from './Subreddits'
 import Post from './Post'
 import Comment from './Comment'
@@ -52,13 +52,19 @@ const App = ({ url, isPopup }) => {
             !isPopup && toggleYoutube()
             setPostsMessage(<NoPosts url={url} isPopup={isPopup} />)
           } else {
-            chrome.storage.local.get(['commentSort'], (storage) => {
-              setCommentSort(storage.commentSort)
-              setPosts(response.posts)
-              setPostIndex(0)
-              response.posts[0].sort = storage.commentSort || 'best'
-              setIsLoggedIn(!!response.modhash)
-            })
+            chrome.storage.local.get(
+              ['commentSort', 'youtubeDefault'],
+              (storage) => {
+                if (!isPopup) {
+                  storage.youtubeDefault ? toggleYoutube() : toggleReddit()
+                }
+                setCommentSort(storage.commentSort)
+                setPosts(response.posts)
+                setPostIndex(0)
+                response.posts[0].sort = storage.commentSort || 'best'
+                setIsLoggedIn(!!response.modhash)
+              }
+            )
           }
         }
       )
