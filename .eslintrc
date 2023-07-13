@@ -4,6 +4,6 @@
     "chrome": "readonly"
   },
   "rules": {
-    "react/jsx-uses-react": "on"
+    "react/jsx-uses-react": 1
   }
 }

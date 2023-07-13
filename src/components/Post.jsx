@@ -27,96 +27,93 @@ const Post = ({ post, setNewReply, isLoggedIn }) => {
 
   return (
     <>
-      <Flex sx={{ mt: '18px', alignItems: 'center' }}>
+      <Box sx={{ mt: '18px' }}>
+        <Link
+          sx={{
+            color: 'primaryText',
+            fontSize: '16px',
+            fontWeight: '500',
+            textDecoration: 'none',
+            transition: 'all .15s ease-in-out',
+            lineHeight: '1.4',
+            '&:hover': {
+              color: 'primary',
+            },
+          }}
+          href={`https://reddit.com${post.permalink}`}
+          target="_blank"
+          rel="noreferrer"
+          dangerouslySetInnerHTML={{
+            __html: post.title,
+          }}
+        />
         <Flex
           sx={{
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '5px',
-            minWidth: '16px',
+            color: 'secondaryText',
+            fontSize: '13px',
+            mt: '6px',
+            gap: '12px',
           }}
         >
-          <VoteButton
-            vote={vote}
-            voteType={1}
-            handleClick={handleVote}
-            size="16px"
-          />
-          <VoteButton
-            vote={vote}
-            voteType={-1}
-            handleClick={handleVote}
-            size="16px"
-          />
-        </Flex>
-        <Box sx={{ ml: '12px' }}>
-          <Link
-            sx={{
-              color: 'primaryText',
-              fontSize: '16px',
-              fontWeight: '500',
-              textDecoration: 'none',
-              transition: 'all .15s ease-in-out',
-              lineHeight: '1.4',
-              '&:hover': {
-                color: 'primary',
-              },
-            }}
-            href={`https://reddit.com${post.permalink}`}
-            target="_blank"
-            rel="noreferrer"
-            dangerouslySetInnerHTML={{
-              __html: post.title,
-            }}
-          />
           <Flex
             sx={{
-              color: 'secondaryText',
-              fontSize: '13px',
-              mt: '6px',
-              gap: '12px',
+              alignItems: 'center',
+              gap: '5px',
+              minWidth: '16px',
             }}
           >
-            <Text
-              sx={{
-                fontWeight: '500',
-                color:
-                  vote === 1
-                    ? 'primary'
-                    : vote === -1
-                    ? 'purple'
-                    : 'secondaryText',
-              }}
-            >
-              {formatNumber(score)} points
-            </Text>
-            <Link
-              sx={{
-                color: 'secondaryText',
-                textDecoration: 'none',
-                '&:hover': {
-                  color: 'primary',
-                },
-              }}
-              href={`https://reddit.com/u/${post.author}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {post.author}
-            </Link>
-            <Text>{convertDate(post.created_utc)}</Text>
-            {isLoggedIn && (
-              <>
-                <SaveButton name={post.name} isSaved={post.saved} />
-                <ReplyButton
-                  showReplyForm={showReplyForm}
-                  setShowReplyForm={setShowReplyForm}
-                />
-              </>
-            )}
+            <VoteButton
+              vote={vote}
+              voteType={1}
+              handleClick={handleVote}
+              size="16px"
+            />
+            <VoteButton
+              vote={vote}
+              voteType={-1}
+              handleClick={handleVote}
+              size="16px"
+            />
           </Flex>
-        </Box>
-      </Flex>
+          <Text
+            sx={{
+              fontWeight: '500',
+              color:
+                vote === 1
+                  ? 'primary'
+                  : vote === -1
+                  ? 'purple'
+                  : 'secondaryText',
+            }}
+          >
+            {formatNumber(score)} points
+          </Text>
+          <Link
+            sx={{
+              color: 'primary',
+              textDecoration: 'none',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            }}
+            href={`https://reddit.com/u/${post.author}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {post.author}
+          </Link>
+          <Text>{convertDate(post.created_utc)}</Text>
+          {isLoggedIn && (
+            <>
+              <SaveButton name={post.name} isSaved={post.saved} />
+              <ReplyButton
+                showReplyForm={showReplyForm}
+                setShowReplyForm={setShowReplyForm}
+              />
+            </>
+          )}
+        </Flex>
+      </Box>
       <Box sx={{ ml: '28px' }}>
         <ReplyForm
           name={post.name}

@@ -9,7 +9,6 @@ const VoteButton = ({ vote, voteType, handleClick, size }) => {
         cursor: 'pointer',
         height: size,
         transform: voteType === 1 ? 'none' : 'rotate(180deg)',
-        transition: 'all .15s ease-in-out',
         'svg > path': {
           fill:
             vote !== voteType
@@ -23,9 +22,6 @@ const VoteButton = ({ vote, voteType, handleClick, size }) => {
               : voteType === 1
               ? 'primary'
               : 'purpleDark',
-        },
-        ':hover': {
-          opacity: 0.8,
         },
       }}
       onClick={() => handleClick(voteType)}
