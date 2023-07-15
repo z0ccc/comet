@@ -46,8 +46,10 @@ const App = ({ url, isPopup }) => {
           url,
         },
         (response) => {
-          if (response === -1) {
-            setPostsMessage(<Error isPopup={isPopup} />)
+          if (response.posts.error) {
+            setPostsMessage(
+              <Error isPopup={isPopup} message={response.posts.message} />
+            )
           } else if (response.posts.length === 0) {
             !isPopup && toggleYoutube()
             setPostsMessage(<NoPosts url={url} isPopup={isPopup} />)

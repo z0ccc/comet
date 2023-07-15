@@ -1,43 +1,76 @@
 import { setIcon } from '../../utils/setIcon'
 
-const getPosts = async (url) => {
-  const urls = getUrls(url)
-  const redditUrls = [
-    'https://api.reddit.com/submit?url=',
-    'https://www.reddit.com/api/info.json?url=',
-  ]
+// https://hn.algolia.com/api/v1/search?query=https://hn.algolia.com/&restrictSearchableAttributes=url&typoTolerance=false
 
-  let responses = await Promise.all(
-    redditUrls
-      .map((redditUrl) =>
-        urls.map(async (url) => await (await fetch(redditUrl + url)).json())
-      )
-      .flat()
-  )
+const YOUTUBE_BASE = 'www.youtube.com/watch?v='
 
-  const youtubeVideoString = 'www.youtube.com/watch?v='
-  const youtubeIdIndex = url.indexOf(youtubeVideoString)
-
-  if (youtubeIdIndex !== -1) {
-    let youtubeId
-    if (url.indexOf('&') === -1) {
-      youtubeId = url.substring(youtubeIdIndex + youtubeVideoString.length)
-    } else {
-      youtubeId = url.substring(
-        youtubeIdIndex + youtubeVideoString.length,
-        url.lastIndexOf('&')
-      )
-    }
-    const searchResponse = await fetch(
-      `https://www.reddit.com/search.json?q=url%3A%27${youtubeId}%27&sort=top&type=link`
-    )
-    responses.push(await searchResponse.json())
-  }
-
-  // https://hn.algolia.com/api/v1/search?query=https://hn.algolia.com/&restrictSearchableAttributes=url&typoTolerance=false
-
+const fetchPosts = async (url) => {
   const hidePosts = await readStorage('hidePosts')
 
+  const youtubeIdIndex = url.indexOf(YOUTUBE_BASE)
+  const isYoutube = youtubeIdIndex !== -1
+
+  const cleanedUrl = cleanUrl(url)
+
+  let responses
+
+  if (isYoutube) {
+    const youtubeId = getYoutubeId(youtubeIdIndex, url)
+    responses = [await fetchSearchApi(youtubeId)]
+  } else {
+    responses = await Promise.all([
+      fetchSearchApi(cleanedUrl),
+      fetchSubmitApi(cleanedUrl),
+    ])
+  }
+
+  const posts = processResponses(responses, cleanedUrl, isYoutube, hidePosts)
+
+  return posts
+}
+
+// Retrieves stored data from Chrome's local storage
+const readStorage = (key) => {
+  return new Promise((resolve) => {
+    chrome.storage.local.get([key], (storage) => {
+      resolve(storage[key])
+    })
+  })
+}
+
+// Fetches Reddit data based on a Youtube video ID
+const fetchSearchApi = async (searchString) => {
+  const response = await fetch(
+    `https://www.reddit.com/search.json?q=url%3A%27${searchString}%27&include_over_18=on&sort=top&type=link`
+  )
+  return await response.json()
+}
+
+// Fetches Reddit data directly from a sanitized URL
+const fetchSubmitApi = async (url) => {
+  const response = await fetch(
+    `https://www.reddit.com/submit.json?url=${cleanUrl(url)}`
+  )
+  return await response.json()
+}
+
+// Sanitizes URL by removing http and https protocols
+const cleanUrl = (url) => {
+  const urlNoSlash = url.endsWith('/') ? url.slice(0, -1) : url
+  const urlNoProtocol = urlNoSlash.replace(/(^\w+:|^)\/\//, '')
+  const urlNoHash = urlNoProtocol.split('#')[0]
+  return urlNoHash
+}
+
+// Extracts Youtube ID from a URL
+const getYoutubeId = (youtubeIdIndex, url) => {
+  return url.indexOf('&') === -1
+    ? url.substring(youtubeIdIndex + YOUTUBE_BASE.length)
+    : url.substring(youtubeIdIndex + YOUTUBE_BASE.length, url.lastIndexOf('&'))
+}
+
+// Process the fetch response, filter and reduce posts
+const processResponses = (responses, cleanedUrl, isYoutube, hidePosts) => {
   let posts = responses
     .filter(
       (response) =>
@@ -47,58 +80,27 @@ const getPosts = async (url) => {
     .reduce((acc, val) => acc.concat(val.data), [])
     .filter((post) => post.num_comments >= (hidePosts ? 1 : 0))
 
-  posts = posts.sort(compare)
+  if (!isYoutube) {
+    posts = posts.filter((post) => cleanUrl(post.url) === cleanedUrl)
+  }
 
   posts = [...new Map(posts.map((post) => [post.id, post])).values()]
+
+  posts = posts.sort(compareComments)
 
   return posts
 }
 
-const getUrls = (url) => {
-  const urls = [url]
-
-  url.startsWith('https')
-    ? urls.push(url.replace('https', 'http'))
-    : urls.push(url.replace('http', 'https'))
-
-  urls.forEach((url) => {
-    url.endsWith('/') ? urls.push(url.slice(0, -1)) : urls.push(url + '/')
-  })
-
-  if (url.indexOf('www.youtube.com/watch?v=') !== -1) {
-    urls.forEach((url) => {
-      urls.push(url.replace('www.youtube.com/watch?v=', 'youtu.be/'))
-    })
-  }
-
-  return urls
-}
-
-const readStorage = async (key) => {
-  return new Promise((resolve) => {
-    chrome.storage.local.get([key], function (result) {
-      resolve(result[key])
-    })
-  })
-}
-
-const compare = (a, b) => b.num_comments - a.num_comments
+// Compare function for sorting posts based on number of comments
+const compareComments = (a, b) => b.num_comments - a.num_comments
 
 const updateIcon = async (url) => {
-  const noPopupCheck = await getStorageValue('noPopupCheck')
+  const noPopupCheck = await readStorage('noPopupCheck')
   if (!noPopupCheck) {
-    const posts = await getPosts(url)
+    const posts = await fetchPosts(url)
     const icon = posts.length ? '../icon48.png' : '../iconGrey48.png'
     setIcon(icon)
   }
-}
-
-const getStorageValue = (key) => {
-  return new Promise((resolve) => {
-    chrome.storage.local.get([key], (storage) => {
-      resolve(storage[key])
-    })
-  })
 }
 
 const handleWebNavigation = (e) => {
@@ -120,15 +122,11 @@ chrome.tabs.onActivated.addListener(() => {
 // Listen for messages
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.url) {
-    getPosts(request.url)
-      .then((posts) => {
-        getModhash().then((modhash) => {
-          sendResponse({ posts, modhash: modhash })
-        })
+    fetchPosts(request.url).then((posts) => {
+      getModhash().then((modhash) => {
+        sendResponse({ posts, modhash })
       })
-      .catch(() => {
-        sendResponse(-1)
-      })
+    })
     return true
   }
 
@@ -155,6 +153,7 @@ const getModhash = () =>
   fetch('https://api.reddit.com/api/me.json', { cache: 'no-cache' })
     .then((response) => response.json())
     .then((json) => json.data.modhash)
+    .catch((err) => err)
 
 // Helper function to build URL with query parameters
 const buildURL = (baseURL, queryParams) => {

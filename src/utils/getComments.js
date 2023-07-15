@@ -1,10 +1,9 @@
 const getComments = async (permalink) => {
-  let response = await (
-    await fetch(`https://api.reddit.com${permalink}`).catch()
-  ).json()
+  const response = await fetch(`https://api.reddit.com${permalink}`)
+  const jsonResponse = await response.json()
 
-  if (response[1].data.children.length) {
-    return response[1].data.children
+  if (jsonResponse[1].data.children.length) {
+    return jsonResponse[1].data.children
   }
 }
 

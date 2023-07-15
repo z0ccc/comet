@@ -26,8 +26,7 @@ const CommentHeader = ({ comment }) => {
       <Flex
         sx={{
           alignItems: 'center',
-          gap: '4px',
-          minWidth: '14px',
+          gap: '6px',
         }}
       >
         <VoteButton
@@ -36,6 +35,15 @@ const CommentHeader = ({ comment }) => {
           handleClick={handleVote}
           size="14px"
         />
+        <Text
+          sx={{
+            fontWeight: '500',
+            color:
+              vote === 1 ? 'primary' : vote === -1 ? 'purple' : 'secondaryText',
+          }}
+        >
+          {formatNumber(score)}
+        </Text>
         <VoteButton
           vote={vote}
           voteType={-1}
@@ -43,15 +51,6 @@ const CommentHeader = ({ comment }) => {
           size="14px"
         />
       </Flex>
-      <Text
-        sx={{
-          fontWeight: '500',
-          color:
-            vote === 1 ? 'primary' : vote === -1 ? 'purple' : 'secondaryText',
-        }}
-      >
-        {formatNumber(score)} points
-      </Text>
       <Link
         sx={{
           color: 'primary',
