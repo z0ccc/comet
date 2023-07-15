@@ -8,16 +8,16 @@
     "url": "https://github.com/z0ccc/voat-extension.git"
   },
   "scripts": {
-    "buildManifest": "jq -s '.[0] * .[1]' src/manifest/common.json src/manifest/$BROWSER.json > build/manifest.json",
-    "build-chrome": "node utils/build.js && BROWSER=chrome yarn buildManifest",
-    "build-firefox": "node utils/build.js && BROWSER=firefox yarn buildManifest",
-    "start-chrome": "node utils/webserver.js && BROWSER=chrome yarn buildManifest",
-    "start-firefox": "node utils/webserver.js && BROWSER=firefox yarn buildManifest",
+    "build-chrome": "BROWSER=chrome node scripts/build.js",
+    "start-chrome": "BROWSER=chrome node scripts/webserver.js",
+    "build-firefox": "BROWSER=firefox node scripts/build.js",
+    "start-firefox": "BROWSER=firefox node scripts/webserver.js",
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "html-react-parser": "^3.0.9",
+    "merge-json": "^0.1.0-b.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "theme-ui": "^0.15.5"

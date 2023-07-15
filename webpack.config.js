@@ -1,15 +1,18 @@
 var webpack = require('webpack'),
   path = require('path'),
   fileSystem = require('fs-extra'),
-  env = require('./utils/env'),
+  env = require('./scripts/env'),
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   TerserPlugin = require('terser-webpack-plugin')
 var { CleanWebpackPlugin } = require('clean-webpack-plugin')
 var ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 var ReactRefreshTypeScript = require('react-refresh-typescript')
+const merge = require('merge-json')
+const fs = require('fs')
 
 const ASSET_PATH = process.env.ASSET_PATH || '/'
+// const BROWSER = process.env.BROWSER || 'chrome'
 
 var alias = {}
 
@@ -28,6 +31,18 @@ var fileExtensions = [
   'woff',
   'woff2',
 ]
+
+// Add this function at the top of your webpack.config.js file
+function combineManifests(commonConfigPath, browserSpecificConfigPath) {
+  const commonConfig = JSON.parse(fs.readFileSync(commonConfigPath, 'utf8'))
+  const browserSpecificConfig = JSON.parse(
+    fs.readFileSync(browserSpecificConfigPath, 'utf8')
+  )
+
+  // const manifest = merge.merge(commonConfig, browserSpecificConfig)
+
+  return JSON.stringify(merge.merge(commonConfig, browserSpecificConfig))
+}
 
 if (fileSystem.existsSync(secretsPath)) {
   alias['secrets'] = secretsPath
@@ -135,6 +150,26 @@ var options = {
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
     new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/manifest/common.json', // This path is not used but necessary for the plugin to work
+          to: path.join(__dirname, 'build/manifest.json'),
+          force: true,
+          transform: function (content, path) {
+            // Replace with combined manifests for Firefox
+            return Buffer.from(
+              combineManifests(
+                'src/manifest/common.json',
+                `src/manifest/${
+                  process.env.BROWSER === 'firefox' ? 'firefox' : 'chrome'
+                }.json`
+              )
+            )
+          },
+        },
+      ],
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {

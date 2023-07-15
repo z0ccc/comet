@@ -4368,6 +4368,11 @@ merge-descriptors@1.0.1:
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
   integrity sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==
 
+merge-json@^0.1.0-b.3:
+  version "0.1.0-b.3"
+  resolved "https://registry.yarnpkg.com/merge-json/-/merge-json-0.1.0-b.3.tgz#448e118424c7752af2adca83fbb049758596a680"
+  integrity sha512-s4iKmcrA659EZrbhU42sAqywaA4cDMJ7372FvC1UySnIFKBGssORDcOO6dLMfYc2ZsUmHJmrcWkUzuO9fIIj7w==
+
 merge-stream@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
