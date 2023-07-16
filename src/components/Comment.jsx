@@ -38,7 +38,9 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
         <Flex
           key={comment.data.id}
           sx={{
-            m: newDepth ? '18px 0 0 22px' : '0 0 24px 0',
+            m: newDepth
+              ? ['18px 0 0 0', '18px 0 0 22px']
+              : ['0 0 24px 0', '0 0 24px 0'],
           }}
         >
           <Button

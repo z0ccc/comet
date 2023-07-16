@@ -16,7 +16,6 @@ const prepareComments = () => {
 }
 
 const loadComments = (mountNode) => {
-  const ytComments = document.getElementById('comments')
   let redditComments = document.getElementById('redditComments')
   let redditImgWrap = document.getElementById('redditImgWrap')
 
@@ -37,7 +36,7 @@ const loadComments = (mountNode) => {
 
   ReactDOM.render(
     <ThemeProvider theme={theme}>
-      <App url={window.location.href} />
+      <App url={window.location.href} isContent />
     </ThemeProvider>,
     redditComments
   )

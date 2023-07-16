@@ -11,7 +11,7 @@ const root = createRoot(container)
 chrome.tabs.query({ currentWindow: true, active: true }, (tabs) =>
   root.render(
     <ThemeProvider theme={theme}>
-      <App url={tabs[0].url} />
+      <App url={tabs[0].url} isSidePanel />
     </ThemeProvider>
   )
 )

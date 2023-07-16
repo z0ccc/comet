@@ -2,7 +2,7 @@
 import { jsx, Box, Flex } from 'theme-ui'
 import YoutubeToggle from './YoutubeToggle'
 
-const PostMessageWrap = ({ isPopup, children }) => {
+const PostMessageWrap = ({ isContent, children }) => {
   return (
     <Flex
       sx={{
@@ -14,7 +14,7 @@ const PostMessageWrap = ({ isPopup, children }) => {
       <Box />
       <Flex>{children}</Flex>
       <Box>
-        <YoutubeToggle isPopup={isPopup} />
+        <YoutubeToggle isContent={isContent} />
       </Box>
     </Flex>
   )

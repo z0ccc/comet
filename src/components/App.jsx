@@ -12,12 +12,12 @@ import YoutubeToggle from './YoutubeToggle'
 import PostMessageWrap from './PostMessageWrap'
 import '../assets/styles.css'
 
-const App = ({ url, isPopup }) => {
+const App = ({ url, isContent, isSidePanel }) => {
   const [posts, setPosts] = useState()
   const [postIndex, setPostIndex] = useState()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [postsMessage, setPostsMessage] = useState(
-    <PostMessageWrap isPopup={isPopup}>Loading...</PostMessageWrap>
+    <PostMessageWrap isContent={isContent}>Loading...</PostMessageWrap>
   )
   const [newReply, setNewReply] = useState()
   const [commentSort, setCommentSort] = useState('best')
@@ -48,16 +48,16 @@ const App = ({ url, isPopup }) => {
         (response) => {
           if (response.posts.error) {
             setPostsMessage(
-              <Error isPopup={isPopup} message={response.posts.message} />
+              <Error isContent={isContent} message={response.posts.message} />
             )
           } else if (response.posts.length === 0) {
-            !isPopup && toggleYoutube()
-            setPostsMessage(<NoPosts url={url} isPopup={isPopup} />)
+            isContent && toggleYoutube()
+            setPostsMessage(<NoPosts url={url} isContent={isContent} />)
           } else {
             chrome.storage.local.get(
               ['commentSort', 'youtubeDefault'],
               (storage) => {
-                if (!isPopup) {
+                if (isContent) {
                   storage.youtubeDefault ? toggleYoutube() : toggleReddit()
                 }
                 setCommentSort(storage.commentSort)
@@ -71,7 +71,7 @@ const App = ({ url, isPopup }) => {
         }
       )
     }
-  }, [isPopup, url])
+  }, [isContent, url])
 
   const handleCommentFetch = useCallback(() => {
     getComments(
@@ -83,9 +83,9 @@ const App = ({ url, isPopup }) => {
         setPosts([...posts])
       })
       .catch(() => {
-        setPostsMessage(<Error isPopup={isPopup} />)
+        setPostsMessage(<Error isContent={isContent} />)
       })
-  }, [commentSort, isPopup, postIndex, posts])
+  }, [commentSort, isContent, postIndex, posts])
 
   useEffect(() => {
     if (postIndex !== undefined && posts[postIndex].comments === undefined) {
@@ -97,14 +97,14 @@ const App = ({ url, isPopup }) => {
     <Box
       sx={{
         color: 'primaryText',
-        pl: isPopup ? 'calc(100vw - 100%)' : null,
+        pl: isContent || isSidePanel ? null : 'calc(100vw - 100%)',
       }}
     >
       {posts === undefined ? (
         <Flex
           sx={{
             width: '100%',
-            pt: isPopup ? '18px' : '0',
+            pt: isContent ? '0' : '18px',
             pb: '18px',
             alignItems: 'center',
             justifyContent: 'center',
@@ -121,13 +121,13 @@ const App = ({ url, isPopup }) => {
               postIndex={postIndex}
               setPostIndex={setPostIndex}
             />
-            <YoutubeToggle isPopup={isPopup} />
+            <YoutubeToggle isContent={isContent} />
           </Flex>
           {posts.map((post, i) => (
             <Box
               sx={{
                 display: postIndex === i ? 'block' : 'none',
-                mx: isPopup ? '12px' : '0',
+                mx: isContent ? '0' : '12px',
               }}
               key={post.id}
             >

@@ -2,8 +2,8 @@
 import { jsx, Button } from 'theme-ui'
 import { toggleYoutube } from '../utils/toggleComments'
 
-const RedditToggle = ({ isPopup }) =>
-  isPopup ? null : (
+const RedditToggle = ({ isContent }) =>
+  isContent ? (
     <Button
       onClick={toggleYoutube}
       sx={{
@@ -32,6 +32,6 @@ const RedditToggle = ({ isPopup }) =>
         ></path>
       </svg>
     </Button>
-  )
+  ) : null
 
 export default RedditToggle

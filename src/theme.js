@@ -1,4 +1,5 @@
 export const theme = {
+  breakpoints: ['550px'],
   config: {
     useBorderBox: false,
   },

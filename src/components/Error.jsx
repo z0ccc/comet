@@ -2,9 +2,9 @@
 import { jsx, Link } from 'theme-ui'
 import PostMessageWrap from './PostMessageWrap'
 
-const Error = ({ isPopup, message }) => {
+const Error = ({ isContent, message }) => {
   return (
-    <PostMessageWrap isPopup={isPopup}>
+    <PostMessageWrap isContent={isContent}>
       Error:{' '}
       {message ? (
         message

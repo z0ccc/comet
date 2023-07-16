@@ -2,9 +2,9 @@
 import { jsx, Link } from 'theme-ui'
 import PostMessageWrap from './PostMessageWrap'
 
-const NoPosts = ({ url, isPopup }) => {
+const NoPosts = ({ url, isContent }) => {
   return (
-    <PostMessageWrap isPopup={isPopup}>
+    <PostMessageWrap isContent={isContent}>
       No posts found.{' '}
       <Link
         sx={{

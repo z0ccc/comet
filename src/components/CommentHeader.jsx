@@ -22,7 +22,14 @@ const CommentHeader = ({ comment }) => {
   }
 
   return (
-    <Flex sx={{ gap: '12px', fontSize: '13px', color: 'secondaryText' }}>
+    <Flex
+      sx={{
+        gap: '12px',
+        fontSize: '13px',
+        color: 'secondaryText',
+        flexWrap: 'wrap',
+      }}
+    >
       <Flex
         sx={{
           alignItems: 'center',
@@ -65,7 +72,9 @@ const CommentHeader = ({ comment }) => {
       >
         {comment.data.author}
       </Link>
-      <Text>{convertDate(comment.data.created_utc)}</Text>
+      <Text sx={{ whiteSpace: 'noWrap' }}>
+        {convertDate(comment.data.created_utc)}
+      </Text>
     </Flex>
   )
 }
