@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { jsx, Flex, Button, Box } from 'theme-ui'
 import LoadMore from './LoadMore'
-import CommentHeader from './CommentHeader'
+import InfoHeader from './InfoHeader'
 import ReactHtmlParser from 'html-react-parser'
 import SaveButton from './SaveButton'
 import ReplyButton from './ReplyButton'
@@ -38,17 +38,15 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
         <Flex
           key={comment.data.id}
           sx={{
-            m: newDepth
-              ? ['18px 0 0 0', '18px 0 0 22px']
-              : ['0 0 24px 0', '0 0 24px 0'],
+            m: newDepth ? ['18px 0 0 0', '18px 0 0 12px'] : '0 0 24px 0',
           }}
         >
           <Button
             sx={{
               all: 'unset',
               cursor: 'pointer',
-              pl: '8px',
-              ml: '-8px',
+              pl: '12px',
+              ml: '-12px',
               '&:hover': {
                 '> div': {
                   borderColor: 'primary',
@@ -62,19 +60,20 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
                 height: '100%',
                 borderLeft: '1px solid',
                 borderColor: 'border',
-                transition: 'all 0.15s ease-in-out',
+                transition: '.1s linear',
                 pl: '4px',
+                width: '12px',
               }}
             />
           </Button>
           <Box
             sx={{
               width: '100%',
-              ml: '8px',
+              ml: '4px',
             }}
           >
             {hideCommment ? (
-              <CommentHeader comment={comment} permalink={permalink} />
+              <InfoHeader infoSource={comment.data} />
             ) : (
               <>
                 <Flex>
@@ -83,7 +82,7 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
                       width: '100%',
                     }}
                   >
-                    <CommentHeader comment={comment} permalink={permalink} />
+                    <InfoHeader infoSource={comment.data} />
                     <Box
                       className="voatCommentBody"
                       dangerouslySetInnerHTML={{

@@ -6,19 +6,19 @@ import formatNumber from '../utils/formatNumber'
 import VoteButton from './VoteButton'
 import { getVote, getScore } from '../utils/voteUtils'
 
-const CommentHeader = ({ comment }) => {
+const InfoHeader = ({ infoSource }) => {
   const [vote, setVote] = useState(0)
-  const [score, setScore] = useState(comment.data.score)
+  const [score, setScore] = useState(infoSource.score)
 
   useEffect(() => {
-    setVote(getVote(comment.data.likes))
-  }, [comment.data.likes])
+    setVote(getVote(infoSource.likes))
+  }, [infoSource.likes])
 
   const handleVote = (voteType) => {
     setScore(getScore(vote, voteType, score))
     const direction = vote === voteType ? 0 : voteType
     setVote(direction)
-    chrome.runtime.sendMessage({ voteId: comment.data.name, direction })
+    chrome.runtime.sendMessage({ voteId: infoSource.name, direction })
   }
 
   return (
@@ -66,17 +66,17 @@ const CommentHeader = ({ comment }) => {
             textDecoration: 'underline',
           },
         }}
-        href={`https://reddit.com/u/${comment.data.author}`}
+        href={`https://reddit.com/u/${infoSource.author}`}
         target="_blank"
         rel="noreferrer"
       >
-        {comment.data.author}
+        {infoSource.author}
       </Link>
       <Text sx={{ whiteSpace: 'noWrap' }}>
-        {convertDate(comment.data.created_utc)}
+        {convertDate(infoSource.created_utc)}
       </Text>
     </Flex>
   )
 }
 
-export default CommentHeader
+export default InfoHeader

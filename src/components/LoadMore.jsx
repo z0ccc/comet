@@ -13,13 +13,9 @@ const LoadMore = ({ parent, comment, permalink, isLoggedIn }) => {
       {replies.length === 0 ? (
         <Box
           sx={{
-            cursor: 'pointer',
             color: 'primary',
             fontSize: '13px',
             mt: '6px',
-            '&:hover': {
-              textDecoration: 'underline',
-            },
           }}
         >
           {comment.data.count === 0 ? (
@@ -30,6 +26,7 @@ const LoadMore = ({ parent, comment, permalink, isLoggedIn }) => {
               target="_blank"
               rel="noreferrer"
               sx={{
+                cursor: 'pointer',
                 textDecoration: 'none',
                 color: 'primary',
                 '&:hover': {
@@ -41,7 +38,13 @@ const LoadMore = ({ parent, comment, permalink, isLoggedIn }) => {
             </Link>
           ) : (
             <Button
-              sx={{ all: 'unset' }}
+              sx={{
+                all: 'unset',
+                cursor: 'pointer',
+                '&:hover': {
+                  textDecoration: 'underline',
+                },
+              }}
               onClick={() => {
                 setIsLoading(true)
                 loadMoreComments(comment.data.children, permalink).then(

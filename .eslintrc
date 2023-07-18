@@ -4,6 +4,11 @@
     "chrome": "readonly"
   },
   "rules": {
-    "react/jsx-uses-react": 1
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "React"
+      }
+    ]
   }
 }

@@ -8,10 +8,28 @@ import App from '../../components/App'
 const container = document.getElementById('app-container')
 const root = createRoot(container)
 
-chrome.tabs.query({ currentWindow: true, active: true }, (tabs) =>
-  root.render(
+const loadSidePanel = (url) => {
+  return root.render(
     <ThemeProvider theme={theme}>
-      <App url={tabs[0].url} isSidePanel />
+      <App url={url} isSidePanel />
     </ThemeProvider>
   )
-)
+}
+
+const handleWebNavigation = (e) => {
+  if (e.frameType === 'outermost_frame' || e.frameId === 0) {
+    loadSidePanel(e.url)
+  }
+}
+
+const queryTabs = () => {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+    loadSidePanel(tabs[0].url)
+  })
+}
+
+chrome.webNavigation.onHistoryStateUpdated.addListener(handleWebNavigation)
+chrome.webNavigation.onBeforeNavigate.addListener(handleWebNavigation)
+chrome.tabs.onActivated.addListener(queryTabs)
+
+queryTabs()

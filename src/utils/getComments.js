@@ -1,11 +1,8 @@
-const getComments = async (permalink) => {
-  const response = await fetch(`https://api.reddit.com${permalink}`)
-  const jsonResponse = await response.json()
-
-  if (jsonResponse[1].data.children.length) {
-    return jsonResponse[1].data.children
-  }
-}
+const getComments = async (permalink) =>
+  fetch(`https://api.reddit.com${permalink}`)
+    .then((response) => response.json())
+    .then((json) => json[1].data.children)
+    .catch((err) => err)
 
 const loadMoreComments = async (children, permalink) =>
   await Promise.all(

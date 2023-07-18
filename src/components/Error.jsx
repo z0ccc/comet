@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Link } from 'theme-ui'
-import PostMessageWrap from './PostMessageWrap'
+import PostMessageWrap from './MessageWrap'
 
 const Error = ({ isContent, message }) => {
   return (

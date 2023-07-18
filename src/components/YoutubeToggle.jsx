@@ -2,8 +2,8 @@
 import { jsx, Button } from 'theme-ui'
 import { toggleYoutube } from '../utils/toggleComments'
 
-const RedditToggle = ({ isContent }) =>
-  isContent ? (
+const YoutubeToggle = ({ isContent, isComments }) =>
+  isContent && !isComments ? (
     <Button
       onClick={toggleYoutube}
       sx={{
@@ -34,4 +34,4 @@ const RedditToggle = ({ isContent }) =>
     </Button>
   ) : null
 
-export default RedditToggle
+export default YoutubeToggle
