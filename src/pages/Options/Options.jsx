@@ -4,6 +4,7 @@ import { jsx, Box, Label, Flex, Link, Select, Checkbox } from 'theme-ui'
 import { setIcon } from '../../utils/setIcon'
 
 const Options = () => {
+  const [sidePanelDefault, setSidePanelDefault] = useState(false)
   const [hidePosts, setHidePosts] = useState(false)
   const [noPopupCheck, setNoPopupCheck] = useState(false)
   const [youtubeDefault, setYoutubeDefault] = useState(false)
@@ -12,8 +13,17 @@ const Options = () => {
 
   useEffect(() => {
     chrome.storage.local.get(
-      ['hidePosts', 'noPopupCheck', 'youtubeDefault', 'theme', 'commentSort'],
+      [
+        'sidePanelDefault',
+        'hidePosts',
+        'noPopupCheck',
+        'youtubeDefault',
+        'theme',
+        'commentSort',
+      ],
       (storage) => {
+        storage.sidePanelDefault !== undefined &&
+          setSidePanelDefault(storage.sidePanelDefault)
         storage.hidePosts !== undefined && setHidePosts(storage.hidePosts)
         storage.noPopupCheck !== undefined &&
           setNoPopupCheck(storage.noPopupCheck)
@@ -28,6 +38,19 @@ const Options = () => {
   return (
     <Box sx={{ mx: '20px', mt: '12px' }}>
       <Box sx={{ mb: '12px' }}>
+        <Label>
+          <Checkbox
+            checked={sidePanelDefault}
+            onChange={(e) => {
+              setSidePanelDefault(e.target.checked)
+              chrome.storage.local.set({ sidePanelDefault: e.target.checked })
+              chrome.sidePanel
+                .setPanelBehavior({ openPanelOnActionClick: e.target.checked })
+                .catch((error) => console.error(error))
+            }}
+          />
+          Toolbar icon opens side panel instead of popup
+        </Label>
         <Label>
           <Checkbox
             checked={hidePosts}
@@ -77,7 +100,6 @@ const Options = () => {
         <option value="dark">Dark</option>
         <option value="light">Light</option>
       </Select>
-
       <Label htmlFor="commentSort" sx={{ mt: '12px' }}>
         Sort comments by (default):
       </Label>

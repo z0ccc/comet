@@ -61,3 +61,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true
   }
 })
+
+chrome.storage.local.get(['sidePanelDefault'], (storage) => {
+  if (storage.sidePanelDefault) {
+    chrome.sidePanel
+      .setPanelBehavior({ openPanelOnActionClick: true })
+      .catch((error) => console.error(error))
+  }
+})
