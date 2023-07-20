@@ -39,7 +39,6 @@ const App = ({ url, isContent, isSidePanel }) => {
   })
 
   useEffect(() => {
-    console.log(isContent, isSidePanel, url)
     if (isSidePanel) {
       setPosts()
       setCurrentPost()
@@ -55,7 +54,7 @@ const App = ({ url, isContent, isSidePanel }) => {
 
     chrome.runtime.sendMessage(
       {
-        url,
+        url: 'https://en.wikipedia.org/wiki/Albert_Einstein',
       },
       (response) => {
         if (response.error) {
@@ -66,12 +65,13 @@ const App = ({ url, isContent, isSidePanel }) => {
             setPostMessage('No posts found.')
           } else {
             chrome.storage.local.get(
-              ['commentSort', 'youtubeDefault'],
+              ['sortType', 'youtubeDefault'],
               (storage) => {
                 if (isContent) {
                   storage.youtubeDefault ? toggleYoutube() : toggleReddit()
                 }
 
+                storage.sortType && setSortType(storage.sortType)
                 setPosts(response.posts)
                 setCurrentPost(response.posts[0])
                 setIsLoggedIn(!!response.modhash)
@@ -93,9 +93,9 @@ const App = ({ url, isContent, isSidePanel }) => {
       .then((comments) => {
         setComments(comments)
       })
-      .catch((err) => {
-        console.log('getComments', err)
-        // setMessage(<Error isContent={isContent} message={err.message} />)
+      .catch((error) => {
+        console.log('getComments', error)
+        setCommentsMessage(`Error: ${error}`)
       })
   }, [currentPost, sortType])
 

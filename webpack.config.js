@@ -151,13 +151,16 @@ var options = {
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
     new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new webpack.DefinePlugin({
+      'process.env.BROWSER': JSON.stringify(process.env.BROWSER),
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {
           from: 'src/manifest/common.json', // This path is not used but necessary for the plugin to work
           to: path.join(__dirname, 'build/manifest.json'),
           force: true,
-          transform: function (content, path) {
+          transform: function () {
             // Replace with combined manifests for Firefox
             return Buffer.from(
               combineManifests(

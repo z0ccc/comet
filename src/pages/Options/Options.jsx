@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { jsx, Box, Label, Flex, Link, Select, Checkbox } from 'theme-ui'
 import { setIcon } from '../../utils/setIcon'
+import { isFirefox } from '../../utils/constants'
 
 const Options = () => {
   const [sidePanelDefault, setSidePanelDefault] = useState(false)
@@ -9,7 +10,7 @@ const Options = () => {
   const [noPopupCheck, setNoPopupCheck] = useState(false)
   const [youtubeDefault, setYoutubeDefault] = useState(false)
   const [theme, setTheme] = useState('default')
-  const [commentSort, setCommentSort] = useState('best')
+  const [sortType, setSortType] = useState('best')
 
   useEffect(() => {
     chrome.storage.local.get(
@@ -19,7 +20,7 @@ const Options = () => {
         'noPopupCheck',
         'youtubeDefault',
         'theme',
-        'commentSort',
+        'sortType',
       ],
       (storage) => {
         storage.sidePanelDefault !== undefined &&
@@ -30,7 +31,7 @@ const Options = () => {
         storage.youtubeDefault !== undefined &&
           setYoutubeDefault(storage.youtubeDefault)
         storage.theme !== undefined && setTheme(storage.theme)
-        storage.commentSort !== undefined && setCommentSort(storage.commentSort)
+        storage.sortType !== undefined && setSortType(storage.sortType)
       }
     )
   }, [])
@@ -38,19 +39,23 @@ const Options = () => {
   return (
     <Box sx={{ mx: '20px', mt: '12px' }}>
       <Box sx={{ mb: '12px' }}>
-        <Label>
-          <Checkbox
-            checked={sidePanelDefault}
-            onChange={(e) => {
-              setSidePanelDefault(e.target.checked)
-              chrome.storage.local.set({ sidePanelDefault: e.target.checked })
-              chrome.sidePanel
-                .setPanelBehavior({ openPanelOnActionClick: e.target.checked })
-                .catch((error) => console.error(error))
-            }}
-          />
-          Toolbar icon opens side panel instead of popup
-        </Label>
+        {isFirefox ? null : (
+          <Label>
+            <Checkbox
+              checked={sidePanelDefault}
+              onChange={(e) => {
+                setSidePanelDefault(e.target.checked)
+                chrome.storage.local.set({ sidePanelDefault: e.target.checked })
+                chrome.sidePanel
+                  .setPanelBehavior({
+                    openPanelOnActionClick: e.target.checked,
+                  })
+                  .catch((error) => console.error(error))
+              }}
+            />
+            Toolbar icon opens side panel instead of popup
+          </Label>
+        )}
         <Label>
           <Checkbox
             checked={hidePosts}
@@ -100,16 +105,16 @@ const Options = () => {
         <option value="dark">Dark</option>
         <option value="light">Light</option>
       </Select>
-      <Label htmlFor="commentSort" sx={{ mt: '12px' }}>
+      <Label htmlFor="sortType" sx={{ mt: '12px' }}>
         Sort comments by (default):
       </Label>
       <Select
-        name="commentSort"
+        name="sortType"
         sx={{ width: '100%' }}
-        value={commentSort}
+        value={sortType}
         onChange={(e) => {
-          setCommentSort(e.target.value)
-          chrome.storage.local.set({ commentSort: e.target.value })
+          setSortType(e.target.value)
+          chrome.storage.local.set({ sortType: e.target.value })
         }}
       >
         <option value="best">Best</option>

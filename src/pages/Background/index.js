@@ -1,5 +1,6 @@
 import { setIcon } from '../../utils/setIcon'
 import { readStorage } from '../../utils/storage'
+import { isFirefox } from '../../utils/constants'
 import fetchPosts from './fetchPosts'
 import { getModhash, sendVote, sendReply, savePost } from './userFunctions'
 
@@ -33,7 +34,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.url) {
     Promise.all([fetchPosts(request.url), getModhash()])
       .then((response) => {
-        console.log(response)
         sendResponse({ posts: response[0], modhash: response[1] })
       })
       .catch((error) => {
@@ -62,10 +62,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 })
 
-chrome.storage.local.get(['sidePanelDefault'], (storage) => {
-  if (storage.sidePanelDefault) {
-    chrome.sidePanel
-      .setPanelBehavior({ openPanelOnActionClick: true })
-      .catch((error) => console.error(error))
-  }
-})
+if (!isFirefox) {
+  chrome.storage.local.get(['sidePanelDefault'], (storage) => {
+    if (storage.sidePanelDefault) {
+      chrome.sidePanel
+        .setPanelBehavior({ openPanelOnActionClick: true })
+        .catch((error) => console.error(error))
+    }
+  })
+}
