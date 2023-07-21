@@ -54,7 +54,7 @@ const App = ({ url, isContent, isSidePanel }) => {
 
     chrome.runtime.sendMessage(
       {
-        url: 'https://en.wikipedia.org/wiki/Albert_Einstein',
+        url,
       },
       (response) => {
         if (response.error) {
