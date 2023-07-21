@@ -1,7 +1,7 @@
 # Voat
 
 |Chrome|Firefox|Edge|
-|---|---|---|---|
+|---|---|---|
 |<p align="center"><a href="https://chrome.google.com/webstore/detail/voat-reddit-comments-on-y/amlfbbehleledmbphnielafhieceggal"><img src="/promo/chrome_64x64.png"></a></p>|<p align="center"><a href="https://addons.mozilla.org/en-CA/firefox/addon/voat/"><img src="/promo/firefox_64x64.png"></a></p>|<p align="center"><a href="https://microsoftedge.microsoft.com/addons/detail/voat-reddit-comments-on/cccloigbofabjmobhmcnpaekcifmpjlb"><img src="/promo/edge_64x64.png"></a></p>|
 |[Download](https://chrome.google.com/webstore/detail/voat-reddit-comments-on-y/amlfbbehleledmbphnielafhieceggal) | [Download](https://addons.mozilla.org/en-CA/firefox/addon/voat/)|[Download](https://microsoftedge.microsoft.com/addons/detail/voat-reddit-comments-on/cccloigbofabjmobhmcnpaekcifmpjlb)|
 
