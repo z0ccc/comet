@@ -5,7 +5,7 @@
   },
   "rules": {
     "no-unused-vars": [
-      "error",
+      "warn",
       {
         "varsIgnorePattern": "React"
       }

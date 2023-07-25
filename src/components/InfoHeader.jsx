@@ -11,6 +11,10 @@ const InfoHeader = ({ infoSource }) => {
   const [score, setScore] = useState(infoSource.score)
 
   useEffect(() => {
+    setScore(infoSource.score)
+  }, [infoSource.score])
+
+  useEffect(() => {
     setVote(getVote(infoSource.likes))
   }, [infoSource.likes])
 
