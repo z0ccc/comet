@@ -2,9 +2,7 @@
   height: auto;
   margin: 0;
   background: var(--theme-ui-colors-background);
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantrell',
-    'Open Sans', 'Helvetica Neue', 'Arial', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,7 +29,7 @@
 
 .voatCommentBody p {
   margin: 7px 0;
-  line-height: 20px;
+  line-height: 22px;
 }
 
 .voatCommentBody p:last-child {
@@ -81,7 +79,7 @@
 .md ul,
 .md ol {
   padding-left: 40px;
-  line-height: 20px;
+  line-height: 22px;
 }
 
 #redditImgWrap {

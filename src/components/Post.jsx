@@ -17,10 +17,10 @@ const Post = ({ currentPost, setNewReply, isLoggedIn }) => {
             display: 'block',
             color: 'primaryText',
             fontSize: '16px',
-            fontWeight: '500',
+            fontWeight: 'bold',
             textDecoration: 'none',
             transition: '.1s linear',
-            lineHeight: '1.4',
+            lineHeight: '22px',
             mb: '8px',
             '&:hover': {
               color: 'primary',

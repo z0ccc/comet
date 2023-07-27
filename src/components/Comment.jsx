@@ -91,6 +91,7 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
                       sx={{
                         fontSize: '14px',
                         wordBreak: 'break-word',
+                        lineHeight: '22px',
                         mt: '8px',
                       }}
                     />

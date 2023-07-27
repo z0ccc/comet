@@ -48,7 +48,7 @@ const InfoHeader = ({ infoSource }) => {
         />
         <Text
           sx={{
-            fontWeight: '500',
+            fontWeight: 'bold',
             color:
               vote === 1 ? 'primary' : vote === -1 ? 'purple' : 'secondaryText',
           }}

@@ -54,7 +54,7 @@ const ReplyForm = ({ name, showReplyForm, setShowReplyForm, setNewReply }) => {
               sx={{
                 all: 'unset',
                 cursor: 'pointer',
-                fontWeight: '500',
+                fontWeight: 'bold',
                 fontSize: '13px',
                 color: 'textDark',
                 p: '4px 8px',
