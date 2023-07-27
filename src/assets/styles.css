@@ -82,6 +82,10 @@
   line-height: 22px;
 }
 
+.voatCommentBody code {
+  white-space: pre-line;
+}
+
 #redditImgWrap {
   margin: 16px 0 -52px 0;
   display: none;
