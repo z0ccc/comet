@@ -2,7 +2,7 @@
 import { jsx, Box, Flex } from 'theme-ui'
 import YoutubeToggle from './YoutubeToggle'
 
-const MessageWrap = ({ isContent, children, isComments }) => {
+const MessageWrap = ({ isContent, isComments, children }) => {
   return (
     <Flex
       sx={{

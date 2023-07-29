@@ -9,6 +9,7 @@ import YoutubeToggle from './YoutubeToggle'
 import MessageWrap from './MessageWrap'
 import Comments from './Comments'
 import SortDropdown from './SortDropdown'
+import NoPosts from './NoPosts'
 import '../assets/styles.css'
 
 const App = ({ url, isContent, isSidePanel }) => {
@@ -62,7 +63,7 @@ const App = ({ url, isContent, isSidePanel }) => {
         } else if (response.posts) {
           if (response.posts.length === 0) {
             isContent && toggleYoutube()
-            setPostMessage('No posts found.')
+            setPostMessage(<NoPosts url={url} />)
           } else {
             chrome.storage.local.get(
               ['sortType', 'youtubeDefault'],

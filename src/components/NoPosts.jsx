@@ -1,10 +1,10 @@
 /** @jsx jsx */
+import React from 'react'
 import { jsx, Link } from 'theme-ui'
-import PostMessageWrap from './MessageWrap'
 
-const NoPosts = ({ url, isContent }) => {
+const NoPosts = ({ url }) => {
   return (
-    <PostMessageWrap isContent={isContent}>
+    <>
       No posts found.{' '}
       <Link
         sx={{
@@ -15,13 +15,13 @@ const NoPosts = ({ url, isContent }) => {
             textDecoration: 'underline',
           },
         }}
-        href={`https://www.reddit.com/r/voatme/submit?url=${url}`}
+        href={`https://www.reddit.com/submit?url=${url}`}
         rel="noreferrer"
         target="_blank"
       >
         Submit it
       </Link>
-    </PostMessageWrap>
+    </>
   )
 }
 
