@@ -2,8 +2,8 @@
 
 | Chrome                                                                                                                                                                       | Firefox                                                                                                                       | Edge                                                                                                                                                                             |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <p align="center"><a href="https://chrome.google.com/webstore/detail/voat-reddit-comments-on-y/amlfbbehleledmbphnielafhieceggal"><img src="/promo/chrome_64x64.png"></a></p> | <p align="center"><a href="https://addons.mozilla.org/en-CA/firefox/addon/voat/"><img src="/promo/firefox_64x64.png"></a></p> | <p align="center"><a href="https://microsoftedge.microsoft.com/addons/detail/voat-reddit-comments-on/cccloigbofabjmobhmcnpaekcifmpjlb"><img src="/promo/edge_64x64.png"></a></p> |
-| [Download](https://chrome.google.com/webstore/detail/voat-reddit-comments-on-y/amlfbbehleledmbphnielafhieceggal)                                                             | [Download](https://addons.mozilla.org/en-CA/firefox/addon/voat/)                                                              | [Download](https://microsoftedge.microsoft.com/addons/detail/voat-reddit-comments-on/cccloigbofabjmobhmcnpaekcifmpjlb)                                                           |
+| <p align="center"><a href="https://chrome.google.com/webstore/detail/amlfbbehleledmbphnielafhieceggal"><img src="/promo/chrome_64x64.png"></a></p> | <p align="center"><a href="https://addons.mozilla.org/en-CA/firefox/addon/comet_comments/"><img src="/promo/firefox_64x64.png"></a></p> | <p align="center"><a href="https://microsoftedge.microsoft.com/addons/detail/cccloigbofabjmobhmcnpaekcifmpjlb"><img src="/promo/edge_64x64.png"></a></p> |
+| [Download](https://chrome.google.com/webstore/detail/amlfbbehleledmbphnielafhieceggal)                                                             | [Download](https://addons.mozilla.org/en-CA/firefox/addon/comet_comments/)                                                              | [Download](https://microsoftedge.microsoft.com/addons/detail/cccloigbofabjmobhmcnpaekcifmpjlb)                                                           |
 
 Replace Youtube comments with Reddit comments or view the Reddit comments of any webpage.
 
@@ -13,7 +13,7 @@ By default YouTube comments will be replaced with the relevant Reddit comments. 
 
 The extension icon will turn blue when the current web page has been submitted to Reddit, and clicking on it will open a popup where users can view the posts and comments.
 
-Voat contains no ads, collects no data and signup is not required.
+Comet contains no ads, collects no data and signup is not required.
 
 Note: This extension is not affiliated with Reddit or YouTube.
 
@@ -27,7 +27,7 @@ Note: This extension is not affiliated with Reddit or YouTube.
 
 If you're having problems that aren't addressed or fixed by this section please open an issue.
 
-### The YouTube comments are stuck at 'loading...' or 'Error: Reddit might be down or another extension is blocking Voat'.
+### The YouTube comments are stuck at 'loading...' or 'Error: Reddit might be down or another extension is blocking Comet'.
 
 Reddit.com or api.reddit.com may be down and you will have to wait until they are back up to use the extension.
 
