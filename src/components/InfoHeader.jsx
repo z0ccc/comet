@@ -50,7 +50,7 @@ const InfoHeader = ({ infoSource }) => {
           sx={{
             fontWeight: 'bold',
             color:
-              vote === 1 ? 'primary' : vote === -1 ? 'purple' : 'secondaryText',
+              vote === 1 ? 'orange' : vote === -1 ? 'purple' : 'secondaryText',
           }}
         >
           {formatNumber(score)}

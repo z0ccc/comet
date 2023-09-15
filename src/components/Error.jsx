@@ -10,7 +10,7 @@ const Error = ({ isContent, message }) => {
         message
       ) : (
         <>
-          Reddit API may be down or another extension is blocking Voat.
+          Reddit API may be down or another extension is blocking Comet.
           <Link
             sx={{
               color: 'primary',
@@ -20,7 +20,7 @@ const Error = ({ isContent, message }) => {
                 textDecoration: 'underline',
               },
             }}
-            href="https://github.com/z0ccc/voat-extension#troubleshoot"
+            href="https://github.com/z0ccc/comet#troubleshoot"
             target="_blank"
             rel="noreferrer"
           >

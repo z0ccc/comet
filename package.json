@@ -1,11 +1,11 @@
 {
-  "name": "voat",
+  "name": "comet",
   "version": "3.1.0",
   "description": "Replace Youtube comments with Reddit comments or view the Reddit comments of any webpage.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/z0ccc/voat-extension.git"
+    "url": "https://github.com/z0ccc/comet.git"
   },
   "scripts": {
     "build-chrome": "BROWSER=chrome node scripts/build.js",

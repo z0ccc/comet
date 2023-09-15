@@ -11,17 +11,9 @@ const VoteButton = ({ vote, voteType, handleClick, size }) => {
         transform: voteType === 1 ? 'none' : 'rotate(180deg)',
         'svg > path': {
           fill:
-            vote !== voteType
-              ? 'button'
-              : voteType === 1
-              ? 'primaryLight'
-              : 'purple',
+            vote !== voteType ? 'button' : voteType === 1 ? 'orange' : 'purple',
           stroke:
-            vote !== voteType
-              ? 'border'
-              : voteType === 1
-              ? 'primary'
-              : 'purpleDark',
+            vote !== voteType ? 'button' : voteType === 1 ? 'orange' : 'purple',
         },
       }}
       onClick={() => handleClick(voteType)}

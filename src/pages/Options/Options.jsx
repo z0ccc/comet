@@ -130,11 +130,8 @@ const Options = () => {
           my: '20px',
         }}
       >
-        <Link href="mailto:contact@voat.me" rel="noreferrer" variant="nav">
-          Contact
-        </Link>
         <Link
-          href="https://github.com/z0ccc/voat-extension"
+          href="https://github.com/z0ccc/comet"
           target="_blank"
           rel="noreferrer"
           variant="nav"
@@ -142,12 +139,12 @@ const Options = () => {
           GitHub
         </Link>
         <Link
-          href="https://www.reddit.com/r/voatme"
+          href="https://www.reddit.com/r/CometExtension"
           target="_blank"
           rel="noreferrer"
           variant="nav"
         >
-          Reddit
+          Subreddit
         </Link>
       </Flex>
     </Box>

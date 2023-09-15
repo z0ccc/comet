@@ -9,15 +9,14 @@ export const theme = {
     monospace: 'Menlo, monospace',
   },
   colors: {
-    primary: '#4aabe7',
-    primaryLight: '#77cdff',
+    primary: '#065fd4',
     border: '#d1d1d1',
-    primaryText: '#4f4f4f',
-    secondaryText: '#909090',
+    primaryText: '#202122',
+    secondaryText: '#818283',
     background: '#fff',
     button: '#e6e6e6',
-    purple: '#a696ff',
-    purpleDark: '#8b74ff',
+    orange: '#ff8a5e',
+    purple: '#9293FE',
     error: '#eb3b5a',
     modes: {
       dark: {
@@ -29,7 +28,6 @@ export const theme = {
         background: '#0f0f0f',
         button: '#333333',
         purple: '#a696ff',
-        purpleDark: '#8b74ff',
         error: '#eb3b5a',
       },
     },

@@ -1,7 +1,7 @@
 {
-  "version": "3.1.0",
+  "version": "3.2.0",
   "name": "__MSG_extName__",
-  "short_name": "Voat",
+  "short_name": "Comet",
   "description": "__MSG_extDesc__",
   "author": "__MSG_extName__",
   "default_locale": "en",

@@ -27,62 +27,62 @@
 
 /* comment body css */
 
-.voatCommentBody p {
+.cometCommentBody p {
   margin: 7px 0;
   line-height: 22px;
 }
 
-.voatCommentBody p:last-child {
+.cometCommentBody p:last-child {
   margin: 7px 0 0 0;
 }
 
-.voatCommentBody blockquote {
+.cometCommentBody blockquote {
   border-left: 2px solid var(--theme-ui-colors-border);
   padding: 0 8px;
   margin: 2px 0 2px 5px;
 }
 
-.voatCommentBody .md h1,
-.voatCommentBody .md h2 {
+.cometCommentBody .md h1,
+.cometCommentBody .md h2 {
   font-size: 20px;
   margin-top: 13px;
   margin-bottom: 13px;
 }
 
-.voatCommentBody a {
+.cometCommentBody a {
   color: var(--theme-ui-colors-primary);
   text-decoration: none;
 }
 
-.voatCommentBody a:hover {
+.cometCommentBody a:hover {
   text-decoration: underline;
 }
 
-.voatCommentBody table {
+.cometCommentBody table {
   border-collapse: collapse;
 }
 
-.voatCommentBody .md td,
-.voatCommentBody .md th {
+.cometCommentBody .md td,
+.cometCommentBody .md th {
   border: 1px solid var(--theme-ui-colors-border);
   text-align: left;
 }
 
-.voatCommentBody .md pre,
-.voatCommentBody .md .-cells,
-.voatCommentBody .md th,
-.voatCommentBody .md td {
+.cometCommentBody .md pre,
+.cometCommentBody .md .-cells,
+.cometCommentBody .md th,
+.cometCommentBody .md td {
   padding: 4px 9px;
 }
 
-.voatCommentBody .md .-lists,
+.cometCommentBody .md .-lists,
 .md ul,
 .md ol {
   padding-left: 40px;
   line-height: 22px;
 }
 
-.voatCommentBody code {
+.cometCommentBody code {
   white-space: pre-line;
 }
 

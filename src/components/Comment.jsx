@@ -84,7 +84,7 @@ const Comment = ({ comment, permalink, isLoggedIn, depth }) => {
                   >
                     <InfoHeader infoSource={comment.data} />
                     <Box
-                      className="voatCommentBody"
+                      className="cometCommentBody"
                       dangerouslySetInnerHTML={{
                         __html: prepareCommentBody(comment.data.body_html),
                       }}
