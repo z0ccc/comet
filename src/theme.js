@@ -14,7 +14,7 @@ export const theme = {
     primaryText: '#202122',
     secondaryText: '#818283',
     background: '#fff',
-    button: '#e6e6e6',
+    button: '#cfcfcf',
     orange: '#ff8a5e',
     purple: '#9293FE',
     error: '#eb3b5a',

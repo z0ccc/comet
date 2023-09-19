@@ -12,8 +12,6 @@ const VoteButton = ({ vote, voteType, handleClick, size }) => {
         'svg > path': {
           fill:
             vote !== voteType ? 'button' : voteType === 1 ? 'orange' : 'purple',
-          stroke:
-            vote !== voteType ? 'button' : voteType === 1 ? 'orange' : 'purple',
         },
       }}
       onClick={() => handleClick(voteType)}
