@@ -139,7 +139,7 @@ const Options = () => {
           GitHub
         </Link>
         <Link
-          href="https://www.reddit.com/r/CometExtension"
+          href="https://www.reddit.com/r/Comet"
           target="_blank"
           rel="noreferrer"
           variant="nav"
