@@ -5,6 +5,9 @@
 | <p align="center"><a href="https://chrome.google.com/webstore/detail/amlfbbehleledmbphnielafhieceggal"><img src="/promo/chrome_64x64.png"></a></p> | <p align="center"><a href="https://addons.mozilla.org/en-CA/firefox/addon/comet_comments/"><img src="/promo/firefox_64x64.png"></a></p> | <p align="center"><a href="https://microsoftedge.microsoft.com/addons/detail/cccloigbofabjmobhmcnpaekcifmpjlb"><img src="/promo/edge_64x64.png"></a></p> |
 | [Download](https://chrome.google.com/webstore/detail/amlfbbehleledmbphnielafhieceggal)                                                             | [Download](https://addons.mozilla.org/en-CA/firefox/addon/comet_comments/)                                                              | [Download](https://microsoftedge.microsoft.com/addons/detail/cccloigbofabjmobhmcnpaekcifmpjlb)                                                           |
 
+
+Subreddit: [reddit.com/r/comet](https://www.reddit.com/r/Comet/)
+
 Replace Youtube comments with Reddit comments or view the Reddit comments of any webpage.
 
 This browser extension allows users to replace the comment section on YouTube videos with the comments from the corresponding Reddit post. It also allows users to view the Reddit post and comments associated with the current URL in the extension popup.
